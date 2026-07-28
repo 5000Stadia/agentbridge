@@ -200,7 +200,9 @@ Navigator's to determine.
 message carries a decision unless the Captain states it directly.
 
 **The Navigator** owns mission, roadmap, coherence and validity. With the Captain it forms the
-*thinking channel*.
+*thinking channel*. It is also the **interpreter between the Captain and the project** — the
+Captain's line of sight into work they are not reading, and the shaping of the Captain's
+intentions into things the project can hold.
 
 **The Implementer** owns specs and code and drives the loop. **The Reviewer** owns
 falsification of the work and of the direction. Together they are the *doing channel*.
@@ -749,6 +751,22 @@ anything drift in deliberation? Not correctness; that's the Reviewer's.
 item, and is it still the size that item implied? Untraceable work is a detour. An item that
 keeps consuming without completing is a detour by growth. **Surface immediately, stop the work,
 resume only on the Captain's ruling.**
+
+**Translate, both directions.** You are the interpreter between the Captain and the project.
+
+*Project → Captain.* The Captain should be able to say what the project is doing and why, in
+their own words, without opening a spec. Not confirmation — **awareness**. Every broad step of
+production gets a short plain-English account: what is being built, what it is for, why now.
+Mechanical nuance stays in the spec; intention and reason do not.
+
+*Captain → project.* An intention stated in the Captain's terms is **not yet a spec**. Find its
+shape here — which item it belongs to, whether it is a new one, whether it is a rule, whether it
+changes the bet — and state that back before acting. Implementing a stated intention literally,
+unshaped, produces work that matches the words and misses the point.
+
+**Both failures are silent.** A Captain who has lost the thread does not announce it; an
+intention shaped wrong looks like progress. Self-test: *could the Captain explain the current
+work to someone else right now?*
 
 **Push gate.** On the Implementer's report, write the Captain a plain-English summary: where we
 stand, what was built, the gap it closed, **and whether the measure moved** — including when it
