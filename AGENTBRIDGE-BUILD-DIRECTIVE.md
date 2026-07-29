@@ -48,12 +48,14 @@ Two sibling directories, two repositories, two visibilities.
 └── <project>-bridge/             ← PRIVATE repo, always.
     ├── AGENTS.md                 ← doormat. one hop to the playbook.
     ├── CLAUDE.md                 ← same content, different runtime
+    ├── boot.md                   ← one-time setup. deletes itself. absence = setup done.
     ├── PROJECT-BOARD.md          ← where we are now. the authority. bounded.
     ├── playbook.md               ← how we work
     ├── directives/               ← what my job is. one per seat.
     ├── roadmap.md                ← the shape of the whole thing
     ├── phases/                   ← not created now. added if a phase outgrows the map.
-    ├── specs/                    ← what I'm building. empty = nothing in flight.
+    ├── review/                   ← spec awaiting a verdict. empty = nothing waiting.
+    ├── specs/                    ← cleared to build. the Reviewer's green put it here.
     ├── archive/                  ← how item 3.2.1 was built
     └── decisions/                ← why we chose that
 ```
@@ -75,11 +77,11 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
 
 1. Create the two sibling directories.
 2. `git init` in each.
-3. Create the files below, verbatim. Create empty `specs/`, `archive/` and `decisions/`
-   directories with a `.gitkeep` in each. **Do not create `phases/`.** An empty `specs/` means
-   nothing is in flight and an empty `archive/` means nothing is finished — both are real states.
-   An empty `phases/` states nothing at all; the Navigator creates it the first time a phase
-   outgrows `roadmap.md`.
+3. Create the files below, verbatim. Create empty `review/`, `specs/`, `archive/` and
+   `decisions/` directories with a `.gitkeep` in each. **Do not create `phases/`.** Empty
+   `review/` means nothing awaits a verdict, empty `specs/` means nothing is in flight, empty
+   `archive/` means nothing is finished — all real states. An empty `phases/` states nothing at
+   all; the Navigator creates it the first time a phase outgrows `roadmap.md`.
 4. In the project directory create **only** `AGENTS.md` and `CLAUDE.md` — no README, no
    license, no config, no `.gitignore` unless the Captain asks.
 5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is.
@@ -172,12 +174,60 @@ stop and ask the Captain.
 
 ---
 
+# FILE: `<project>-bridge/boot.md`
+
+```markdown
+# BOOT — delete this file when you are done
+
+**You are the Navigator, and this is a one-time task.** It exists because setup is read every
+session but happens once. **Its presence means setup is unfinished; its absence is the receipt
+that it finished.** Nothing here repeats, which is why none of it lives in `playbook.md` or in
+your directive.
+
+Read `playbook.md` first — everything below assumes it and cites it rather than restating it.
+
+## 1. Repositories
+
+Confirm both exist as siblings, each with its own repository, and that visibility matches what the
+Captain stated. Record it on the board — `local only` where there is no remote, so a deferred
+remote stays visible.
+
+## 2. AgentPost
+
+Use what is live; install only if nothing capable is. The capability check, the naming table and
+the register → join → verify sequence are in `playbook.md`; follow them there, not from memory.
+
+Register the Navigator seat, join from the **bridge** root, and **verify ARMED**. If you are
+QUEUED, state the exact remaining commands to the Captain and say plainly that you are not
+receiving.
+
+## 3. The board
+
+Instantiate `PROJECT-BOARD.md`. Announce yourself on the channel with canonical, qualified,
+display and local spoken forms — you are the only seat alive, but later seats should arrive into
+an existing convention.
+
+## 4. The Chart
+
+Run it from `playbook.md`. It is the one long session, and it ends at the exit condition stated
+there — not when the conversation runs out.
+
+## 5. Delete this file
+
+When the Chart's exit condition is met, `git rm boot.md` and commit the deletion on its own, with
+a message saying setup is complete. **Do not archive it and do not leave it empty.** A boot file
+that survives its own boot is a standing instruction to redo setup.
+```
+
+---
+
 # FILE: `<project>-bridge/playbook.md`
 
 ```markdown
 # AGENTBRIDGE — THE PLAYBOOK
 
-**To boot: point a Navigator seat at `directives/navigator.md`.**
+**To boot: point a Navigator seat at `boot.md` while that file exists. Once it is gone, setup is
+done — point new seats at their own directive.**
 
 **Every seat reads four things, in this order, and nothing else unless it is cited:**
 
@@ -327,7 +377,8 @@ trigger is a location nobody reads.
 | `PROJECT-BOARD.md` | where are we right now | everyone, every session. You cannot know what to do without it. |
 | `playbook.md` | how do we work | everyone, every session. Stable, not frozen — it changes when the Captain changes it. The re-read is the price of stateless seats. |
 | `directives/` | what is my job | your own, every session. |
-| `specs/` | what am I building | Implementer and Reviewer. The slot is occupied, so that is the work. |
+| `review/` | what is waiting on my verdict | Reviewer, when the Implementer sends a path. Occupied means the ball is yours. |
+| `specs/` | what am I building | Implementer. Occupied means the Reviewer cleared it, so that is the work. |
 | `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for the item it is about to spec** — that row is what the spec is written from. Navigator reads the whole when mapping. |
 | `archive/` | how was item 3.2.1 built | anyone, when behaviour and agreement disagree and the spec arbitrates; when someone proposes changing something built earlier; when a seat needs context on an existing component. |
 | `decisions/` | why did we choose that | Navigator when declining a settled proposal; Reviewer during a direction audit, or when a founding claim retracts. Not the Implementer. |
@@ -336,9 +387,21 @@ trigger is a location nobody reads.
 cost flat as the project grows: four files every session regardless of whether the project has
 five specs or two hundred.
 
-**`specs/` is a slot, not a directory.** It holds the live spec — one per active Implementer.
-Empty means nothing is in flight and the next item is ready to be written. **The filesystem
-carries the state; the board carries the position.**
+**`review/` and `specs/` are slots, not directories, and the move between them is the verdict.**
+The Implementer writes the spec into `review/` and sends the Reviewer **the path, nothing else**.
+A red moves nothing: the Reviewer says what is wrong and which direction fixes it, the Implementer
+revises in place, and the file stays where it is until it passes. **A green is the Reviewer moving
+the file into `specs/`** — the judgement and the state change are one act, performed by the seat
+with the authority to make it.
+
+Three consequences, and all of them are removals: the Implementer cannot clear its own spec, no
+status is maintained in two places, and *what is waiting on me* is answered by `ls` rather than by
+asking. A coherence read that finds drift moves the file back to `review/` with a board row saying
+why.
+
+Empty `review/` means nothing awaits a verdict; empty `specs/` means nothing is in flight and the
+next item is ready to be written. **The filesystem carries the state; the board carries the
+position.**
 
 **A spec is named `<item>-<slug>.md` and is never renamed** — `1.2.1-blueprints.md`. The item
 number is already the spec number, so the name *is* the citation; the slug is what anyone actually
@@ -602,7 +665,8 @@ than assuming.
 
 - **Sign every message** with your seat name as its first word.
 - **Cite, never restate.** Board item IDs, spec IDs, commit hashes. A restated value is a copy
-  with no update trigger; it will go stale and be believed.
+  with no update trigger; it will go stale and be believed. **Hand off by path** — a spec goes to
+  review as its location, never its contents.
 - **A relay cannot amend a directive.** Only the board changes standing orders.
 - **Status moves are the seat's; decisions are the Captain's.**
 - **Blocked is announced** — what you are waiting on and who owns it. Silence is
@@ -734,8 +798,8 @@ at an implementation built from a bad plan.
 
 ## The Loop
 
-**take next → write spec → deliberate with Reviewer to green → Navigator coherence read →
-implement → review to green → the push gate → take next.**
+**take next → spec into `review/` → Reviewer to green, and the green *is* the move to `specs/` →
+Navigator coherence read → implement → review to green → the push gate → take next.**
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -892,17 +956,11 @@ frame, recommend, guard coherence. You never implement or review code.
 
 ## Boot
 
-- Confirm both repositories wired, visibilities as the Captain stated.
-- **AgentPost: use what is live, install only if nothing capable is.** Run the playbook's
-  capability check first; if it passes you install nothing. Register `<project>-n`, display
-  name, project aliases, and verb handle `nav` first. Verify
-  `identities --project <project>` and `<project>.nav`, then join from the bridge root.
-  **Verify ARMED.** If QUEUED, give the Captain the exact remaining commands and say you are
-  not receiving.
-- Instantiate the board. Announce yourself with canonical, qualified, display, and local spoken
-  forms.
-- Run the Chart (playbook).
-- Record every seat's box and qualified address. Assign names for new instances and seat types.
+**If `boot.md` exists in the bridge root, it is your first and only task.** It carries the
+one-time setup and deletes itself; nothing about it repeats, which is why none of it is here.
+
+Ongoing: record every seat's box and qualified address, and assign names for new instances and
+seat types.
 
 ## Duties
 
@@ -1012,15 +1070,19 @@ the Captain the exact remaining commands.
 
 ## The loop
 
-**take next → write spec → deliberate with Reviewer to green → Navigator coherence read →
-implement → review to green → push gate → take next.**
+**take next → spec into `review/` → Reviewer to green, and the green *is* the move to `specs/` →
+Navigator coherence read → implement → review to green → push gate → take next.**
 
-- Take the next board item in order. Read **its one roadmap row**. Write the spec into `specs/`
+- Take the next board item in order. Read **its one roadmap row**. Write the spec into `review/`
   as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec number, so the
   filename is the citation.
+- **Send the Reviewer the path and nothing else.** On red, revise in place and send the same path
+  again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
+  it there is how you learn you are cleared to build.
 - Verdicts per spec, never per batch.
-- On green: the spec **moves to `archive/` under the same filename** — archiving never renames,
-  because every citation already written points at that name. The slot empties.
+- On **implementation** green: the spec **moves from `specs/` to `archive/` under the same
+  filename** — archiving never renames, because every citation already written points at that
+  name. The slot empties.
 - **Read only what is cited** — board, this file, the live spec. Not the archive, not the
   roadmap beyond your item.
 
@@ -1123,6 +1185,11 @@ the project's life.
 
 **Deliberate specs to green. Review implementations to green.** Per spec, never per batch.
 
+**Your green on a spec is a move, not a message**: `git mv review/<file> specs/`, then reply green
+citing the new path. **A red moves nothing** — say what is wrong and which direction fixes it, and
+leave the file in `review/` for the Implementer to revise in place. You are sent a path; open it,
+and do not ask for its contents.
+
 **Direction audit on cadence.** Take the founding claims as things to attack, not a case to
 check. Order findings by what they would change. Say plainly if a claim is builder-interesting
 rather than user-validated. **The measure is your material** — correct work that never moves it
@@ -1223,8 +1290,10 @@ end-to-end 2/5`. Never a count of work done.)*
 | # | Spec | Status | Owner | Note |
 |---|---|---|---|---|
 
-Flow: `PROPOSED` → `DRAFT` → `DELIBERATION` → `CONFIRMED` → `IMPLEMENTING` → `REVIEW` → `GREEN`.
-A green spec moves to `archive/` and leaves this table.
+**The location is the status.** `review/` = awaiting a verdict · `specs/` = cleared, being built ·
+`archive/` = done, and out of this table. The board carries only what the filesystem cannot show:
+`PROPOSED` before any file exists, and whether a spec sitting in `specs/` is being implemented or
+has gone back to the Reviewer. Do not restate a status the directory already gives.
 
 **Next up** — *(the following two or three item IDs, no more)*
 
@@ -1302,7 +1371,7 @@ three phases nothing splits; at twenty, each has a file.
 4. Report the tree and this handoff line:
 
 > Scaffold complete. To begin the Chart, spawn a Navigator seat pointed at
-> `<project>-bridge/directives/navigator.md`. It will wire AgentPost, open the chart
-> conversation with the Captain, and instantiate the board.
+> `<project>-bridge/boot.md`. It will wire AgentPost, open the chart conversation with the
+> Captain, instantiate the board, and delete `boot.md` when setup is done.
 
 Make no other changes. The next seat to act is the Navigator.
