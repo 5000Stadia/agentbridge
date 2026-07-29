@@ -378,26 +378,43 @@ its items crowd the map — the same growth rule as the board. At three phases t
 Mail lives at `~/.agentpost`, outside every repository — which is why a decision is written to
 the board before its exchange scrolls away.
 
-**Install once per machine.** Idempotent, so "check whether it is installed" is just running
-it:
+**Adopt once per machine.** This revision requires the project-qualified directory contract.
+Test the capability, not merely whether a binary exists:
 
-    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.2.0/scripts/install.sh | sh
+    agentpost identities --help | grep -q -- --project
+
+If that passes, the installed AgentPost is already adopted — retain it and do not run an older
+installer over it. If the command is absent or the capability check fails, run the idempotent
+installer from an explicitly approved project-qualified AgentPost release or checkout, then run
+the check again. For an approved local checkout:
+
+    AGENTPOST_SOURCE=/absolute/path/to/agentpost \
+      /absolute/path/to/agentpost/scripts/install.sh
+    agentpost identities --help | grep -q -- --project
 
 Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
 machine-local `.agentpost.toml` in the project root and excludes it from git itself.
 
-**Names: the canonical is a letter; the spoken form is a verb.** Each seat registers
-`<project>-<initial>`. The letter is derivable, so a seat can work out another's address
-without being told. Single letters are weak spoken, so register a display name and a verb
-handle too — AgentPost resolves all three to one box:
+**Release gate.** Published AgentPost `v1.2.0` is the legacy baseline and does not satisfy this
+capability check. Do not downgrade a capable installation to it. Until a versioned release
+carries project-qualified addressing, use only an explicitly approved local checkout. Never
+substitute an unpinned branch, and never fall back to global bare-handle routing. A failed
+capability check stops Muster and is reported to the Captain with the installed version.
 
-| Seat | Canonical | Display name | Say |
-|---|---|---|---|
-| Navigator | `<project>-n` | `<Project> Navigator` | **nav** |
-| Implementer | `<project>-i` | `<Project> Implementer` | **build** |
-| Reviewer | `<project>-r` | `<Project> Reviewer` | **check** |
+**Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
+`<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
+the one unambiguous split in `PROJECT.SEAT`. Single letters are weak spoken, so register a
+display name and put a short verb handle first. AgentPost then exposes a predictable qualified
+address without changing the canonical mailbox:
 
-A seat's first message declares all three forms, so later seats learn by observation.
+| Seat | Canonical | Qualified | Display name | Say locally |
+|---|---|---|---|---|
+| Navigator | `<project>-n` | `<project>.nav` | `<Project> Navigator` | **nav** |
+| Implementer | `<project>-i` | `<project>.build` | `<Project> Implementer` | **build** |
+| Reviewer | `<project>-r` | `<project>.check` | `<Project> Reviewer` | **check** |
+
+A seat's first message declares canonical, qualified, display, and local spoken forms, so later
+seats learn by observation.
 
 **Register, join, then verify — three steps, and the third is the one that proves it:**
 
@@ -409,9 +426,18 @@ A seat's first message declares all three forms, so later seats learn by observa
       --handles 'nav,roadmap questions,coherence checks,reframes'
 
     cd /path/to/projecto-bridge && agentpost join --cli claude
+    agentpost identities --project projecto
+    agentpost resolve projecto.nav
     agentpost armed projecto-n
 
 The Navigator roots on the bridge; Implementer and Reviewer root on the project.
+
+**Bare is local; qualified is deliberate.** `nav`, `build`, and `check` resolve only among
+profiles sharing the sender's registered project aliases. AgentPost must never retry a missing
+bare seat against another project's directory, even when that other seat is globally unique.
+Cross-project asks use `<other-project>.nav`; inspect the complete target roster first with
+`agentpost identities --project <other-project>`. Named groups are deliberate global fan-out
+objects and should use `@group` when their name could look like a seat.
 
 **Verify armed; never assume it.** Resolving an address or reading an inbox does *not* mean
 notifications are live. Only **ARMED** establishes live receipt; **QUEUED** means delivery is
@@ -425,6 +451,21 @@ silently rather than failing.
 *build-sensor*. **A new seat type** is assigned a distinct letter and verb at proposal time —
 `scout` for research — because initials run out well before verbs do. The Captain signs with
 their own name; a person is not an instance.
+
+**Clean starts use AgentPost, never filesystem deletion.** A seat may make
+`agentpost wipe agent` its final action to remove only its own box. Wiping another box, a
+project, or all boxes is broader:
+
+    agentpost wipe agent other-project.nav
+    agentpost wipe project other-project
+    agentpost wipe all
+
+Run the broader command once without `--confirm`. It deletes nothing and returns the exact
+sorted affected boxes. Show that list to the Captain and ask for explicit confirmation that
+those boxes will be deleted. Only then rerun with the exact printed
+`--confirm 'BOX1,BOX2'`; a changed list requires a new confirmation. Stop other live seats
+first. Wipe removes AgentPost mailbox, mail, bindings, adapter state, workspace references, and
+group membership only — never either repository — and is irreversible inside AgentPost.
 
 ## Ambient context
 
@@ -730,11 +771,14 @@ frame, recommend, guard coherence. You never implement or review code.
 
 - Confirm both repositories wired, visibilities as the Captain stated.
 - Install AgentPost (idempotent — run it, don't test for it). Register `<project>-n`, display
-  name, verb handle `nav`. Join from the bridge root. **Verify ARMED.** If QUEUED, give the
-  Captain the exact remaining commands and say you are not receiving.
-- Instantiate the board. Announce yourself with all three name forms.
+  name, project aliases, and verb handle `nav` first. Verify
+  `identities --project <project>` and `<project>.nav`, then join from the bridge root.
+  **Verify ARMED.** If QUEUED, give the Captain the exact remaining commands and say you are
+  not receiving.
+- Instantiate the board. Announce yourself with canonical, qualified, display, and local spoken
+  forms.
 - Run the Chart (playbook).
-- Record every seat's box name. Assign names for new instances and seat types.
+- Record every seat's box and qualified address. Assign names for new instances and seat types.
 
 ## Duties
 
@@ -831,8 +875,9 @@ status.**
 ## Boot
 
 Register `<project>-i` (or the name the Navigator assigned) with a display name and verb handle
-`build`. Join from the project root. **Verify ARMED**; if QUEUED, give the Captain the exact
-remaining commands.
+`build` first and the same dot-free project alias. Verify `<project>.build` in
+`identities --project <project>`. Join from the project root. **Verify ARMED**; if QUEUED, give
+the Captain the exact remaining commands.
 
 ## The loop
 
@@ -919,7 +964,8 @@ difference** — it is most of your value.
 ## Boot
 
 Register `<project>-r` (or the name the Navigator assigned) with a display name and verb handle
-`check`. Join from the project root. **Verify ARMED.**
+`check` first and the same dot-free project alias. Verify `<project>.check` in
+`identities --project <project>`. Join from the project root. **Verify ARMED.**
 
 ## Standard
 
@@ -1011,12 +1057,12 @@ remote blank, so a deferred remote stays visible.
 
 ## Seats
 
-| Seat | Box | Say | Root | Role | Model |
-|---|---|---|---|---|---|
-| Captain | *(own name)* | — | — | decides | human |
-| Navigator | `<project>-n` | nav | bridge | chart, coherence, validity | |
-| Implementer | `<project>-i` | build | project | specs and code, heartbeat | |
-| Reviewer | `<project>-r` | check | project | falsification | *different family* |
+| Seat | Box | Address | Say | Root | Role | Model |
+|---|---|---|---|---|---|---|
+| Captain | *(own name)* | — | — | — | decides | human |
+| Navigator | `<project>-n` | `<project>.nav` | nav | bridge | chart, coherence, validity | |
+| Implementer | `<project>-i` | `<project>.build` | build | project | specs and code, heartbeat | |
+| Reviewer | `<project>-r` | `<project>.check` | check | project | falsification | *different family* |
 
 **Seat adequacy** — *(Chart: are three enough here?)*
 
