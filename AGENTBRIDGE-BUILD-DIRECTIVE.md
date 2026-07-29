@@ -22,9 +22,9 @@ and replots when the ground disagrees with the map. It never holds the wheel.
 
 **The Implementer** writes specs and code, and is the project's heartbeat.
 
-**The Reviewer** falsifies — the work, and whether it is still the right work. It runs on a
-different model family than the Implementer where possible, so it does not share the
-Implementer's blind spots.
+**The Reviewer** falsifies — the work, and whether it is still the right work. Running it on a
+different model family than the Implementer is *suggested* where the Captain has one, so it does
+not share the Implementer's blind spots. It is a suggestion, not a condition of the seat.
 
 Captain and Navigator are the **thinking channel**. Implementer and Reviewer are the **doing
 channel**. That split is the authority boundary.
@@ -52,7 +52,7 @@ Two sibling directories, two repositories, two visibilities.
     ├── playbook.md               ← how we work
     ├── directives/               ← what my job is. one per seat.
     ├── roadmap.md                ← the shape of the whole thing
-    ├── phases/                   ← what's in this phase. only once one crowds the map.
+    ├── phases/                   ← not created now. added if a phase outgrows the map.
     ├── specs/                    ← what I'm building. empty = nothing in flight.
     ├── archive/                  ← how item 3.2.1 was built
     └── decisions/                ← why we chose that
@@ -75,8 +75,11 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
 
 1. Create the two sibling directories.
 2. `git init` in each.
-3. Create the files below, verbatim. Create empty `specs/`, `archive/`, `decisions/` and
-   `phases/` directories with a `.gitkeep` in each.
+3. Create the files below, verbatim. Create empty `specs/`, `archive/` and `decisions/`
+   directories with a `.gitkeep` in each. **Do not create `phases/`.** An empty `specs/` means
+   nothing is in flight and an empty `archive/` means nothing is finished — both are real states.
+   An empty `phases/` states nothing at all; the Navigator creates it the first time a phase
+   outgrows `roadmap.md`.
 4. In the project directory create **only** `AGENTS.md` and `CLAUDE.md` — no README, no
    license, no config, no `.gitignore` unless the Captain asks.
 5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is.
@@ -216,15 +219,28 @@ judgement visible, attributable, and owned by exactly one seat.
 **The structure is the Captain's, and it is meant to be changed.** A method that cannot be
 edited becomes folklore — followed because it is there rather than because it works.
 
+**Nothing here is locked, including this file.** Every part of the apparatus — the playbook, the
+directives, the board's shape, the loop, the seats, the cadences — is a working default that this
+project is expected to outgrow in places. **The Captain may change any of it at any time, and
+meets no bar to do it**; a Captain's change is simply a decision, recorded on the board like any
+other. The bar below governs *seats proposing changes*, so that the method cannot grow itself
+behind the Captain's back. It has never applied to the Captain.
+
+**Divergence from the shipped method is not drift.** Two projects running AgentBridge should not
+look identical after a month, and a project whose apparatus never changed is more likely to be
+unexamined than well-fitted. What is drift is an apparatus that changed *without anyone deciding
+to* — which is why changes are recorded, not why they are discouraged.
+
 **Three things reach the Captain, and they are different.** A **reframe**: the design's answer
 is wrong. A **detour**: work has left the roadmap. A **structural change**: how the project
 works changes — a seat, a rule, a location, a step in the loop, a cadence. A structural change
 is not a detour; the map is unaffected, only who does the work and how.
 
-**The bar is asymmetric, deliberately.** *Removing is easy* — a location nobody opens, a rule
-that never fires, a step routinely skipped: say so and cut it. *Adding is hard* — a location
-must answer a question and name who opens it and when; a rule must fit in one line; a seat must
-meet the test below. Symmetric bars produce methods that only grow.
+**For proposals from seats, the bar is asymmetric, deliberately.** *Removing is easy* — a
+location nobody opens, a rule that never fires, a step routinely skipped: say so and cut it.
+*Adding is harder* — a location should answer a question and name who opens it and when; a rule
+should fit in one line; a seat must meet the test below. Symmetric bars produce methods that only
+grow. The asymmetry is a brake on accretion, not a lock on the door.
 
 **Anyone may propose; the Navigator holds coherence; the Captain decides.** Same route as a
 roadmap proposal, and a decline is a board row with its reasons. A structural change with real
@@ -309,7 +325,7 @@ trigger is a location nobody reads.
 | | Answers | Who, and what triggers it |
 |---|---|---|
 | `PROJECT-BOARD.md` | where are we right now | everyone, every session. You cannot know what to do without it. |
-| `playbook.md` | how do we work | everyone, every session. Never changes; the re-read is the price of stateless seats. |
+| `playbook.md` | how do we work | everyone, every session. Stable, not frozen — it changes when the Captain changes it. The re-read is the price of stateless seats. |
 | `directives/` | what is my job | your own, every session. |
 | `specs/` | what am I building | Implementer and Reviewer. The slot is occupied, so that is the work. |
 | `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for the item it is about to spec** — that row is what the spec is written from. Navigator reads the whole when mapping. |
@@ -320,10 +336,19 @@ trigger is a location nobody reads.
 cost flat as the project grows: four files every session regardless of whether the project has
 five specs or two hundred.
 
-**`specs/` is a slot, not a directory.** It holds the live spec — one per active Implementer,
-suffixed by seat if there is more than one. Empty means nothing is in flight and the next item
-is ready to be written. On completion the spec moves to `archive/`. **The filesystem carries the
-state; the board carries the position.**
+**`specs/` is a slot, not a directory.** It holds the live spec — one per active Implementer.
+Empty means nothing is in flight and the next item is ready to be written. **The filesystem
+carries the state; the board carries the position.**
+
+**A spec is named `<item>-<slug>.md` and is never renamed** — `1.2.1-blueprints.md`. The item
+number is already the spec number, so the name *is* the citation; the slug is what anyone actually
+searches, the same shape as `decisions/`. On completion the spec **moves to `archive/` unchanged**,
+which is the whole convention: `archive/1.2.1-blueprints.md` is reachable from a roadmap row alone,
+and a citation written during implementation still resolves years later. A move that renames breaks
+that, so archiving renames nothing.
+
+Two Implementers cannot collide, because they take different items and the numbers differ. *Who*
+holds the live spec is the board's Owner column, not a suffix on a filename.
 
 **Drafting ahead is a board decision, not a default.** Writing the next spec while the current
 one is being implemented risks building on assumptions the current one is about to invalidate —
@@ -378,14 +403,16 @@ its items crowd the map — the same growth rule as the board. At three phases t
 Mail lives at `~/.agentpost`, outside every repository — which is why a decision is written to
 the board before its exchange scrolls away.
 
-**Adopt once per machine.** This revision requires the project-qualified directory contract.
-Test the capability, not merely whether a binary exists:
+**Use what is live; install only if nothing capable is.** Adoption happens once per machine, not
+once per project, so the first thing any seat does is check — never install first and check after.
+This revision requires the project-qualified directory contract, so **test the capability, not
+merely whether a binary exists**:
 
     agentpost identities --help | grep -q -- --project
 
-If that passes, the installed AgentPost is already adopted — retain it and do not run an older
-installer over it. If the command is absent or the capability check fails, install the
-project-qualified release, then run the check again:
+**If that passes, you install nothing.** The installation on this machine is already adopted;
+retain it, and never run an older installer over it. If the command is absent or the check fails,
+install the project-qualified release, then run the same check again:
 
     curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.3.0/scripts/install.sh | sh
     agentpost identities --help | grep -q -- --project
@@ -598,10 +625,26 @@ structural test. Seat question answered. First-contact artifact at the top of th
 
 ## Muster
 
-Spawn the Implementer and Reviewer from their stock directives, with project-specific scope in
-their board addenda rather than in new directives. **The Navigator gives the Captain the exact
-launch commands** — runtime, project root, and any `--agent` switch — then confirms each reports
-ARMED.
+**Seats are separate CLI processes, and only the Captain starts them.** No seat spawns another.
+The Navigator judges when a seat is needed and hands the Captain **three things per seat, in one
+message**:
+
+1. **The launch command** — runtime, project root, and any `--agent` switch.
+2. **What it reads on first contact** — its own directive, by path. Nothing else; the directive
+   names the rest.
+3. **The box it registers** — canonical and qualified, from the naming table above.
+
+A seat launched without all three arrives with no identity and adopts the workspace default
+silently, which fails quietly rather than loudly. The Navigator then confirms each reports ARMED
+before treating it as reachable.
+
+Implementer and Reviewer come from their stock directives, with project-specific scope in their
+board addenda rather than in new directives.
+
+**Run the Reviewer on a different model family than the Implementer if the Captain has one.**
+A suggestion, not a requirement — a second family does not inherit the first's blind spots, which
+is worth having and not worth blocking Muster over. Record the actual families in the board's
+Seats table, so the difference, or its absence, is visible rather than assumed.
 
 **The Reviewer's first job is to red-team the map**, before any code exists. Its remit already
 covers *is this still the right work*; pointing that at a plan is far cheaper than pointing it
@@ -768,7 +811,8 @@ frame, recommend, guard coherence. You never implement or review code.
 ## Boot
 
 - Confirm both repositories wired, visibilities as the Captain stated.
-- Install AgentPost (idempotent — run it, don't test for it). Register `<project>-n`, display
+- **AgentPost: use what is live, install only if nothing capable is.** Run the playbook's
+  capability check first; if it passes you install nothing. Register `<project>-n`, display
   name, project aliases, and verb handle `nav` first. Verify
   `identities --project <project>` and `<project>.nav`, then join from the bridge root.
   **Verify ARMED.** If QUEUED, give the Captain the exact remaining commands and say you are
@@ -788,6 +832,12 @@ Test: *would answering change the roadmap?* If yes, not yours.
 
 **Coherence read** before implementation — does this spec still serve its roadmap item, did
 anything drift in deliberation? Not correctness; that's the Reviewer's.
+
+**Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
+needed, hand the Captain one message holding all three of: the launch command (runtime, project
+root, `--agent` switch), the directive path the seat reads on first contact, and the box it
+registers, canonical and qualified. Then confirm it reports ARMED. A seat given two of the three
+starts anyway and adopts the wrong identity in silence.
 
 **Hold the course.** At every coherence read and push gate ask: does this trace to a roadmap
 item, and is it still the size that item implied? Untraceable work is a detour. An item that
@@ -841,7 +891,8 @@ this file, and what the message points at. The Chart is the one long session.
 - Decide. Implement. Review code.
 - Answer a reframe as a clarification.
 - Authorise a course change.
-- Create seats. Propose one only when a domain needs a **voice when the project decides**, not an
+- Create a seat type, or start a seat process yourself — you supply the launch, the Captain runs
+  it. Propose a new type only when a domain needs a **voice when the project decides**, not an
   answer when asked — recurring work and accumulating registers are subagents with a file.
 - Silently reconcile a contradiction.
 - Put personal material in the bridge.
@@ -882,9 +933,12 @@ the Captain the exact remaining commands.
 **take next → write spec → deliberate with Reviewer to green → Navigator coherence read →
 implement → review to green → push gate → take next.**
 
-- Take the next board item in order. Read **its one roadmap row**. Write the spec into `specs/`.
+- Take the next board item in order. Read **its one roadmap row**. Write the spec into `specs/`
+  as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec number, so the
+  filename is the citation.
 - Verdicts per spec, never per batch.
-- On green: spec moves to `archive/`, slot empties.
+- On green: the spec **moves to `archive/` under the same filename** — archiving never renames,
+  because every citation already written points at that name. The slot empties.
 - **Read only what is cited** — board, this file, the live spec. Not the archive, not the
   roadmap beyond your item.
 
@@ -956,8 +1010,10 @@ holds the rules; this holds your duties.
 You falsify two things: whether the work is **correct**, and whether it is **still the right
 work**. Two seats optimising locally agree each other into a wall; you are the defence.
 
-You run on a different model family than the Implementer where possible. **Protect that
-difference** — it is most of your value.
+**Running on a different model family than the Implementer is suggested, not required.** Where
+the Captain has one, that difference is most of your value and you protect it. Where they do not,
+you are still the Reviewer — compensate by attacking with counterexamples you actually execute,
+because a shared family makes agreeable reading the easy failure.
 
 ## Boot
 
@@ -1060,7 +1116,7 @@ remote blank, so a deferred remote stays visible.
 | Captain | *(own name)* | — | — | — | decides | human |
 | Navigator | `<project>-n` | `<project>.nav` | nav | bridge | chart, coherence, validity | |
 | Implementer | `<project>-i` | `<project>.build` | build | project | specs and code, heartbeat | |
-| Reviewer | `<project>-r` | `<project>.check` | check | project | falsification | *different family* |
+| Reviewer | `<project>-r` | `<project>.check` | check | project | falsification | *different family suggested* |
 
 **Seat adequacy** — *(Chart: are three enough here?)*
 
