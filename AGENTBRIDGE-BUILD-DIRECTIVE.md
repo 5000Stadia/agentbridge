@@ -475,19 +475,30 @@ merely whether a binary exists**:
 
 **If that passes, you install nothing.** The installation on this machine is already adopted;
 retain it, and never run an older installer over it. If the command is absent or the check fails,
-install the project-qualified release, then run the same check again:
+install from the pinned commit below, then run the same check again:
 
-    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.3.0/scripts/install.sh | sh
+    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/9e3f3f74c385f91def16a9ae9417f83b1791554d/scripts/install.sh | sh
     agentpost identities --help | grep -q -- --project
+
+The source is <https://github.com/5000Stadia/agentpost>.
 
 Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
 machine-local `.agentpost.toml` in the project root and excludes it from git itself.
 
-**Release gate.** AgentPost `v1.3.0` is the minimum release for this directive. `v1.2.0` is a
-legacy baseline and does not satisfy the capability check. Never substitute an unpinned branch,
-never downgrade a capable installation, and never fall back to global bare-handle routing. If
-the pinned release is unavailable or the post-install capability check fails, stop Muster and
-report the installed version to the Captain.
+**Why a commit and not a release — verified 2026-07-29, and this paragraph is written to expire.**
+No published tag carries the project-qualified contract. `v1.2.0` was executed from its own tag and
+exposes only `-h/--help`; `main` does not carry it either; **there is no `v1.3.0` tag, and the URL
+that named one returned 404.** The capability lives on `agent/live-binding-project-addressing`,
+which is also `refs/pull/1/head`, at commit `9e3f3f74`. That commit is public and immutable — it
+cannot move or vanish, which a tag can and did.
+
+**When a release carrying the contract publishes, replace the commit with its tag and delete this
+paragraph.** That sentence is the update trigger the previous version pin did not have, which is
+why it went stale and was believed.
+
+**The capability check is the gate; a version number never is.** Never downgrade a capable
+installation, and never fall back to global bare-handle routing. If the post-install check still
+fails, stop and report to the Captain rather than improvising another source.
 
 **Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
 `<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
