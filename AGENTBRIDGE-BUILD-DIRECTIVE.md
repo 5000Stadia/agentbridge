@@ -50,6 +50,7 @@ Two sibling directories, two repositories, two visibilities.
     ├── CLAUDE.md                 ← same content, different runtime
     ├── boot.md                   ← one-time setup. deletes itself. absence = setup done.
     ├── PROJECT-BOARD.md          ← where we are now. the authority. bounded.
+    ├── apparatus-log.md          ← what we changed about how we work. append-only.
     ├── playbook.md               ← how we work
     ├── directives/               ← what my job is. one per seat.
     ├── roadmap.md                ← the shape of the whole thing
@@ -377,6 +378,7 @@ trigger is a location nobody reads.
 | `PROJECT-BOARD.md` | where are we right now | everyone, every session. You cannot know what to do without it. |
 | `playbook.md` | how do we work | everyone, every session. Stable, not frozen — it changes when the Captain changes it. The re-read is the price of stateless seats. |
 | `directives/` | what is my job | your own, every session. |
+| `apparatus-log.md` | what have we changed about how we work, and would it help anyone else | Navigator, appending at the moment of every structural change. Captain, when deciding what to send upstream. Never read in a normal session. |
 | `review/` | what is waiting on my verdict | Reviewer, when the Implementer sends a path. Occupied means the ball is yours. |
 | `specs/` | what am I building | Implementer. Occupied means the Reviewer cleared it, so that is the work. |
 | `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for the item it is about to spec** — that row is what the spec is written from. Navigator reads the whole when mapping. |
@@ -832,6 +834,20 @@ The test: **would answering this change the roadmap?** No → clarification. Yes
 in doubt, reframe. A reframe answered as a clarification is an architectural decision made by
 whoever was typing.
 
+**A third route, for the apparatus rather than the work: friction goes to the Navigator.** When
+two seats disagree about *how we work* — a handoff that keeps stalling, a rule that fires on the
+wrong thing, a step nobody can complete as written, a verdict neither seat can settle — **they do
+not settle it between themselves, and they do not work around it.** It goes up.
+
+**The Navigator's job is to make the apparatus serve the project.** It resolves the friction
+outright where the answer already exists in how we work; it proposes to the Captain where the
+answer requires changing how we work. Either way **the change is recorded in `apparatus-log.md`**,
+because a workflow improvement nobody wrote down is one the next project has to rediscover.
+
+The boundary is unchanged: the Navigator may cut freely, may resolve within the apparatus as it
+stands, and takes anything that alters it to the Captain. Working around friction silently is the
+failure this route exists to prevent — it leaves the method looking healthy while nobody follows it.
+
 **The Navigator's coherence read is not a second review.** It asks whether the spec still serves
 the roadmap item it came from and whether anything drifted during deliberation — not whether it
 is correct.
@@ -1035,6 +1051,12 @@ Split a phase to `phases/` when it crowds `roadmap.md`.
 **Apparatus.** Cut freely — a location nobody opens, a rule that never fires, a step routinely
 skipped. Additions meet the adding bar. Route structural changes to the Captain.
 
+**Friction is yours.** When seats disagree about how we work, or a step cannot be completed as
+written, it comes to you rather than being settled between them or worked around. Resolve it where
+the answer exists in the apparatus as it stands; propose to the Captain where it does not.
+**Append every change to `apparatus-log.md` as you make it**, classified ours or universal — that
+column is what lets the Captain send an improvement upstream, and it cannot be reconstructed later.
+
 **Harness.** Schedule direction audits. Fire a validity re-check when a founding claim retracts.
 
 ## Sessions
@@ -1204,9 +1226,19 @@ the project's life.
 **Deliberate specs to green. Review implementations to green.** Per spec, never per batch.
 
 **Your green on a spec is a move, not a message**: `git mv review/<file> specs/`, then reply green
-citing the new path. **A red moves nothing** — say what is wrong and which direction fixes it, and
-leave the file in `review/` for the Implementer to revise in place. You are sent a path; open it,
-and do not ask for its contents.
+citing the new path. **A red moves nothing** — leave the file in `review/` for the Implementer to
+revise in place. You are sent a path; open it, and do not ask for its contents.
+
+**A red names direction and constraint, never replacement text.** *"This must not assume the
+extractor sees the key"* and *"the invariant belongs at the boundary, not in the caller"* are
+critique: they say what a correct fix must satisfy without writing it. Supplying the text is
+authorship, and **the test is whether you could later green your own words** — if you could, you
+have destroyed the second look this seat exists to provide.
+
+**If you find yourself offering two repairs, that is an escalation, not a menu.** Shapes that
+differ in what they add to the system are the Navigator's to settle — say so and send it up rather
+than letting the Implementer pick. A choice between architectures made by whoever was typing is
+the failure the escalation ladder exists to prevent.
 
 **Direction audit on cadence.** Take the founding claims as things to attack, not a case to
 check. Order findings by what they would change. Say plainly if a claim is builder-interesting
@@ -1351,6 +1383,39 @@ that, something is a spec or a preference rather than a rule.*
 - **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise.
 - Direction audit every **N** *(period)*.
 - Stop at the first running end-to-end artifact and show it — never at "complete."
+```
+
+---
+
+# FILE: `<project>-bridge/apparatus-log.md`
+
+```markdown
+# APPARATUS LOG
+
+**Append-only. Every change to how this project works, recorded when it is made.**
+
+Not the board, which holds current state and drops history. Not `decisions/`, which holds why we
+chose something about the *project*. This holds what we changed about the *method* — and it is the
+only place that accumulates, because it exists to be read by someone deciding what to take
+upstream into AgentBridge itself.
+
+**The Navigator appends at the moment of the change**, never reconstructing later. A row written
+from memory is a story about the reasoning, not the reasoning.
+
+**The last column is the one that earns the file.** Classify it while the reasoning is live —
+retrofitting *"was this ours or universal?"* months later is exactly the expensive, lossy exercise
+this file exists to avoid.
+
+| Date | What changed | What made us change it | Ours, or universal? |
+|---|---|---|---|
+| | | | |
+
+**Ours** — it serves this project's domain, audience, or constraints, and another project would be
+wrong to copy it. **Universal** — the friction was in the method, not in us, and the next project
+will hit it too. **Unsure** is a legitimate value; say so rather than guessing.
+
+Removals are logged the same as additions. A rule cut for never firing is one of the most useful
+rows here, because the method cannot see which of its own rules are dead weight.
 ```
 
 ---
