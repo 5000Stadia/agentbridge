@@ -546,12 +546,17 @@ seats learn by observation.
       --project-roots /path/to/projecto-bridge \
       --handles 'nav,roadmap questions,coherence checks,reframes'
 
-    cd /path/to/projecto-bridge && agentpost join --cli claude   # takes no agent argument —
-                                                                 # it infers the seat from the root
+    cd /path/to/projecto-bridge && agentpost join projecto-n --cli claude   # always name the seat
     agentpost identities --project projecto
     agentpost resolve projecto.nav
     agentpost armed projecto-n        # QUEUED here is expected — arm as join's output directs,
                                       # then run this again until it says ARMED
+
+**Always name the seat in `join`, even where the root has only one.** `join` will infer a seat
+from the root when it can, and that inference is exactly the failure this method already warns
+about — **Implementer and Reviewer share the project root**, so two of the three seats are always
+in the ambiguous case. A wrong inference does not error; the process adopts another identity and
+sends as the wrong box. Naming the seat costs a word you were told at spawn and removes the class.
 
 The Navigator roots on the bridge; Implementer and Reviewer root on the project.
 `agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once when
@@ -1076,7 +1081,8 @@ status.**
 
 Register `<project>-i` (or the name the Navigator assigned) with a display name and verb handle
 `build` first and the same dot-free project alias. Verify `<project>.build` in
-`identities --project <project>`. Join from the project root. **Verify ARMED**; if QUEUED, give
+`identities --project <project>`. Join from the project root, **naming your seat explicitly** —
+you share that root with the Reviewer. **Verify ARMED**; if QUEUED, give
 the Captain the exact remaining commands.
 
 ## The loop
@@ -1174,7 +1180,8 @@ because a shared family makes agreeable reading the easy failure.
 
 Register `<project>-r` (or the name the Navigator assigned) with a display name and verb handle
 `check` first and the same dot-free project alias. Verify `<project>.check` in
-`identities --project <project>`. Join from the project root. **Verify ARMED.**
+`identities --project <project>`. Join from the project root, **naming your seat explicitly** —
+you share that root with the Implementer. **Verify ARMED.**
 
 ## Standard
 
