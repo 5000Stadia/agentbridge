@@ -429,8 +429,30 @@ report the installed version to the Captain.
 **Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
 `<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
 the one unambiguous split in `PROJECT.SEAT`. Single letters are weak spoken, so register a
-display name and put a short verb handle first. AgentPost then exposes a predictable qualified
-address without changing the canonical mailbox:
+display name and put a short verb handle first.
+
+**The verb handle is not a style note — it becomes the qualified address.** Verified on 1.3.0,
+`profile-register` derives the suffix as **the first single-word handle in the list, skipping
+prose ones**; with no single-word handle at all it falls back to the canonical mailbox name:
+
+| `--handles` | Qualified |
+|---|---|
+| `nav,roadmap questions` | `projecto.nav` |
+| `roadmap questions,nav` | `projecto.nav` — prose is skipped, so position among prose is irrelevant |
+| `scout,nav,roadmap questions` | `projecto.scout` — **two single-word handles, and the earlier one wins** |
+| `roadmap questions,coherence checks` | `projecto.projecto-n` — no verb, so the canonical name is used |
+
+So the rule is **exactly one single-word handle per seat, and it is the verb.** A second one
+silently takes the address. The bottom row is the legacy shape — a box registered with only
+prose handles addresses as `PROJECT.CANONICAL`, which is why older boxes read `construct.c` and
+`pattern-buffer.pb` rather than `PROJECT.NAME`. That is a missing verb handle, not a second valid
+convention; **re-registering the same name with a verb handle fixes it in place**, since
+`profile-register` updates an existing nameplate rather than creating a duplicate.
+
+**The canonical mailbox can simply be the name.** Nothing requires `<project>-<initial>` — a box
+registered as `agentbridge` in project `agentbridge` with verb `bridge` answers to `agentbridge`,
+`bridge`, `agentbridge.bridge` and `agentbridge.agentbridge`. Prefer short canonicals only where
+they stay globally unique; the qualified `PROJECT.NAME` form is the one to say and cite.
 
 | Seat | Canonical | Qualified | Display name | Say locally |
 |---|---|---|---|---|
@@ -450,12 +472,16 @@ seats learn by observation.
       --project-roots /path/to/projecto-bridge \
       --handles 'nav,roadmap questions,coherence checks,reframes'
 
-    cd /path/to/projecto-bridge && agentpost join --cli claude
+    cd /path/to/projecto-bridge && agentpost join --cli claude   # takes no agent argument —
+                                                                 # it infers the seat from the root
     agentpost identities --project projecto
     agentpost resolve projecto.nav
-    agentpost armed projecto-n
+    agentpost armed projecto-n        # QUEUED here is expected — arm as join's output directs,
+                                      # then run this again until it says ARMED
 
 The Navigator roots on the bridge; Implementer and Reviewer root on the project.
+`agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once when
+any step disagrees with the next.
 
 **Bare is local; qualified is deliberate.** `nav`, `build`, and `check` resolve only among
 profiles sharing the sender's registered project aliases. AgentPost must never retry a missing
@@ -464,13 +490,45 @@ Cross-project asks use `<other-project>.nav`; inspect the complete target roster
 `agentpost identities --project <other-project>`. Named groups are deliberate global fan-out
 objects and should use `@group` when their name could look like a seat.
 
+**Two projects talking is rare, legitimate, and the whole reason qualified addressing exists.**
+A seat in one project asking a seat in another is a normal occasional need; what the rule
+prevents is it happening *by accident*, through a bare handle that silently found a stranger.
+
+**`send` does not obey either half of that rule on 1.3.0 — verified, not inferred.** `resolve`
+and `list` enforce it correctly: bare cross-project is refused with *"cross-project addresses
+must use PROJECT.SEAT"*, and qualified works. `send` is the exact inverse — it **accepts** a bare
+cross-project address the rule forbids, and **rejects** the qualified address the rule mandates
+with *"unknown agent"*. So a cross-project message is addressed in two steps until this is fixed:
+
+    agentpost resolve <other-project>.nav     # confirms the target, qualified
+    agentpost send <me> <their-canonical> ... # send takes canonical only
+
+Treat the isolation rule as **discipline, not enforcement**: on this release nothing stops a bare
+handle reaching another project's box, so the sender is the only check. Re-test with the two
+commands above after any AgentPost upgrade — if `send` starts accepting qualified, delete this
+paragraph rather than keeping a workaround for a fixed defect.
+
+**A seat cannot send to itself** — the recipient list drops the sender and the send fails with
+*"at least one recipient is required"*. Prove a new box with a real second box, never a loopback.
+
 **Verify armed; never assume it.** Resolving an address or reading an inbox does *not* mean
 notifications are live. Only **ARMED** establishes live receipt; **QUEUED** means delivery is
-durable but the notifier is not. **Some seats cannot arm themselves** — going live may need a
-restart, a trusted hook, or relaunch through a managed launcher with an `--agent` switch. A seat
-that finds itself QUEUED **states the exact remaining commands to the Captain and says plainly
-it is not yet live.** A process opened under the workspace default adopts the wrong identity
-silently rather than failing.
+durable but the notifier is not. A fresh `join` lands **QUEUED** — that is the normal state, not
+a fault.
+
+**`join` prints the arming instruction; read its output rather than guessing.** It ends with an
+`AGENTPOST-DIRECTIVE` line naming exactly what this runtime needs. Under Claude Code that is a
+persistent Monitor on `agentpost internal-claude-monitor`, which the seat runs **itself** and
+which flips QUEUED to ARMED immediately — no restart. `join` also prints a `NEXT` line about
+restarting or reloading through `/plugin`; that governs *future* sessions reconnecting through
+the session-start hook, not this one, and a seat that restarts instead of monitoring has ended
+itself to solve a problem it could have solved in place.
+
+**Some seats genuinely cannot arm themselves** — a trusted hook, or relaunch through a managed
+launcher with an `--agent` switch. A seat that is still QUEUED after following the directive
+`join` gave it **states the exact remaining commands to the Captain and says plainly it is not
+yet live.** A process opened under the workspace default adopts the wrong identity silently
+rather than failing.
 
 **Second instances** suffix both canonical and verb — `projecto-i-sensor`, spoken
 *build-sensor*. **A new seat type** is assigned a distinct letter and verb at proposal time —
