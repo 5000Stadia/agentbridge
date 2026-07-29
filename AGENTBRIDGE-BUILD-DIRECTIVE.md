@@ -535,6 +535,28 @@ rather than failing.
 `scout` for research — because initials run out well before verbs do. The Captain signs with
 their own name; a person is not an instance.
 
+**Your inbox is yours to keep clear, and reading is not clearing.** Verified: `read` inspects a
+message and changes nothing, so mail you have read and finished with is still unread, still
+queued, and will announce itself again to your next instance. **Claiming is what clears it:**
+
+    agentpost list <me> --state unread
+    agentpost read <me> '<message-id>'                 # inspect — leaves it unread
+    agentpost next <me> --message-id '<message-id>'    # claim — moves it out of unread
+
+**Clear what you are done with, and what that means is your call.** Work finished, answer already
+sent, or never yours to act on — claim it. Carrying it forward buys nothing and costs your next
+instance a notification about something settled.
+
+**Leaving one unread is a legitimate choice, not neglect.** An ask you have *not* addressed and
+that still has merit is better left announcing itself than quietly filed; that is the whole point
+of the state. Judge it against your own framing of the work, not a rule.
+
+**But held-deliberately and simply-ignored are the same state from outside.** A seat that carries
+mail unread across a session boundary **says what it is holding and why** — one line, in its reply
+or its board note. Otherwise the distinction exists only in the instance that is about to end.
+
+**There is no per-message delete.** Claiming is the disposal; `wipe` operates on whole boxes only.
+
 **Clean starts use AgentPost, never filesystem deletion.** A seat may make
 `agentpost wipe agent` its final action to remove only its own box. Wiping another box, a
 project, or all boxes is broader:
@@ -585,6 +607,8 @@ than assuming.
 - **Status moves are the seat's; decisions are the Captain's.**
 - **Blocked is announced** — what you are waiting on and who owns it. Silence is
   indistinguishable from progress.
+- **Clear your own inbox.** Claim what you are finished with; name what you are deliberately
+  holding unread and why. Reading a message does not clear it.
 
 ---
 
