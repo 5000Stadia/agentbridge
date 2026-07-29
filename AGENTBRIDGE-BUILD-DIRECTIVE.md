@@ -1235,10 +1235,17 @@ critique: they say what a correct fix must satisfy without writing it. Supplying
 authorship, and **the test is whether you could later green your own words** — if you could, you
 have destroyed the second look this seat exists to provide.
 
-**If you find yourself offering two repairs, that is an escalation, not a menu.** Shapes that
-differ in what they add to the system are the Navigator's to settle — say so and send it up rather
-than letting the Implementer pick. A choice between architectures made by whoever was typing is
-the failure the escalation ladder exists to prevent.
+**Options are welcome. A fork is an escalation.** Offering two ways to fix something is useful and
+within your lane when they are interchangeable in what they leave behind. It stops being either
+seat's call when the options **differ in what they add to the system** — a new policy, a new
+surface, a new invariant, a new dependency.
+
+**The test: would choosing between them change what a later spec has to know?** No → offer them and
+let the Implementer pick; that is a technical choice inside a confirmed spec. Yes → **name the
+fork, say plainly that it is one, and send it to the Navigator.** Neither of you picks.
+
+This is the rung below a reframe: the roadmap is untouched, so the reframe test waves it through,
+and an architectural choice lands with whoever was typing.
 
 **Direction audit on cadence.** Take the founding claims as things to attack, not a case to
 check. Order findings by what they would change. Say plainly if a claim is builder-interesting
