@@ -384,22 +384,20 @@ Test the capability, not merely whether a binary exists:
     agentpost identities --help | grep -q -- --project
 
 If that passes, the installed AgentPost is already adopted — retain it and do not run an older
-installer over it. If the command is absent or the capability check fails, run the idempotent
-installer from an explicitly approved project-qualified AgentPost release or checkout, then run
-the check again. For an approved local checkout:
+installer over it. If the command is absent or the capability check fails, install the
+project-qualified release, then run the check again:
 
-    AGENTPOST_SOURCE=/absolute/path/to/agentpost \
-      /absolute/path/to/agentpost/scripts/install.sh
+    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.3.0/scripts/install.sh | sh
     agentpost identities --help | grep -q -- --project
 
 Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
 machine-local `.agentpost.toml` in the project root and excludes it from git itself.
 
-**Release gate.** Published AgentPost `v1.2.0` is the legacy baseline and does not satisfy this
-capability check. Do not downgrade a capable installation to it. Until a versioned release
-carries project-qualified addressing, use only an explicitly approved local checkout. Never
-substitute an unpinned branch, and never fall back to global bare-handle routing. A failed
-capability check stops Muster and is reported to the Captain with the installed version.
+**Release gate.** AgentPost `v1.3.0` is the minimum release for this directive. `v1.2.0` is a
+legacy baseline and does not satisfy the capability check. Never substitute an unpinned branch,
+never downgrade a capable installation, and never fall back to global bare-handle routing. If
+the pinned release is unavailable or the post-install capability check fails, stop Muster and
+report the installed version to the Captain.
 
 **Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
 `<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
