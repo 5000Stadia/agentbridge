@@ -836,16 +836,22 @@ its failure. Anything the contact retracts or demotes fires a validity re-check 
 The Implementer is the heartbeat. It drives what is next and is idle only when blocked — and
 blocked is announced.
 
-**Two escalations.** *Clarification*: the answer exists in the design and the Implementer cannot
-see it — the Navigator answers alone, citing the board. *Reframe*: the answer does not exist, or
-the design's answer is wrong — the Navigator frames it for the Captain, and the roadmap changes
-before the spec continues.
+**Escalation is the one rule from *The structure*** — *if it might surprise the level above,
+discuss it there first.* The names below are routing, not four more tests:
 
-The test: **would answering this change the roadmap?** No → clarification. Yes → reframe. When
-in doubt, reframe. A reframe answered as a clarification is an architectural decision made by
+- *Clarification* — the answer is already in the design and the Implementer cannot see it. Nothing
+  is surprised; the Navigator answers alone, citing the board.
+- *Fork* — the fix would come back in a shape the Navigator would not recognise. To the Navigator,
+  **before it is built**.
+- *Reframe* — the design's answer is wrong. The Navigator frames it for the Captain, and the
+  roadmap changes before the spec continues.
+- *Detour* — the work has left its roadmap item. Below.
+
+**When in doubt, send it up.** A surprise absorbed quietly is an architectural decision made by
 whoever was typing.
 
-**A third route, for the apparatus rather than the work: friction goes to the Navigator.** When
+**The other axis is friction: the apparatus rather than the work, and it goes to the Navigator.**
+When
 two seats disagree about *how we work* — a handoff that keeps stalling, a rule that fires on the
 wrong thing, a step nobody can complete as written, a verdict neither seat can settle — **they do
 not settle it between themselves, and they do not work around it.** It goes up.
@@ -1011,7 +1017,11 @@ seat types.
 cite the board.
 
 **Reframe** — the answer isn't there, or the design's answer is wrong. Frame it for the Captain.
-Test: *would answering change the roadmap?* If yes, not yours.
+**The same test applies to you: would this surprise them?** If it might, it is theirs before it is
+yours, and the depth you pitch it at is your call to make.
+
+**Fork** — the doing channel found shapes that differ in what they add. Settle it, or take it to
+the Captain if choosing would move the architecture.
 
 **Coherence read** before implementation — does this spec still serve its roadmap item, did
 anything drift in deliberation? Not correctness; that's the Reviewer's.
@@ -1153,12 +1163,16 @@ Navigator coherence read → implement → review to green → push gate → tak
 
 ## Escalation
 
-**Clarification** — the answer is in the design and you can't see it. To the Navigator.
+**One test: would this surprise the Navigator?** If it might, it goes to them before you build it.
+When in doubt, send it up — a surprise you absorb quietly becomes an architectural decision made by
+whoever was typing.
 
-**Reframe** — the answer isn't there, or following the design gives the wrong shape. To the
-Navigator, who frames it for the Captain. **The roadmap changes before the spec continues.**
+**Clarification** — the answer is in the design and you can't see it. Nothing is surprised; ask.
 
-Test: *would answering change the roadmap?* **When in doubt, reframe.**
+**Fork** — the fix could take shapes that differ in what they add to the system. Not yours to pick.
+
+**Reframe** — the answer isn't there, or following the design gives the wrong shape. The Navigator
+frames it for the Captain. **The roadmap changes before the spec continues.**
 
 **Pause and surface** — if contact shows an approved spec is wrong, stop and kick it back. Do
 not fix and continue.
