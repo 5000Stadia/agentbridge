@@ -407,10 +407,15 @@ revises in place, and the file stays where it is until it passes. **A green is t
 the file into `specs/`** — the judgement and the state change are one act, performed by the seat
 with the authority to make it.
 
-Three consequences, and all of them are removals: the Implementer cannot clear its own spec, no
-status is maintained in two places, and *what is waiting on me* is answered by `ls` rather than by
-asking. A coherence read that finds drift moves the file back to `review/` with a board row saying
-why.
+**Implementation green is the same act one step along: the Reviewer moves the file from `specs/`
+to `archive/`.** So the rule is one sentence with no exceptions — **only the Reviewer advances a
+spec's state; the Navigator may send it back.** A coherence read that finds drift returns the file
+to `review/` with a board row saying why, which is a reversal, not an advance.
+
+Consequences, and all of them are removals: the Implementer cannot clear its own spec or declare
+its own work finished, no status is maintained in two places, and *what is waiting on me* is
+answered by `ls` rather than by asking. **A red implementation simply stays in `specs/`** — which is
+accurate, since it is still in flight, and is why no fourth location is needed.
 
 Empty `review/` means nothing awaits a verdict; empty `specs/` means nothing is in flight and the
 next item is ready to be written. **The filesystem carries the state; the board carries the
@@ -418,7 +423,7 @@ position.**
 
 **A spec is named `<item>-<slug>.md` and is never renamed** — `1.2.1-blueprints.md`. The item
 number is already the spec number, so the name *is* the citation; the slug is what anyone actually
-searches, the same shape as `decisions/`. On completion the spec **moves to `archive/` unchanged**,
+searches, the same shape as `decisions/`. On implementation green the Reviewer **moves it to `archive/` unchanged**,
 which is the whole convention: `archive/1.2.1-blueprints.md` is reachable from a roadmap row alone,
 and a citation written during implementation still resolves years later. A move that renames breaks
 that, so archiving renames nothing.
@@ -970,6 +975,9 @@ Universal. A project's own hard-won rules go on its board, not here.
   nothing green — regardless of line count.
 - **When an instruction does not cover something, ask.** A plausible assumption held confidently
   is the founding failure mode of agent work.
+- **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — **name where you are
+  least confident, and correct your premises out loud.** Stated confidence is confidence someone
+  else can check.
 
 ## Failure modes these rules are receipts for
 
@@ -1111,10 +1119,6 @@ this file, and what the message points at. The Chart is the one long session.
 - Silently reconcile a contradiction.
 - Put personal material in the bridge.
 
-## Standards
-
-Tag claims: ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN. Name where you are least
-confident. Correct your premises out loud. Re-prime from the board, never from memory.
 ```
 
 ---
@@ -1155,9 +1159,10 @@ Navigator coherence read → implement → review to green → push gate → tak
   again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
   it there is how you learn you are cleared to build.
 - Verdicts per spec, never per batch.
-- On **implementation** green: the spec **moves from `specs/` to `archive/` under the same
-  filename** — archiving never renames, because every citation already written points at that
-  name. The slot empties.
+- On **implementation** green **the Reviewer** moves it from `specs/` to `archive/`, same
+  filename — archiving never renames, because every citation already written points at that name.
+  **You advance a spec's state in neither direction**; the slot emptying is how you learn you are
+  done.
 - **Read only what is cited** — board, this file, the live spec. Not the archive, not the
   roadmap beyond your item.
 
@@ -1207,15 +1212,11 @@ instance** — move it as things happen.
 
 ## Standards
 
-- **"Fixed" names the witness test** that fails without the change.
-- A claim that a mechanism exists ships with its output, not a description.
-- **Pin the suite's executable identities** against the runner's own discovery; one checked-in
-  invocation.
 - Move statuses to reflect what is known now. Never green because a decision is pending.
 - Check contents before making anything public or permanent.
-- Tag claims: ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN.
-- Re-prime from the board, never from memory.
-- **When an instruction doesn't cover something, ask.**
+
+The rest are the playbook's standing rules, which you read every session. They are deliberately
+not repeated here — a second copy is a place to go stale while looking authoritative.
 ```
 
 ---
@@ -1252,8 +1253,6 @@ you share that root with the Implementer. **Verify ARMED.**
 - **Prove with counterexamples run against the real path.** An objection you must execute cannot
   drift into agreeable reading. This is the difference between a reviewer and a reader.
 - Separate **must-fix / should-fix / minor**, saying which changes what the project does.
-- **Name where you are least confident.**
-- Correct your own premises out loud.
 - **Never defer to a prior reviewer** — including the Navigator and the Captain.
 - **Attack instruments as well as code.** Assume a suite contains the defect class it was built
   to catch until a counterexample has been through it.
@@ -1265,9 +1264,14 @@ the project's life.
 
 **Deliberate specs to green. Review implementations to green.** Per spec, never per batch.
 
-**Your green on a spec is a move, not a message**: `git mv review/<file> specs/`, then reply green
-citing the new path. **A red moves nothing** — leave the file in `review/` for the Implementer to
-revise in place. You are sent a path; open it, and do not ask for its contents.
+**Both greens are moves, and only you make them.** Spec green is `git mv review/<file> specs/`;
+implementation green is `git mv specs/<file> archive/`. Reply green citing the new path. The
+Implementer never advances a spec's state — it cannot clear its own spec or declare its own work
+finished — and the Navigator may only send one back.
+
+**A red moves nothing.** The file stays where it is: a red spec in `review/`, a red implementation
+in `specs/` — accurate, because it is still in flight. You are sent a path; open it, and do not ask
+for its contents.
 
 **A red names direction and constraint, never replacement text.** *"This must not assume the
 extractor sees the key"* and *"the invariant belongs at the boundary, not in the caller"* are
@@ -1293,8 +1297,9 @@ What usually means the shape moved: the options **differ in what they add** — 
 surface, a new invariant, a new dependency. If choosing between them would change what a later spec
 has to know, the choice was never yours.
 
-This is the rung below a reframe. The roadmap is untouched, so the reframe test waves it through,
-and an architectural decision lands with whoever was typing.
+This is the rung below a reframe, and the roadmap being untouched is exactly why it slips past
+unless you look for the shape — which is how an architectural decision ends up with whoever was
+typing.
 
 **Direction audit on cadence.** Take the founding claims as things to attack, not a case to
 check. Order findings by what they would change. Say plainly if a claim is builder-interesting
@@ -1391,7 +1396,7 @@ end-to-end 2/5`. Never a count of work done.)*
 
 **Current phase** — *(e.g. `2.0.0` — Execution. Detail in `phases/2-execution.md` if split out.)*
 
-**In flight** — *(spec ID and status, or `none — slot empty`)*
+**In flight** — *(spec ID and owner, or `none — slot empty`. The location carries the status.)*
 
 | # | Spec | Status | Owner | Note |
 |---|---|---|---|---|
