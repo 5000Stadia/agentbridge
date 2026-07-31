@@ -53,6 +53,7 @@ Two sibling directories, two repositories, two visibilities.
     ├── apparatus-log.md          ← what we changed about how we work. append-only.
     ├── playbook.md               ← how we work
     ├── directives/               ← what my job is. one per seat.
+    ├── protocols/                ← read only when a trigger fires. never in a session.
     ├── roadmap.md                ← the shape of the whole thing
     ├── phases/                   ← not created now. added if a phase outgrows the map.
     ├── review/                   ← spec awaiting a verdict. empty = nothing waiting.
@@ -78,7 +79,8 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
 
 1. Create the two sibling directories.
 2. `git init` in each.
-3. Create the files below, verbatim. Create empty `review/`, `specs/`, `archive/` and
+3. Create the files below, verbatim, including `directives/` and `protocols/`. Create empty
+   `review/`, `specs/`, `archive/` and
    `decisions/` directories with a `.gitkeep` in each. **Do not create `phases/`.** Empty
    `review/` means nothing awaits a verdict, empty `specs/` means nothing is in flight, empty
    `archive/` means nothing is finished — all real states. An empty `phases/` states nothing at
@@ -197,7 +199,8 @@ remote stays visible.
 ## 2. AgentPost
 
 Use what is live; install only if nothing capable is. The capability check, the naming table and
-the register → join → verify sequence are in `playbook.md`; follow them there, not from memory.
+the register → join → verify sequence are in `protocols/spawn.md`; follow them there, not from
+memory.
 
 Register the Navigator seat, join from the **bridge** root, and **verify ARMED**. If you are
 QUEUED, state the exact remaining commands to the Captain and say plainly that you are not
@@ -211,7 +214,7 @@ an existing convention.
 
 ## 4. The Chart
 
-Run it from `playbook.md`. It is the one long session, and it ends at the exit condition stated
+Run it from `protocols/chart.md`. It is the one long session, and it ends at the exit condition stated
 there — not when the conversation runs out.
 
 ## 5. Delete this file
@@ -244,10 +247,19 @@ prefix `../<project>-bridge/`. **Re-prime from the board at session start, never
 memory.**
 
 Stages are named, not numbered — **Chart → Muster → The Loop**, with **The Harness** standing
-alongside. Numbered phases belong to the project, and their shape is the Captain's and
+alongside. Chart and Muster are one-time and live in `protocols/`; The Loop is below. Numbered phases belong to the project, and their shape is the Captain's and
 Navigator's to determine.
 
 ---
+
+**Three protocols exist and none is read in a normal session.** Each opens only when its trigger
+fires; that is what keeps the four-file onboarding honest as the method grows.
+
+| Protocol | Read it when |
+|---|---|
+| `protocols/spawn.md` | a seat is being spawned, or its mailbox misbehaves |
+| `protocols/chart.md` | booting the project, or a reframe reopens the bet |
+| `protocols/apparatus.md` | proposing a structural change, or a new seat |
 
 ## The structure
 
@@ -276,81 +288,6 @@ for routing, not four separate tests.
 Generation, falsification and direction are different cognitive functions with different
 failure modes. The structure makes each seat's blind spot another seat's job, and keeps every
 judgement visible, attributable, and owned by exactly one seat.
-
-## Changing the apparatus
-
-**The structure is the Captain's, and it is meant to be changed.** A method that cannot be
-edited becomes folklore — followed because it is there rather than because it works.
-
-**Nothing here is locked, including this file.** Every part of the apparatus — the playbook, the
-directives, the board's shape, the loop, the seats, the cadences — is a working default that this
-project is expected to outgrow in places. **The Captain may change any of it at any time, and
-meets no bar to do it**; a Captain's change is simply a decision, recorded on the board like any
-other. The bar below governs *seats proposing changes*, so that the method cannot grow itself
-behind the Captain's back. It has never applied to the Captain.
-
-**Divergence from the shipped method is not drift.** Two projects running AgentBridge should not
-look identical after a month, and a project whose apparatus never changed is more likely to be
-unexamined than well-fitted. What is drift is an apparatus that changed *without anyone deciding
-to* — which is why changes are recorded, not why they are discouraged.
-
-**Three things reach the Captain, and they are different.** A **reframe**: the design's answer
-is wrong. A **detour**: work has left the roadmap. A **structural change**: how the project
-works changes — a seat, a rule, a location, a step in the loop, a cadence. A structural change
-is not a detour; the map is unaffected, only who does the work and how.
-
-**For proposals from seats, the bar is asymmetric, deliberately.** *Removing is easy* — a
-location nobody opens, a rule that never fires, a step routinely skipped: say so and cut it.
-*Adding is harder* — a location should answer a question and name who opens it and when; a rule
-should fit in one line; a seat must meet the test below. Symmetric bars produce methods that only
-grow. The asymmetry is a brake on accretion, not a lock on the door.
-
-**Anyone may propose; the Navigator holds coherence; the Captain decides.** Same route as a
-roadmap proposal, and a decline is a board row with its reasons. A structural change with real
-alternatives gets a `decisions/` file — otherwise the method becomes folklore within months.
-
-**The direction audit covers the apparatus, not only the project.** Rules that never fire,
-locations nobody opens, steps routinely skipped. That is the scheduled trigger; everything else
-is noticing.
-
-## Seats: three stock, and how a fourth is earned
-
-Three directives ship with this method. **The Chart asks whether they are adequate** — an exit
-condition, not an assumption. The answer is almost always yes.
-
-**A subagent is the default, and it is not a lesser seat.** Recurring work, a deep domain, a
-register that accumulates across many runs — all of that is a task subagent with a file to write
-to. Cheap, no ceremony, spawn freely. More capacity of an existing kind is likewise more
-*instances* of a stock seat, not a new type.
-
-**A seat is a member of the project.** It holds the mission, the bet, the falsifiers and the
-founding rules. It reads the board every session. It has standing to propose, to decline, to
-challenge a decision, and to say the work is wrong. **Its voice carries into what the project
-decides.**
-
-**So the test is one question: does this domain need a voice when the project decides, or an
-answer when asked?**
-
-*An answer* — a subagent, always, however often you need one and however deep the domain gets.
-*A voice* — a member, because the domain would otherwise be a blind spot in every decision the
-project makes, and no amount of asking questions fixes a blind spot nobody knows is there.
-
-**The cost is weight, not overhead.** A subagent that misreads its domain returns a bad answer
-you discard. A member that misreads the project's direction distorts judgement across everything
-it touches, quietly, because its voice is meant to count.
-
-**Keeping domains from crowding each other is a benefit of a seat, not a reason for one.** If
-separation is all you need, a subagent already gives you that.
-
-**If in doubt, no.** Run it as taskings for a phase and watch for the actual signal: finding
-yourself wishing the domain had been *in the room* when a decision was made. Volume is not that
-signal, and neither is rebuild cost.
-
-When it is warranted, the Navigator proposes the seat **and everything it needs as one
-structural change** — name and verb, directive, any location for what it accumulates with that
-location meeting the adding bar, and **the condition under which the seat would be cut**. A seat
-with no stated exit is permanent by default. The Captain decides; the Navigator drafts the
-directive if approved.
 
 ## Two repositories
 
@@ -487,102 +424,6 @@ its items crowd the map — the same growth rule as the board. At three phases t
 Mail lives at `~/.agentpost`, outside every repository — which is why a decision is written to
 the board before its exchange scrolls away.
 
-**Use what is live; install only if nothing capable is.** Adoption happens once per machine, not
-once per project, so the first thing any seat does is check — never install first and check after.
-This revision requires the project-qualified directory contract, so **test the capability, not
-merely whether a binary exists**:
-
-    agentpost identities --help | grep -q -- --project
-
-**If that passes, you install nothing.** The installation on this machine is already adopted;
-retain it, and never run an older installer over it. If the command is absent or the check fails,
-install from the pinned commit below, then run the same check again:
-
-    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/9e3f3f74c385f91def16a9ae9417f83b1791554d/scripts/install.sh | sh
-    agentpost identities --help | grep -q -- --project
-
-The source is <https://github.com/5000Stadia/agentpost>.
-
-Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
-machine-local `.agentpost.toml` in the project root and excludes it from git itself.
-
-**Why a commit and not a release — verified 2026-07-29, and this paragraph is written to expire.**
-No published tag carries the project-qualified contract. `v1.2.0` was executed from its own tag and
-exposes only `-h/--help`; `main` does not carry it either; **there is no `v1.3.0` tag, and the URL
-that named one returned 404.** The capability lives on `agent/live-binding-project-addressing`,
-which is also `refs/pull/1/head`, at commit `9e3f3f74`. That commit is public and immutable — it
-cannot move or vanish, which a tag can and did.
-
-**When a release carrying the contract publishes, replace the commit with its tag and delete this
-paragraph.** That sentence is the update trigger the previous version pin did not have, which is
-why it went stale and was believed.
-
-**The capability check is the gate; a version number never is.** Never downgrade a capable
-installation, and never fall back to global bare-handle routing. If the post-install check still
-fails, stop and report to the Captain rather than improvising another source.
-
-**Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
-`<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
-the one unambiguous split in `PROJECT.SEAT`. Single letters are weak spoken, so register a
-display name and put a short verb handle first.
-
-**The verb handle is not a style note — it becomes the qualified address.** Verified on 1.3.0,
-`profile-register` derives the suffix as **the first single-word handle in the list, skipping
-prose ones**; with no single-word handle at all it falls back to the canonical mailbox name:
-
-| `--handles` | Qualified |
-|---|---|
-| `nav,roadmap questions` | `projecto.nav` |
-| `roadmap questions,nav` | `projecto.nav` — prose is skipped, so position among prose is irrelevant |
-| `scout,nav,roadmap questions` | `projecto.scout` — **two single-word handles, and the earlier one wins** |
-| `roadmap questions,coherence checks` | `projecto.projecto-n` — no verb, so the canonical name is used |
-
-So the rule is **exactly one single-word handle per seat, and it is the verb.** A second one
-silently takes the address. The bottom row is the legacy shape — a box registered with only
-prose handles addresses as `PROJECT.CANONICAL`, which is why older boxes read `construct.c` and
-`pattern-buffer.pb` rather than `PROJECT.NAME`. That is a missing verb handle, not a second valid
-convention; **re-registering the same name with a verb handle fixes it in place**, since
-`profile-register` updates an existing nameplate rather than creating a duplicate.
-
-**The canonical mailbox can simply be the name.** Nothing requires `<project>-<initial>` — a box
-registered as `agentbridge` in project `agentbridge` with verb `bridge` answers to `agentbridge`,
-`bridge`, `agentbridge.bridge` and `agentbridge.agentbridge`. Prefer short canonicals only where
-they stay globally unique; the qualified `PROJECT.NAME` form is the one to say and cite.
-
-| Seat | Canonical | Qualified | Display name | Say locally |
-|---|---|---|---|---|
-| Navigator | `<project>-n` | `<project>.nav` | `<Project> Navigator` | **nav** |
-| Implementer | `<project>-i` | `<project>.build` | `<Project> Implementer` | **build** |
-| Reviewer | `<project>-r` | `<project>.check` | `<Project> Reviewer` | **check** |
-
-A seat's first message declares canonical, qualified, display, and local spoken forms, so later
-seats learn by observation.
-
-**Register, join, then verify — three steps, and the third is the one that proves it:**
-
-    agentpost profile-register projecto-n \
-      --display-name 'Projecto Navigator' --kind project \
-      --summary 'Holds the chart — mission, roadmap, coherence and validity.' \
-      --roles navigator --projects projecto \
-      --project-roots /path/to/projecto-bridge \
-      --handles 'nav,roadmap questions,coherence checks,reframes'
-
-    cd /path/to/projecto-bridge && agentpost join projecto-n --cli claude   # always name the seat
-    agentpost identities --project projecto
-    agentpost resolve projecto.nav
-    agentpost armed projecto-n        # QUEUED here is expected — arm as join's output directs,
-                                      # then run this again until it says ARMED
-
-**Always name the seat in `join`, even where the root has only one.** `join` will infer a seat
-from the root when it can, and that inference is exactly the failure this method already warns
-about — **Implementer and Reviewer share the project root**, so two of the three seats are always
-in the ambiguous case. A wrong inference does not error; the process adopts another identity and
-sends as the wrong box. Naming the seat costs a word you were told at spawn and removes the class.
-
-The Navigator roots on the bridge; Implementer and Reviewer root on the project.
-`agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once when
-any step disagrees with the next.
-
 **Bare is local; qualified is deliberate.** `nav`, `build`, and `check` resolve only among
 profiles sharing the sender's registered project aliases. AgentPost must never retry a missing
 bare seat against another project's directory, even when that other seat is globally unique.
@@ -608,33 +449,6 @@ handle reaching another project's box, so the sender is the only check. Re-test 
 commands above after any AgentPost upgrade — if `send` starts accepting qualified, delete this
 paragraph rather than keeping a workaround for a fixed defect.
 
-**A seat cannot send to itself** — the recipient list drops the sender and the send fails with
-*"at least one recipient is required"*. Prove a new box with a real second box, never a loopback.
-
-**Verify armed; never assume it.** Resolving an address or reading an inbox does *not* mean
-notifications are live. Only **ARMED** establishes live receipt; **QUEUED** means delivery is
-durable but the notifier is not. A fresh `join` lands **QUEUED** — that is the normal state, not
-a fault.
-
-**`join` prints the arming instruction; read its output rather than guessing.** It ends with an
-`AGENTPOST-DIRECTIVE` line naming exactly what this runtime needs. Under Claude Code that is a
-persistent Monitor on `agentpost internal-claude-monitor`, which the seat runs **itself** and
-which flips QUEUED to ARMED immediately — no restart. `join` also prints a `NEXT` line about
-restarting or reloading through `/plugin`; that governs *future* sessions reconnecting through
-the session-start hook, not this one, and a seat that restarts instead of monitoring has ended
-itself to solve a problem it could have solved in place.
-
-**Some seats genuinely cannot arm themselves** — a trusted hook, or relaunch through a managed
-launcher with an `--agent` switch. A seat that is still QUEUED after following the directive
-`join` gave it **states the exact remaining commands to the Captain and says plainly it is not
-yet live.** A process opened under the workspace default adopts the wrong identity silently
-rather than failing.
-
-**Second instances** suffix both canonical and verb — `projecto-i-sensor`, spoken
-*build-sensor*. **A new seat type** is assigned a distinct letter and verb at proposal time —
-`scout` for research — because initials run out well before verbs do. The Captain signs with
-their own name; a person is not an instance.
-
 **Your inbox is yours to keep clear, and reading is not clearing.** Verified: `read` inspects a
 message and changes nothing, so mail you have read and finished with is still unread, still
 queued, and will announce itself again to your next instance. **Claiming is what clears it:**
@@ -657,46 +471,8 @@ or its board note. Otherwise the distinction exists only in the instance that is
 
 **There is no per-message delete.** Claiming is the disposal; `wipe` operates on whole boxes only.
 
-**Clean starts use AgentPost, never filesystem deletion.** A seat may make
-`agentpost wipe agent` its final action to remove only its own box. Wiping another box, a
-project, or all boxes is broader:
-
-    agentpost wipe agent other-project.nav
-    agentpost wipe project other-project
-    agentpost wipe all
-
-Run the broader command once without `--confirm`. It deletes nothing and returns the exact
-sorted affected boxes. Show that list to the Captain and ask for explicit confirmation that
-those boxes will be deleted. Only then rerun with the exact printed
-`--confirm 'BOX1,BOX2'`; a changed list requires a new confirmation. Stop other live seats
-first. Wipe removes AgentPost mailbox, mail, bindings, adapter state, workspace references, and
-group membership only — never either repository — and is irreversible inside AgentPost.
-
-## Ambient context
-
-Each root carries an `AGENTS.md` and a `CLAUDE.md` with **identical content**, because
-different runtimes read different filenames and a pointer between them would cost a hop for
-nothing. Four small files, written once at scaffold. Nothing copies or syncs.
-
-**They are doormats, not documents.** Four lines: where you are, start with the playbook, and
-the seat warning. **One hop to real content**, and that content is a file you must read anyway.
-
-**Rules do not go here**, tempting as it is — the doormat is the highest-traffic surface in the
-project, which makes it the worst place for a second copy of a rule to sit looking
-authoritative. Rules live on the board, which is read every session anyway. The seat warning is
-the single exception, because it is the one rule whose failure is silent and immediate.
-
-**The reading order lives in the playbook**, which is its natural home and where every seat
-lands first. Putting it in the doormats would be the parallel description; putting a pointer
-chain in front of it would be worse.
-
-Their job is to make *re-prime from the board* happen rather than merely be asserted.
-
-**It must never declare which seat you are.** A seat named in an ambient file is adopted by
-every session opened in that directory. Identity comes from the spawn, exactly as the AgentPost
-`--agent` switch does. Conventions differ by runtime — Claude Code reads `CLAUDE.md`, Codex
-reads `AGENTS.md` — so the Navigator verifies what each seat's runtime actually reads rather
-than assuming.
+**Install, register, join and arm are `protocols/spawn.md`** — read once, when a seat is being
+spawned, never in a working session.
 
 ## Channel protocol
 
@@ -712,145 +488,6 @@ than assuming.
   holding unread and why. Reading a message does not clear it.
 
 ---
-
-## Chart
-
-*Captain and Navigator. No other seat exists yet.*
-
-**Boot.** Confirm both repositories are wired. Install AgentPost, register, join, verify armed.
-Instantiate the board. Announce yourself, signed — you are the only seat alive, but later seats
-should arrive into an existing convention.
-
-**The conversation.** Free-form first, extraction second. Six things, reflected back as drafts:
-
-1. **Mission**, one sentence — what it is, who it serves.
-2. **The bet** — the single claim that, if false, kills the project. Narrow enough to kill.
-   Everything that is not the bet is machinery.
-3. **The audience** — prototype (convince yourself) or proof (convince outsiders)? Ask early;
-   it sizes every control. Separate **measurement validity** (without it you learn nothing
-   true) from **demonstrability** (it convinces a skeptic — defer until that skeptic exists).
-   The test: does this control make a measurement mean what it claims, or make it provable to a
-   third party?
-4. **The falsifiers** — what observation ends or reframes the project. Set thresholds where
-   they can fire; a stop condition the project cannot lose is worse than none.
-5. **The non-negotiables** — properties without which a result proves nothing.
-6. **The first-contact artifact** — **the cheapest falsification of the core assumption.** Usually
-   the smallest real running thing. **On paper — a spec taken to green against an adversarial
-   review — when the assumption is a design claim no code would test faster**, which is the case
-   for a genuinely novel surface with no prior art and nowhere else. Choosing paper where code
-   would be cheaper is the governance-outrunning-the-governed failure; choosing code where paper
-   would be cheaper buys an artifact that tests nothing.
-
-The six are an exit condition, not an interview script. An agent handed a checklist will
-administer it.
-
-**The measure.** The bet implies an outcome indicator — one or two readings that say how far along
-the thing actually is, sitting on the board and read by every seat every session. **Prefer a count
-with a denominator.** Where forcing a number would produce a misleading one — a craft or judgement
-domain where the real distance is assessed rather than counted — use a **falsifiable observation
-protocol** instead: state what would be observed, by whom, and what result would mean the bet is
-failing.
-
-**It counts what the bet needs, never the work done toward it.** *Specs completed: 12* is
-activity and would have looked healthy through four days of drift. *Papers: 0/21 · classes
-demonstrated end-to-end: 2/5* is distance, and it does not move when the work is beside the
-point.
-
-It must be countable rather than judged, and small enough to sit in one line. This is the
-cheapest anti-drift mechanism in the method: a gate needs someone to act, a number needs
-nobody to do anything and cannot be unseen.
-
-**The founding rules.** The six imply rules, and the Chart is not done until they are written
-as rules. Ours arrived late as corrections — *prototype not proof*, *the demo must be
-end-to-end*, *the extractor never sees the key* — and each one voided work that had already
-happened, though every one was derivable from answers already given.
-
-One line each: short enough to hold, specific enough to check. **A rule that will not fit in
-one line is not a rule yet — it is a topic.** They go on the board under *Founding rules*.
-
-Where a rule had a real alternative, the reasoning goes in `decisions/` and the rule cites it.
-Where it is simply a consequence of an extractable, no file is needed.
-
-**Keep the list short.** Founding rules and earned rules together past a dozen means something
-is being written as a rule that should be a spec, or a preference is being promoted. The list
-is what everyone holds in their head; it stops working the moment it needs looking up.
-
-**Research happens here, before the bet is written down.** Survey occupied territory, adjacent
-systems, and the strongest existing alternative while the conversation runs, so the bet is born
-located against the field. A novelty claim written first and checked later gets narrowed later,
-expensively.
-
-**The map.** Captain and Navigator map the project end to end. **Identify the phases first** —
-their shape comes from the work, not from a template — then decompose:
-
-    1.0.0  Phase 1 — Planning and design
-    ├── 1.1.0  Architecture
-    │   ├── 1.1.1  Site analysis
-    │   └── 1.1.2  Blueprints
-    └── 1.2.0  Engineering
-        ├── 1.2.1  Structural load
-        └── 1.2.2  Electrical schematics
-
-Each item gets a name, a purpose, and enough principle mechanics that a deep spec could later
-be written from it. **Table of contents, not the book.** An **item is the unit a spec is written
-from, and the item number is the spec number** — one identifier, cited everywhere.
-
-**Numbers are allocated once and never reused or renumbered.** An item added later takes the
-next free number in its workstream regardless of where it belongs logically; a retired item
-keeps its number and a pointer to its replacement. **Sequence is the order of rows, not the
-number** — reorder by moving rows, because renumbering breaks every citation.
-
-Three properties the map must carry: it is **tagged as a hypothesis** and will change after
-first contact; items **downstream of first contact are marked**, because they cannot be honestly
-written until an artifact exists; and its **stop condition is structural** — *the map is done
-when every remaining unknown is one that only first contact would resolve.*
-
-**The seat question.** Are three stock seats adequate here? Ask deliberately.
-
-**The workspace map** goes into the board: one line per folder — purpose, and **who may be
-pointed at it**. Pointing a seat at a folder *is* its permission.
-
-**Exit.** Repositories wired and visibilities decided. Six extractables confirmed explicitly —
-silence is not approval. The measure defined and on the board. Founding rules written as
-one-liners, with `decisions/` files for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
-structural test. Seat question answered. First-contact artifact at the top of the board.
-
-**The Chart closes on the spine, not on the full apparatus.** `decisions/` files, `phases/` and the
-Harness cadences are **deferred until their trigger fires** — a decision with a real alternative, a
-phase that crowds the map, a founding claim worth attacking. Standing them up before the first
-artifact is precisely the *governance outrunning the governed* failure this method is named
-against, and the ramp is the same asymmetry as everywhere else: start minimal, let weight be
-earned.
-
-**The measure is the exception and is never deferred.** It is the cheapest anti-drift mechanism
-here, it costs one line, and it is the first thing a lighter start would be tempted to drop.
-
-## Muster
-
-**Seats are separate CLI processes, and only the Captain starts them.** No seat spawns another.
-The Navigator judges when a seat is needed and hands the Captain **three things per seat, in one
-message**:
-
-1. **The launch command** — runtime, project root, and any `--agent` switch.
-2. **What it reads on first contact** — its own directive, by path. Nothing else; the directive
-   names the rest.
-3. **The box it registers** — canonical and qualified, from the naming table above.
-
-A seat launched without all three arrives with no identity and adopts the workspace default
-silently, which fails quietly rather than loudly. The Navigator then confirms each reports ARMED
-before treating it as reachable.
-
-Implementer and Reviewer come from their stock directives, with project-specific scope in their
-board addenda rather than in new directives.
-
-**Run the Reviewer on a different model family than the Implementer if the Captain has one.**
-A suggestion, not a requirement — a second family does not inherit the first's blind spots, which
-is worth having and not worth blocking Muster over. Record the actual families in the board's
-Seats table, so the difference, or its absence, is visible rather than assumed.
-
-**The Reviewer's first job is to red-team the map**, before any code exists. Its remit already
-covers *is this still the right work*; pointing that at a plan is far cheaper than pointing it
-at an implementation built from a bad plan.
 
 ## The Loop
 
@@ -1031,6 +668,410 @@ Universal. A project's own hard-won rules go on its board, not here.
 
 ---
 
+# FILE: `<project>-bridge/protocols/spawn.md`
+
+```markdown
+# PROTOCOL — SPAWN
+
+**Read when a seat is being spawned, or when its mailbox misbehaves. Never in a working session.**
+
+Everything here happens once per seat and then not again, which is why none of it sits in the
+playbook. The playbook keeps only what a seat uses while working — addressing, and inbox hygiene.
+
+**Runtimes read different ambient files** — Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md`.
+Verify what a seat's runtime actually reads rather than assuming.
+
+## Install — check the capability, never a version
+
+**Use what is live; install only if nothing capable is.** Adoption happens once per machine, not
+once per project, so the first thing any seat does is check — never install first and check after.
+This revision requires the project-qualified directory contract, so **test the capability, not
+merely whether a binary exists**:
+
+    agentpost identities --help | grep -q -- --project
+
+**If that passes, you install nothing.** The installation on this machine is already adopted;
+retain it, and never run an older installer over it. If the command is absent or the check fails,
+install from the pinned commit below, then run the same check again:
+
+    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/9e3f3f74c385f91def16a9ae9417f83b1791554d/scripts/install.sh | sh
+    agentpost identities --help | grep -q -- --project
+
+The source is <https://github.com/5000Stadia/agentpost>.
+
+Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
+machine-local `.agentpost.toml` in the project root and excludes it from git itself.
+
+**Why a commit and not a release — verified 2026-07-29, and this paragraph is written to expire.**
+No published tag carries the project-qualified contract. `v1.2.0` was executed from its own tag and
+exposes only `-h/--help`; `main` does not carry it either; **there is no `v1.3.0` tag, and the URL
+that named one returned 404.** The capability lives on `agent/live-binding-project-addressing`,
+which is also `refs/pull/1/head`, at commit `9e3f3f74`. That commit is public and immutable — it
+cannot move or vanish, which a tag can and did.
+
+**When a release carrying the contract publishes, replace the commit with its tag and delete this
+paragraph.** That sentence is the update trigger the previous version pin did not have, which is
+why it went stale and was believed.
+
+**The capability check is the gate; a version number never is.** Never downgrade a capable
+installation, and never fall back to global bare-handle routing. If the post-install check still
+fails, stop and report to the Captain rather than improvising another source.
+
+## Names — the verb handle becomes the address
+
+**Names: canonical is a letter, qualified is PROJECT.VERB.** Each seat registers a dot-free
+`<project>-<initial>`. The project slug and its aliases are also dot-free; dot is reserved as
+the one unambiguous split in `PROJECT.SEAT`. Single letters are weak spoken, so register a
+display name and put a short verb handle first.
+
+**The verb handle is not a style note — it becomes the qualified address.** Verified on 1.3.0,
+`profile-register` derives the suffix as **the first single-word handle in the list, skipping
+prose ones**; with no single-word handle at all it falls back to the canonical mailbox name:
+
+| `--handles` | Qualified |
+|---|---|
+| `nav,roadmap questions` | `projecto.nav` |
+| `roadmap questions,nav` | `projecto.nav` — prose is skipped, so position among prose is irrelevant |
+| `scout,nav,roadmap questions` | `projecto.scout` — **two single-word handles, and the earlier one wins** |
+| `roadmap questions,coherence checks` | `projecto.projecto-n` — no verb, so the canonical name is used |
+
+So the rule is **exactly one single-word handle per seat, and it is the verb.** A second one
+silently takes the address. The bottom row is the legacy shape — a box registered with only
+prose handles addresses as `PROJECT.CANONICAL`, which is why older boxes read `construct.c` and
+`pattern-buffer.pb` rather than `PROJECT.NAME`. That is a missing verb handle, not a second valid
+convention; **re-registering the same name with a verb handle fixes it in place**, since
+`profile-register` updates an existing nameplate rather than creating a duplicate.
+
+**The canonical mailbox can simply be the name.** Nothing requires `<project>-<initial>` — a box
+registered as `agentbridge` in project `agentbridge` with verb `bridge` answers to `agentbridge`,
+`bridge`, `agentbridge.bridge` and `agentbridge.agentbridge`. Prefer short canonicals only where
+they stay globally unique; the qualified `PROJECT.NAME` form is the one to say and cite.
+
+| Seat | Canonical | Qualified | Display name | Say locally |
+|---|---|---|---|---|
+| Navigator | `<project>-n` | `<project>.nav` | `<Project> Navigator` | **nav** |
+| Implementer | `<project>-i` | `<project>.build` | `<Project> Implementer` | **build** |
+| Reviewer | `<project>-r` | `<project>.check` | `<Project> Reviewer` | **check** |
+
+A seat's first message declares canonical, qualified, display, and local spoken forms, so later
+seats learn by observation.
+
+## Register, join, verify
+
+**Register, join, then verify — three steps, and the third is the one that proves it:**
+
+    agentpost profile-register projecto-n \
+      --display-name 'Projecto Navigator' --kind project \
+      --summary 'Holds the chart — mission, roadmap, coherence and validity.' \
+      --roles navigator --projects projecto \
+      --project-roots /path/to/projecto-bridge \
+      --handles 'nav,roadmap questions,coherence checks,reframes'
+
+    cd /path/to/projecto-bridge && agentpost join projecto-n --cli claude   # always name the seat
+    agentpost identities --project projecto
+    agentpost resolve projecto.nav
+    agentpost armed projecto-n        # QUEUED here is expected — arm as join's output directs,
+                                      # then run this again until it says ARMED
+
+**Always name the seat in `join`, even where the root has only one.** `join` will infer a seat
+from the root when it can, and that inference is exactly the failure this method already warns
+about — **Implementer and Reviewer share the project root**, so two of the three seats are always
+in the ambiguous case. A wrong inference does not error; the process adopts another identity and
+sends as the wrong box. Naming the seat costs a word you were told at spawn and removes the class.
+
+The Navigator roots on the bridge; Implementer and Reviewer root on the project.
+`agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once when
+any step disagrees with the next.
+
+**A seat cannot send to itself** — the recipient list drops the sender and the send fails with
+*"at least one recipient is required"*. Prove a new box with a real second box, never a loopback.
+
+## Arming — QUEUED is not live
+
+**Verify armed; never assume it.** Resolving an address or reading an inbox does *not* mean
+notifications are live. Only **ARMED** establishes live receipt; **QUEUED** means delivery is
+durable but the notifier is not. A fresh `join` lands **QUEUED** — that is the normal state, not
+a fault.
+
+**`join` prints the arming instruction; read its output rather than guessing.** It ends with an
+`AGENTPOST-DIRECTIVE` line naming exactly what this runtime needs. Under Claude Code that is a
+persistent Monitor on `agentpost internal-claude-monitor`, which the seat runs **itself** and
+which flips QUEUED to ARMED immediately — no restart. `join` also prints a `NEXT` line about
+restarting or reloading through `/plugin`; that governs *future* sessions reconnecting through
+the session-start hook, not this one, and a seat that restarts instead of monitoring has ended
+itself to solve a problem it could have solved in place.
+
+**Some seats genuinely cannot arm themselves** — a trusted hook, or relaunch through a managed
+launcher with an `--agent` switch. A seat that is still QUEUED after following the directive
+`join` gave it **states the exact remaining commands to the Captain and says plainly it is not
+yet live.** A process opened under the workspace default adopts the wrong identity silently
+rather than failing.
+
+## More seats, and second instances
+
+**Second instances** suffix both canonical and verb — `projecto-i-sensor`, spoken
+*build-sensor*. **A new seat type** is assigned a distinct letter and verb at proposal time —
+`scout` for research — because initials run out well before verbs do. The Captain signs with
+their own name; a person is not an instance.
+
+## Clean starts
+
+**Clean starts use AgentPost, never filesystem deletion.** A seat may make
+`agentpost wipe agent` its final action to remove only its own box. Wiping another box, a
+project, or all boxes is broader:
+
+    agentpost wipe agent other-project.nav
+    agentpost wipe project other-project
+    agentpost wipe all
+
+Run the broader command once without `--confirm`. It deletes nothing and returns the exact
+sorted affected boxes. Show that list to the Captain and ask for explicit confirmation that
+those boxes will be deleted. Only then rerun with the exact printed
+`--confirm 'BOX1,BOX2'`; a changed list requires a new confirmation. Stop other live seats
+first. Wipe removes AgentPost mailbox, mail, bindings, adapter state, workspace references, and
+group membership only — never either repository — and is irreversible inside AgentPost.
+
+## Muster — bringing the doing channel up
+
+**Seats are separate CLI processes, and only the Captain starts them.** No seat spawns another.
+The Navigator judges when a seat is needed and hands the Captain **three things per seat, in one
+message**:
+
+1. **The launch command** — runtime, project root, and any `--agent` switch.
+2. **What it reads on first contact** — its own directive, by path. Nothing else; the directive
+   names the rest.
+3. **The box it registers** — canonical and qualified, from the naming table above.
+
+A seat launched without all three arrives with no identity and adopts the workspace default
+silently, which fails quietly rather than loudly. The Navigator then confirms each reports ARMED
+before treating it as reachable.
+
+Implementer and Reviewer come from their stock directives, with project-specific scope in their
+board addenda rather than in new directives.
+
+**Run the Reviewer on a different model family than the Implementer if the Captain has one.**
+A suggestion, not a requirement — a second family does not inherit the first's blind spots, which
+is worth having and not worth blocking Muster over. Record the actual families in the board's
+Seats table, so the difference, or its absence, is visible rather than assumed.
+
+**The Reviewer's first job is to red-team the map**, before any code exists. Its remit already
+covers *is this still the right work*; pointing that at a plan is far cheaper than pointing it
+at an implementation built from a bad plan.
+```
+
+---
+
+# FILE: `<project>-bridge/protocols/chart.md`
+
+```markdown
+# PROTOCOL — CHART
+
+**Read when booting the project, or when a reframe reopens the bet. Not in a working session.**
+
+The Chart is the one long session. `boot.md` sends the Navigator here; after that it is opened only
+when a founding claim is being reconsidered.
+
+*Captain and Navigator. No other seat exists yet.*
+
+**Boot.** Confirm both repositories are wired. Install AgentPost, register, join, verify armed.
+Instantiate the board. Announce yourself, signed — you are the only seat alive, but later seats
+should arrive into an existing convention.
+
+**The conversation.** Free-form first, extraction second. Six things, reflected back as drafts:
+
+1. **Mission**, one sentence — what it is, who it serves.
+2. **The bet** — the single claim that, if false, kills the project. Narrow enough to kill.
+   Everything that is not the bet is machinery.
+3. **The audience** — prototype (convince yourself) or proof (convince outsiders)? Ask early;
+   it sizes every control. Separate **measurement validity** (without it you learn nothing
+   true) from **demonstrability** (it convinces a skeptic — defer until that skeptic exists).
+   The test: does this control make a measurement mean what it claims, or make it provable to a
+   third party?
+4. **The falsifiers** — what observation ends or reframes the project. Set thresholds where
+   they can fire; a stop condition the project cannot lose is worse than none.
+5. **The non-negotiables** — properties without which a result proves nothing.
+6. **The first-contact artifact** — **the cheapest falsification of the core assumption.** Usually
+   the smallest real running thing. **On paper — a spec taken to green against an adversarial
+   review — when the assumption is a design claim no code would test faster**, which is the case
+   for a genuinely novel surface with no prior art and nowhere else. Choosing paper where code
+   would be cheaper is the governance-outrunning-the-governed failure; choosing code where paper
+   would be cheaper buys an artifact that tests nothing.
+
+The six are an exit condition, not an interview script. An agent handed a checklist will
+administer it.
+
+**The measure.** The bet implies an outcome indicator — one or two readings that say how far along
+the thing actually is, sitting on the board and read by every seat every session. **Prefer a count
+with a denominator.** Where forcing a number would produce a misleading one — a craft or judgement
+domain where the real distance is assessed rather than counted — use a **falsifiable observation
+protocol** instead: state what would be observed, by whom, and what result would mean the bet is
+failing.
+
+**It counts what the bet needs, never the work done toward it.** *Specs completed: 12* is
+activity and would have looked healthy through four days of drift. *Papers: 0/21 · classes
+demonstrated end-to-end: 2/5* is distance, and it does not move when the work is beside the
+point.
+
+It must be countable rather than judged, and small enough to sit in one line. This is the
+cheapest anti-drift mechanism in the method: a gate needs someone to act, a number needs
+nobody to do anything and cannot be unseen.
+
+**The founding rules.** The six imply rules, and the Chart is not done until they are written
+as rules. Ours arrived late as corrections — *prototype not proof*, *the demo must be
+end-to-end*, *the extractor never sees the key* — and each one voided work that had already
+happened, though every one was derivable from answers already given.
+
+One line each: short enough to hold, specific enough to check. **A rule that will not fit in
+one line is not a rule yet — it is a topic.** They go on the board under *Founding rules*.
+
+Where a rule had a real alternative, the reasoning goes in `decisions/` and the rule cites it.
+Where it is simply a consequence of an extractable, no file is needed.
+
+**Keep the list short.** Founding rules and earned rules together past a dozen means something
+is being written as a rule that should be a spec, or a preference is being promoted. The list
+is what everyone holds in their head; it stops working the moment it needs looking up.
+
+**Research happens here, before the bet is written down.** Survey occupied territory, adjacent
+systems, and the strongest existing alternative while the conversation runs, so the bet is born
+located against the field. A novelty claim written first and checked later gets narrowed later,
+expensively.
+
+**The map.** Captain and Navigator map the project end to end. **Identify the phases first** —
+their shape comes from the work, not from a template — then decompose:
+
+    1.0.0  Phase 1 — Planning and design
+    ├── 1.1.0  Architecture
+    │   ├── 1.1.1  Site analysis
+    │   └── 1.1.2  Blueprints
+    └── 1.2.0  Engineering
+        ├── 1.2.1  Structural load
+        └── 1.2.2  Electrical schematics
+
+Each item gets a name, a purpose, and enough principle mechanics that a deep spec could later
+be written from it. **Table of contents, not the book.** An **item is the unit a spec is written
+from, and the item number is the spec number** — one identifier, cited everywhere.
+
+**Numbers are allocated once and never reused or renumbered.** An item added later takes the
+next free number in its workstream regardless of where it belongs logically; a retired item
+keeps its number and a pointer to its replacement. **Sequence is the order of rows, not the
+number** — reorder by moving rows, because renumbering breaks every citation.
+
+Three properties the map must carry: it is **tagged as a hypothesis** and will change after
+first contact; items **downstream of first contact are marked**, because they cannot be honestly
+written until an artifact exists; and its **stop condition is structural** — *the map is done
+when every remaining unknown is one that only first contact would resolve.*
+
+**The seat question.** Are three stock seats adequate here? Ask deliberately.
+
+**The workspace map** goes into the board: one line per folder — purpose, and **who may be
+pointed at it**. Pointing a seat at a folder *is* its permission.
+
+**Exit.** Repositories wired and visibilities decided. Six extractables confirmed explicitly —
+silence is not approval. The measure defined and on the board. Founding rules written as
+one-liners, with `decisions/` files for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
+structural test. Seat question answered. First-contact artifact at the top of the board.
+
+**The Chart closes on the spine, not on the full apparatus.** `decisions/` files, `phases/` and the
+Harness cadences are **deferred until their trigger fires** — a decision with a real alternative, a
+phase that crowds the map, a founding claim worth attacking. Standing them up before the first
+artifact is precisely the *governance outrunning the governed* failure this method is named
+against, and the ramp is the same asymmetry as everywhere else: start minimal, let weight be
+earned.
+
+**The measure is the exception and is never deferred.** It is the cheapest anti-drift mechanism
+here, it costs one line, and it is the first thing a lighter start would be tempted to drop.
+```
+
+---
+
+# FILE: `<project>-bridge/protocols/apparatus.md`
+
+```markdown
+# PROTOCOL — APPARATUS
+
+**Read when proposing a structural change, or a new seat. Not in a working session.**
+
+Friction reaches the Navigator during normal work; this file is what the Navigator opens once it
+does. Every change made under it is appended to `apparatus-log.md`.
+
+## Changing the apparatus
+
+**The structure is the Captain's, and it is meant to be changed.** A method that cannot be
+edited becomes folklore — followed because it is there rather than because it works.
+
+**Nothing here is locked, including this file.** Every part of the apparatus — the playbook, the
+directives, the board's shape, the loop, the seats, the cadences — is a working default that this
+project is expected to outgrow in places. **The Captain may change any of it at any time, and
+meets no bar to do it**; a Captain's change is simply a decision, recorded on the board like any
+other. The bar below governs *seats proposing changes*, so that the method cannot grow itself
+behind the Captain's back. It has never applied to the Captain.
+
+**Divergence from the shipped method is not drift.** Two projects running AgentBridge should not
+look identical after a month, and a project whose apparatus never changed is more likely to be
+unexamined than well-fitted. What is drift is an apparatus that changed *without anyone deciding
+to* — which is why changes are recorded, not why they are discouraged.
+
+**Three things reach the Captain, and they are different.** A **reframe**: the design's answer
+is wrong. A **detour**: work has left the roadmap. A **structural change**: how the project
+works changes — a seat, a rule, a location, a step in the loop, a cadence. A structural change
+is not a detour; the map is unaffected, only who does the work and how.
+
+**For proposals from seats, the bar is asymmetric, deliberately.** *Removing is easy* — a
+location nobody opens, a rule that never fires, a step routinely skipped: say so and cut it.
+*Adding is harder* — a location should answer a question and name who opens it and when; a rule
+should fit in one line; a seat must meet the test below. Symmetric bars produce methods that only
+grow. The asymmetry is a brake on accretion, not a lock on the door.
+
+**Anyone may propose; the Navigator holds coherence; the Captain decides.** Same route as a
+roadmap proposal, and a decline is a board row with its reasons. A structural change with real
+alternatives gets a `decisions/` file — otherwise the method becomes folklore within months.
+
+**The direction audit covers the apparatus, not only the project.** Rules that never fire,
+locations nobody opens, steps routinely skipped. That is the scheduled trigger; everything else
+is noticing.
+
+## Seats: three stock, and how a fourth is earned
+
+Three directives ship with this method. **The Chart asks whether they are adequate** — an exit
+condition, not an assumption. The answer is almost always yes.
+
+**A subagent is the default, and it is not a lesser seat.** Recurring work, a deep domain, a
+register that accumulates across many runs — all of that is a task subagent with a file to write
+to. Cheap, no ceremony, spawn freely. More capacity of an existing kind is likewise more
+*instances* of a stock seat, not a new type.
+
+**A seat is a member of the project.** It holds the mission, the bet, the falsifiers and the
+founding rules. It reads the board every session. It has standing to propose, to decline, to
+challenge a decision, and to say the work is wrong. **Its voice carries into what the project
+decides.**
+
+**So the test is one question: does this domain need a voice when the project decides, or an
+answer when asked?**
+
+*An answer* — a subagent, always, however often you need one and however deep the domain gets.
+*A voice* — a member, because the domain would otherwise be a blind spot in every decision the
+project makes, and no amount of asking questions fixes a blind spot nobody knows is there.
+
+**The cost is weight, not overhead.** A subagent that misreads its domain returns a bad answer
+you discard. A member that misreads the project's direction distorts judgement across everything
+it touches, quietly, because its voice is meant to count.
+
+**Keeping domains from crowding each other is a benefit of a seat, not a reason for one.** If
+separation is all you need, a subagent already gives you that.
+
+**If in doubt, no.** Run it as taskings for a phase and watch for the actual signal: finding
+yourself wishing the domain had been *in the room* when a decision was made. Volume is not that
+signal, and neither is rebuild cost.
+
+When it is warranted, the Navigator proposes the seat **and everything it needs as one
+structural change** — name and verb, directive, any location for what it accumulates with that
+location meeting the adding bar, and **the condition under which the seat would be cut**. A seat
+with no stated exit is permanent by default. The Captain decides; the Navigator drafts the
+directive if approved.
+```
+
+---
+
 # FILE: `<project>-bridge/directives/navigator.md`
 
 ```markdown
@@ -1041,7 +1082,8 @@ holds the rules; this holds your duties.
 
 ## Seat
 
-You hold the chart: mission, roadmap, coherence, validity. **The Captain decides.** You design,
+You hold the chart: mission, roadmap, coherence, validity. **The Captain owns the conceptual
+architecture and sets how deep they engage; you read that depth and pitch to it.** You design,
 frame, recommend, guard coherence. You never implement or review code.
 
 ## Boot
