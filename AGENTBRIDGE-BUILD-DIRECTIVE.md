@@ -45,7 +45,7 @@ Two sibling directories, two repositories, two visibilities.
 │   ├── AGENTS.md                 ← doormat. one hop to the playbook.
 │   └── CLAUDE.md                 ← same content, different runtime
 │
-└── <project>-bridge/             ← PRIVATE repo, always.
+└── <project>-bridge/             ← its own repo. private by default, Captain's call.
     ├── AGENTS.md                 ← doormat. one hop to the playbook.
     ├── CLAUDE.md                 ← same content, different runtime
     ├── boot.md                   ← one-time setup. deletes itself. absence = setup done.
@@ -88,9 +88,10 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
 5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is.
    - **Local only** is a complete answer. Revisions exist, so a decision cites a specific
      state — the half that actually bites. A remote is one command away later.
-   - **Private remote now** needs the account or organisation named. Create it **private**,
-     never public, never a guessed account. If no CLI is authenticated, report the exact
-     commands rather than improvising.
+   - **A remote now** needs the account or organisation named, and never a guessed one. **The
+     bridge defaults to private** — create it private unless the Captain says otherwise, and ask
+     rather than assume. If no CLI is authenticated, report the exact commands rather than
+     improvising.
 
    Record the answer on the board either way, so "no remote yet" stays visible.
 6. **First commit in the bridge** states in its message that it is an initial scaffold on
@@ -145,7 +146,7 @@ Nothing personal goes in this repository.
 # <project>
 
 Code, run on **AgentBridge**. The bridge — board, specs, decisions — is the sibling directory
-`../<project>-bridge/`, and it is private.
+`../<project>-bridge/`.
 
 **Start with `../<project>-bridge/playbook.md`** — it names everything else to read, in order.
 If you cannot reach it, stop and tell the Captain.
@@ -164,7 +165,7 @@ stop and ask the Captain.
 # <project>
 
 Code, run on **AgentBridge**. The bridge — board, specs, decisions — is the sibling directory
-`../<project>-bridge/`, and it is private.
+`../<project>-bridge/`.
 
 **Start with `../<project>-bridge/playbook.md`** — it names everything else to read, in order.
 If you cannot reach it, stop and tell the Captain.
@@ -369,7 +370,9 @@ release manifest written after both records the pair. Mutual pinning by hash can
 constructed, because each hash would depend on the other.
 
 **No personal material in the bridge**, ever — enforced when writing, because cleanup
-afterwards is a filter and filters leak.
+afterwards is a filter and filters leak. That rule is also what makes a *public* bridge safe where
+a project's mission calls for one: a showcase or research project whose design record is part of
+the artifact should not have to hide it.
 
 **A decision that exists only in the channel is not in the record.** Mail lives outside every
 repository, so a decision is written to the board — and to `decisions/` if it meets the bar —
@@ -731,13 +734,22 @@ should arrive into an existing convention.
 4. **The falsifiers** — what observation ends or reframes the project. Set thresholds where
    they can fire; a stop condition the project cannot lose is worse than none.
 5. **The non-negotiables** — properties without which a result proves nothing.
-6. **The first-contact artifact** — the smallest real thing that tests the core assumption.
+6. **The first-contact artifact** — **the cheapest falsification of the core assumption.** Usually
+   the smallest real running thing. **On paper — a spec taken to green against an adversarial
+   review — when the assumption is a design claim no code would test faster**, which is the case
+   for a genuinely novel surface with no prior art and nowhere else. Choosing paper where code
+   would be cheaper is the governance-outrunning-the-governed failure; choosing code where paper
+   would be cheaper buys an artifact that tests nothing.
 
 The six are an exit condition, not an interview script. An agent handed a checklist will
 administer it.
 
-**The measure.** The bet implies a number. One or two counts that say how far along the thing
-actually is, sitting on the board and read by every seat every session.
+**The measure.** The bet implies an outcome indicator — one or two readings that say how far along
+the thing actually is, sitting on the board and read by every seat every session. **Prefer a count
+with a denominator.** Where forcing a number would produce a misleading one — a craft or judgement
+domain where the real distance is assessed rather than counted — use a **falsifiable observation
+protocol** instead: state what would be observed, by whom, and what result would mean the bet is
+failing.
 
 **It counts what the bet needs, never the work done toward it.** *Specs completed: 12* is
 activity and would have looked healthy through four days of drift. *Papers: 0/21 · classes
@@ -802,6 +814,16 @@ pointed at it**. Pointing a seat at a folder *is* its permission.
 silence is not approval. The measure defined and on the board. Founding rules written as
 one-liners, with `decisions/` files for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
 structural test. Seat question answered. First-contact artifact at the top of the board.
+
+**The Chart closes on the spine, not on the full apparatus.** `decisions/` files, `phases/` and the
+Harness cadences are **deferred until their trigger fires** — a decision with a real alternative, a
+phase that crowds the map, a founding claim worth attacking. Standing them up before the first
+artifact is precisely the *governance outrunning the governed* failure this method is named
+against, and the ramp is the same asymmetry as everywhere else: start minimal, let weight be
+earned.
+
+**The measure is the exception and is never deferred.** It is the cheapest anti-drift mechanism
+here, it costs one line, and it is the first thing a lighter start would be tempted to drop.
 
 ## Muster
 
@@ -892,9 +914,20 @@ implementation and the push gate after:
   a **detour by growth**, and that is the one that hides — every individual step was authorised,
   the coherence read passes each time, and only the shape across sessions shows it.
 
-**A detour is surfaced immediately, and the work stops until the Captain rules.** Not noted, not
-logged for later: a detour continuing while it is discussed is the drift continuing. Same shape
-as pause and surface, for direction rather than design.
+**Both are surfaced immediately. Only one stops the work.**
+
+**Detour by growth — stop.** Every individual step was authorised and each coherence read passed;
+only the shape across sessions shows it, so the interrupt *is* the finding. Work halts until the
+Captain rules.
+
+**Detour by discovery — log it and carry it to the push gate**, where the Captain is deciding
+anyway. Something small and unrelated found while passing through does not earn a halt; nothing is
+hidden, only the interrupt deferred. It qualifies only if it passes the skip-review test already in
+the standing rules — *introduces no invariant, crosses no boundary, touches nothing green* — and
+**if the detour is bigger than the thing it interrupted, stop.**
+
+The boundary is self-judged, so it has a check: **the Reviewer sees the diff and may rule
+afterwards that a detour should have stopped** — the same shape as challenging a decline.
 
 Three things reach the Captain — a **reframe** when the design's answer is wrong, a **detour**
 when the course has changed without anyone choosing it, and the **push gate** at every
@@ -1364,7 +1397,7 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 | Repo | Holds | Visibility | Remote |
 |---|---|---|---|
 | `<project>` | code | | |
-| `<project>-bridge` | board, specs, decisions | **private** | *(local only, or URL)* |
+| `<project>-bridge` | board, specs, decisions | *(private by default — Captain's call)* | *(local only, or URL)* |
 
 Code commits pin the bridge commit they implement. Record `local only` rather than leaving the
 remote blank, so a deferred remote stays visible.
@@ -1387,7 +1420,10 @@ remote blank, so a deferred remote stays visible.
 | Path | Purpose | Who may be pointed here |
 |---|---|---|
 
-*Pointing a seat at a folder is its permission. Name restricted directories while empty.*
+*This is **intended scope**, not an enforced boundary — a process can usually read a sibling
+directory whatever its working directory. Where confidentiality or write isolation genuinely
+matters, use something that enforces: OS permissions, a sandbox rule, separate worktrees or
+accounts, or a tool boundary that denies. Name restricted directories while empty.*
 
 ## Position
 
@@ -1442,6 +1478,11 @@ that, something is a spec or a preference rather than a rule.*
 ## Cadence
 
 - **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise.
+- **Gate cadence is a value on this board, not a constant of the method.** Per-completion approval
+  is the starting default and **expects to be renegotiated** as trust matures and against the
+  Captain's bandwidth. The mature form is a **named list** of what still requires a decision, with
+  everything else proceeding — never "escalate when it seems important". Record the current value
+  here so a change is visible; a gate nobody revisits becomes a bottleneck mistaken for virtue.
 - Direction audit every **N** *(period)*.
 - Stop at the first running end-to-end artifact and show it — never at "complete."
 ```
