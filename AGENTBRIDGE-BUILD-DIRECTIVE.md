@@ -318,6 +318,17 @@ it.
 That is what makes motion safe. A seat runs hard on everything the plan named and stops on exactly
 what the plan did not, which is a lookup rather than a judgement made at speed.
 
+**Work routes by domain, not by who found it.** Something that surfaces inside another role's
+responsibilities goes that direction. You do not take it on because it landed in your lap, and you
+do not sit on it because it is not yours.
+
+**If no role owns it, it goes to the Navigator, whose job is then to decide what will.** Three
+answers, cheapest first: the Navigator **proxies** it and the question is answered; a **subagent**
+takes it, which is the default for recurring work, a deep domain, or a register that accumulates;
+or the domain earns a **seat**, which is a structural change and therefore the Captain's. The test
+between the last two is unchanged and lives in `protocols/apparatus.md` — *a voice when the project
+decides, or an answer when asked.*
+
 **Blocked is a dropped baton, and it is announced** — what you are waiting on, and who owns it.
 Silence is indistinguishable from running.
 
