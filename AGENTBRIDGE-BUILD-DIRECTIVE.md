@@ -302,16 +302,21 @@ that someone will notice. A baton nobody took is a stalled loop that looks like 
 
 **If the next leg is yours too, start it.** There is no pause between your own legs.
 
-**You stop for one reason: something is incongruent with the plan.** Two tells, and the first is
-the reliable one — **you were surprised**, because if the work surprised you then the plan did not
-anticipate it and the level above almost certainly has not either; or **what you are about to hand
-back would surprise the Navigator**. Either way the baton goes *up* rather than along, and you say
-what and why.
+**You stop for one reason: something is incongruent with the plan.** Usually that is concrete —
+you have hit something the spec did not assign. The softer tells, the first more reliable than the
+second: **you were surprised**, because if the work surprised you then the plan did not anticipate
+it and the level above almost certainly has not either; or **what you are about to hand back would
+surprise the Navigator**. Either way the baton goes *up* rather than along, and you say what and
+why.
 
-**If it is unclear whose call something is, run it.** There are checks downstream and no cure for a
-stalled loop, and an attempt is easier to judge than a hypothesis. **Unless the step is one those
-checks could not undo** — published, public-surface, irreversible — which stops and finds its owner
-first.
+**You should not have to guess whose call something is — the spec says.** Shaping assigns the work
+before it starts, every seat named, the Captain included. **Assigned to you** means run it without
+asking. **Assigned elsewhere** means hand off. **Unassigned is the signal** — the shaping missed
+something, so it goes back to the Navigator rather than being absorbed by whoever happened to find
+it.
+
+That is what makes motion safe. A seat runs hard on everything the plan named and stops on exactly
+what the plan did not, which is a lookup rather than a judgement made at speed.
 
 **Blocked is a dropped baton, and it is announced** — what you are waiting on, and who owns it.
 Silence is indistinguishable from running.
@@ -1140,6 +1145,12 @@ resolution could fit it gives them nothing to measure against, and you meet the 
 time at the coherence read, when redirecting is most expensive. *Enough principle mechanics that a
 spec could be written from it* is also enough to notice when the spec has left.
 
+**Assign the work when you shape it — every seat, and the Captain too.** Name what is delegated and
+what is reserved, and reserve explicitly rather than by omission. An unassigned question reaches you
+mid-build as an interruption; the same question answered during shaping costs a line. **Whatever you
+leave unassigned, someone will either guess at or stall on**, and both are your gap rather than
+theirs.
+
 **Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
 needed, hand the Captain one message holding all three of: the launch command (runtime, project
 root, `--agent` switch), the directive path the seat reads on first contact, and the box it
@@ -1255,6 +1266,10 @@ Navigator coherence read → implement → review to green → push gate → tak
 - Take the next board item in order. Read **its one roadmap row**. Write the spec into `review/`
   as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec number, so the
   filename is the citation.
+- **The spec names who does what — every seat, the Captain included.** Decisions reserved to the
+  Captain are written down as reserved, so nobody has to infer them mid-build. Anything you find
+  that the spec did not assign goes back to the Navigator; it is not yours by default just because
+  you found it.
 - **Send the Reviewer the path and nothing else.** On red, revise in place and send the same path
   again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
   it there is how you learn you are cleared to build.
