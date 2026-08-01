@@ -279,15 +279,42 @@ front of the Captain, in their terms, for approval before the project moves on t
 **The Implementer** owns implementation — handed the shape, it finds the best form for it. **The
 Reviewer** owns falsification, of the work and of the direction.
 
-**The escalation rule is one rule, applied at every level: if it might surprise the level above,
-discuss it there first.** A shape that might surprise the Navigator goes to the Navigator before it
-is built; anything that might surprise the Captain goes to the Captain before it is done.
-*Clarification*, *reframe*, *detour* and *fork* are names for what kind of surprise it is — useful
-for routing, not four separate tests.
+**Whoever owns the judgement makes it.** When you cannot tell whether a call is yours, the test is
+whether it would surprise the owner — if it would, it was not yours. *Clarification*, *reframe*,
+*detour* and *fork* are names for what kind of surprise it is, useful for routing, not four
+separate tests.
 
 Generation, falsification and direction are different cognitive functions with different
 failure modes. The structure makes each seat's blind spot another seat's job, and keeps every
 judgement visible, attributable, and owned by exactly one seat.
+
+## The baton
+
+**Holding the baton is the authorization.** You were handed the work; that is the answer to *should
+I keep going?* — a question this method never wants asked. Run your leg.
+
+**Decide what is yours to decide.** If the shape is in your domain, settle it and deliver it.
+Asking permission to do your own job is how an automated loop turns into a queue for the Captain's
+attention.
+
+**Hand off explicitly. The handoff is an act** — a move, a message, a status — never an assumption
+that someone will notice. A baton nobody took is a stalled loop that looks like work in progress.
+
+**If the next leg is yours too, start it.** There is no pause between your own legs.
+
+**You stop for one reason: something is incongruent with the plan.** Two tells, and the first is
+the reliable one — **you were surprised**, because if the work surprised you then the plan did not
+anticipate it and the level above almost certainly has not either; or **what you are about to hand
+back would surprise the Navigator**. Either way the baton goes *up* rather than along, and you say
+what and why.
+
+**If it is unclear whose call something is, run it.** There are checks downstream and no cure for a
+stalled loop, and an attempt is easier to judge than a hypothesis. **Unless the step is one those
+checks could not undo** — published, public-surface, irreversible — which stops and finds its owner
+first.
+
+**Blocked is a dropped baton, and it is announced** — what you are waiting on, and who owns it.
+Silence is indistinguishable from running.
 
 ## Two repositories
 
@@ -511,8 +538,8 @@ discuss it there first.* The names below are routing, not four more tests:
   roadmap changes before the spec continues.
 - *Detour* — the work has left its roadmap item. Below.
 
-**When in doubt, send it up.** A surprise absorbed quietly is an architectural decision made by
-whoever was typing.
+**When in doubt, run** — the baton rule above. What you may not do is absorb a surprise quietly;
+that is an architectural decision made by whoever was typing.
 
 **The other axis is friction: the apparatus rather than the work, and it goes to the Navigator.**
 When
@@ -551,20 +578,18 @@ implementation and the push gate after:
   a **detour by growth**, and that is the one that hides — every individual step was authorised,
   the coherence read passes each time, and only the shape across sessions shows it.
 
-**Both are surfaced immediately. Only one stops the work.**
+**Both are surfaced immediately. Whether the work stops is a question of who owns the judgement.**
 
-**Detour by growth — stop.** Every individual step was authorised and each coherence read passed;
-only the shape across sessions shows it, so the interrupt *is* the finding. Work halts until the
-Captain rules.
+**Growth is never yours.** The size that item implied was the Navigator's framing, so growth is
+theirs to rule on. Stop.
 
-**Detour by discovery — log it and carry it to the push gate**, where the Captain is deciding
-anyway. Something small and unrelated found while passing through does not earn a halt; nothing is
-hidden, only the interrupt deferred. It qualifies only if it passes the skip-review test already in
-the standing rules — *introduces no invariant, crosses no boundary, touches nothing green* — and
-**if the detour is bigger than the thing it interrupted, stop.**
+**Discovery is yours only if the fix falls entirely inside what you already own.** The moment it
+touches something owned elsewhere — an invariant, a boundary, a document that carries authority,
+anything green — the call is not yours and the work stops. Otherwise log it and carry it to the
+push gate, where the Captain is deciding anyway.
 
-The boundary is self-judged, so it has a check: **the Reviewer sees the diff and may rule
-afterwards that a detour should have stopped** — the same shape as challenging a decline.
+Ownership is self-assessed in the moment, so it has a check: **the Reviewer sees the diff and may
+rule afterwards that a detour should have stopped** — the same shape as challenging a decline.
 
 Three things reach the Captain — a **reframe** when the design's answer is wrong, a **detour**
 when the course has changed without anyone choosing it, and the **push gate** at every
@@ -1244,8 +1269,8 @@ Navigator coherence read → implement → review to green → push gate → tak
 ## Escalation
 
 **One test: would this surprise the Navigator?** If it might, it goes to them before you build it.
-When in doubt, send it up — a surprise you absorb quietly becomes an architectural decision made by
-whoever was typing.
+When in doubt about *whose* call it is, run it and surface it; what you may not do is absorb a
+surprise quietly, which makes it an architectural decision taken by whoever was typing.
 
 **Clarification** — the answer is in the design and you can't see it. Nothing is surprised; ask.
 
