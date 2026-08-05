@@ -310,7 +310,17 @@ uncommitted.
 
 Relevant to [AB]'s parked `pre-push` idea, which depends on exactly this pairing being well-defined.
 
-**Decision:**
+**Decision:** Settled 2026-08-05. Most of the item had dissolved under earlier work (the green
+names the exact code commit; the push gate ships only that tree; every bridge status movement is
+one commit). What remained: a real contradiction — the Reviewer's directive archives at
+implementation green while the push-gate text archived after approval — resolved in favor of
+**archive-at-green**, with a gate decline that reopens implementation being the Navigator's
+send-back from `archive/` to `specs/` (the coherence-read power, one step later). **The archive
+commit is the pairing receipt**: its message names the exact code commit the green examined, and
+implementation commits cite the spec ID and the bridge commit that cleared it to build — one
+direction per commit, no circularity, and the ghost "release manifest" is deleted; nothing else
+records the pair. [WDA]'s post-approval archive + annotated pairing tag was declined as
+over-machinery. Also fixed: the scaffolder now makes an initial commit in both repositories.
 
 ---
 

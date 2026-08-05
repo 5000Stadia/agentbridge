@@ -96,8 +96,9 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
      improvising.
 
    Record the answer on the board either way, so "no remote yet" stays visible.
-6. **First commit in the bridge** states in its message that it is an initial scaffold on
-   today's date, with no project content yet.
+6. **First commit in each repository** — the bridge and the project both — stating in its
+   message that it is an initial scaffold on today's date, with no project content yet. The
+   project's first real commit should be work, not work bundled with doormats.
 7. Report the tree and the handoff line.
 
 **Do not install or configure AgentPost.** The Navigator owns that, with seat registration and
@@ -349,9 +350,11 @@ shareable unit. An ignore rule is a filter, not a boundary.
 a specific revision, which is the failure that bites — a citation to a mutable file resolves to
 nothing in particular. A remote adds off-disk redundancy and is one command away.
 
-**Bind them one direction only.** The code commit pins the bridge commit it implements; a
-release manifest written after both records the pair. Mutual pinning by hash cannot be
-constructed, because each hash would depend on the other.
+**Bind them one direction only per commit.** Mutual pinning by hash cannot be constructed —
+each hash would depend on the other — so each side cites what already exists when it writes:
+implementation commits cite the spec ID and the bridge commit that cleared it to build, and the
+archive commit that closes the spec names the exact code commit the green examined. That archive
+commit is the pairing record; nothing else is written to record the pair.
 
 **No personal material in the bridge**, ever — enforced when writing, because cleanup
 afterwards is a filter and filters leak. That rule is also what makes a *public* bridge safe where
@@ -644,8 +647,10 @@ the count; the Navigator says what it means.
 
 **The Captain decides** — back down the ladder to Implementer, Reviewer or Navigator, or confirm
 and push **the exact tree the green named; a tree that differs goes back to review rather than
-shipping**. Then the code commit pins the bridge commit, the spec moves to `archive/`, and the
-next item starts.
+shipping**. The spec is already in `archive/` — the green put it there — so approval ends in the
+push and the slot clearing, nothing else. A decline that reopens the implementation is the
+Navigator sending the spec back from `archive/` to `specs/`: the same send-back power as at the
+coherence read, one step later, and still never the Implementer's move.
 
 ### Proposals
 
@@ -1430,9 +1435,11 @@ did, not less.
 **Deliberate specs to green. Review implementations to green.** Per spec, never per batch.
 
 **Both greens are moves, and only you make them.** Spec green is `git mv review/<file> specs/`;
-implementation green is `git mv specs/<file> archive/`. Reply green citing the new path. The
-Implementer never advances a spec's state — it cannot clear its own spec or declare its own work
-finished — and the Navigator may only send one back.
+implementation green is `git mv specs/<file> archive/`, **and that archive commit's message names
+the exact code commit the green examined — it is the pairing receipt between the two
+repositories.** Reply green citing the new path. The Implementer never advances a spec's state —
+it cannot clear its own spec or declare its own work finished — and the Navigator may only send
+one back.
 
 **A red moves nothing.** The file stays where it is: a red spec in `review/`, a red implementation
 in `specs/` — accurate, because it is still in flight. You are sent a path; open it, and do not ask
