@@ -907,10 +907,14 @@ at an implementation built from a bad plan.
 ```markdown
 # PROTOCOL — CHART
 
-**Read when booting the project, or when a reframe reopens the bet. Not in a working session.**
+**Read when booting the project, or when the bet resolves or reframes. Not in a working session.**
 
-The Chart is the one long session. `boot.md` sends the Navigator here; after that it is opened only
-when a founding claim is being reconsidered.
+The Chart is the one long session. `boot.md` sends the Navigator here; after that it is opened when
+a founding claim is being reconsidered — **and when the bet resolves, proven as much as killed.** A
+project that continues past its bet needs a new one with its own measure; a project that should not
+continue deserves a deliberate wind-down, not a drift into ambient maintenance. A satisfied measure
+reads permanently green, and that is not health — it is a dead instrument wearing a health
+indicator.
 
 *Captain and Navigator. No other seat exists yet.*
 
@@ -955,7 +959,8 @@ point.
 
 It must be countable rather than judged, and small enough to sit in one line. This is the
 cheapest anti-drift mechanism in the method: a gate needs someone to act, a number needs
-nobody to do anything and cannot be unseen.
+nobody to do anything and cannot be unseen. **Like the map, it is `HYPOTHESIS` until first
+contact** — expect the first artifact to correct what it counts, not just where it stands.
 
 **The founding rules.** The six imply rules, and the Chart is not done until they are written
 as rules. Ours arrived late as corrections — *prototype not proof*, *the demo must be
@@ -1002,13 +1007,19 @@ first contact; items **downstream of first contact are marked**, because they ca
 written until an artifact exists; and its **stop condition is structural** — *the map is done
 when every remaining unknown is one that only first contact would resolve.*
 
+Map as deep as the Captain wants to go — the whole shape is theirs to outline. **Owners are not
+written here.** Each phase's items are pinned by the phase read on entry, so distant detail stays
+what it honestly is: visible shape, not executable plan.
+
 **The seat question.** Are three stock seats adequate here? Ask deliberately.
 
 **The workspace map** goes into the board: one line per folder — purpose, and **who may be
 pointed at it**. Pointing a seat at a folder *is* its permission.
 
 **Exit.** Repositories wired and visibilities decided. Six extractables confirmed explicitly —
-silence is not approval. The measure defined and on the board. Founding rules written as
+silence is not approval, and an extractable the Captain explicitly defers becomes an open-decision
+row on the board: deferral is allowed, silent omission is not. The measure defined and on the
+board. Founding rules written as
 one-liners, with `decisions/` files for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
 structural test. Seat question answered. First-contact artifact at the top of the board.
 
@@ -1163,6 +1174,16 @@ mid-build as an interruption; the same question answered during shaping costs a 
 leave unassigned, someone will either guess at or stall on**, and both are your gap rather than
 theirs. An item row with no owner is not ready to spec.
 
+**The phase read — shaping at phase scale.** Entering a phase begins with you, not the Implementer.
+Re-read the phase's rows against everything learned since they were written — they were drafted at
+the project's point of least knowledge, and whole phases of reality have landed since. Propose the
+deltas to the Captain in their terms — rows added, voided, reshaped; numbers allocated once, as
+always — and **write the owners only after they approve**. Items in phases not yet entered sit
+ownerless by design, so nobody can run ahead of the re-evaluation. It is a read and a delta, never a
+re-charting: if what wants to change is the bet, that reopens the Chart instead. A one-phase project
+never does this; a twenty-phase one does it at every boundary, each time at the moment the plan is
+about to be spent.
+
 **Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
 needed, hand the Captain one message holding all three of: the launch command (runtime, project
 root, `--agent` switch), the directive path the seat reads on first contact, and the box it
@@ -1224,6 +1245,8 @@ the answer exists in the apparatus as it stands; propose to the Captain where it
 column is what lets the Captain send an improvement upstream, and it cannot be reconstructed later.
 
 **Harness.** Schedule direction audits. Fire a validity re-check when a founding claim retracts.
+**The bet resolving — proven as much as killed — reopens the Chart**; a project that continues past
+its bet needs a new one.
 
 ## Sessions
 
@@ -1280,7 +1303,9 @@ Navigator coherence read → implement → review to green → push gate → tak
   filename is the citation.
 - **The row already names the owner — cite it, do not restate it.** Assignment is the Navigator's,
   made at shaping, and the spec inherits it by pointing at the row. Anything the row did not assign
-  goes back to the Navigator; it is not yours by default just because you found it.
+  goes back to the Navigator; it is not yours by default just because you found it. **A next item
+  with an empty Owner is not yours to start** — the phase has not had its phase read; announce that
+  to the Navigator rather than waiting in silence.
 - **Send the Reviewer the path and nothing else.** On red, revise in place and send the same path
   again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
   it there is how you learn you are cleared to build.
@@ -1521,7 +1546,7 @@ accounts, or a tool boundary that denies. Name restricted directories while empt
 ## Position
 
 **The measure** — *(what the bet needs, counted. e.g. `papers 0/21 · ingested 0 · classes
-end-to-end 2/5`. Never a count of work done.)*
+end-to-end 2/5`. Never a count of work done. `HYPOTHESIS` until first contact, like the map.)*
 
 **Current phase** — *(e.g. `2.0.0` — Execution. Detail in `phases/2-execution.md` if split out.)*
 
@@ -1635,9 +1660,11 @@ never reused or renumbered**; sequence is the order of rows.
 **Owner.** Item rows carry one; phase and workstream rows do not. It names the seat that runs the
 item, and where a call inside the item belongs to someone else it is written in the same cell —
 `build · scope reserved to Captain`. **Only the Navigator writes this column, and only at shaping.**
-An item row with an empty Owner is not ready to spec. The board's Owner column is the same word for
-the one spec in flight: this file plans who will carry each item, the board reports who is carrying
-the current one.
+An item row with an empty Owner is not ready to spec. **Phases not yet entered sit ownerless by
+design** — the phase read pins their items on entry, after re-evaluating them against everything
+learned since they were drafted. The board's Owner column is the same word for the one spec in
+flight: this file plans who will carry each item, the board reports who is carrying the current
+one.
 
 **Splitting.** This file holds the whole map while it fits. When a phase's items crowd it, move
 them to `phases/<n>-<name>.md` and leave the phase and workstream rows here with a pointer. At

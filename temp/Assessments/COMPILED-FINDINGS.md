@@ -361,7 +361,19 @@ carried Construct was a lighter subset: CLAUDE.md + persistent memory + AgentPos
 - **Guardrail [C] insists on:** the **measure is non-deferrable** — it is the one cheap anti-drift
   mechanism and exactly what a lite variant would skip.
 
-**Decision:**
+**Decision:** Broken into four judgements, settled 2026-08-04. (1) **Option B** — no lite mode, no
+graduation event; deferral-until-triggered is the rule the method already uses everywhere, plus a
+defer-with-residue valve: an extractable the Captain explicitly defers becomes an open-decision
+board row. (2) The merged implementer/reviewer directive from [C]'s ramp is **declined** — checks
+are never deferred; cross-family review is the most-confirmed rule in the evidence base, and muster
+is already cheap. (3) The six extractables stay required — trimming saves less than a tiering rule
+costs, and the residue valve covers per-project judgement. (4) The measure stays non-deferrable but
+is **`HYPOTHESIS` until first contact**, same convention as the map. Two additions surfaced during
+this item: **the bet resolving — proven as much as killed — reopens the Chart** (a satisfied
+measure is a dead instrument; live-ops/maintenance is a new bet or a deliberate wind-down), and
+**the phase read** — shaping at phase scale: the map is outlined whole but ownerless, and each
+phase's rows are re-evaluated and pinned by the Navigator at entry, Captain approving deltas. The
+empty Owner column is the enforcement; no new gate.
 
 ---
 
