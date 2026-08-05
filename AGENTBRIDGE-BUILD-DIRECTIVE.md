@@ -1481,8 +1481,8 @@ is the finding.
 **Audit the apparatus too** — rules that never fire, locations nobody opens, steps routinely
 skipped, a seat that has become a bottleneck. Removal is the easy direction; say what should go.
 
-**Challenge declines.** Every declined proposal is on the board with its reasons so you can
-contest it.
+**Challenge declines.** Every declined proposal sits on the board with its reasons until your next
+direction audit passes over it — the audit is the challenge window closing.
 
 ## Never
 
@@ -1503,12 +1503,14 @@ think it is wrong. Nothing may be quietly assumed.
 # PROJECT BOARD
 
 **The single current-state authority.** Supersedes every directive, message and document. Every
-seat re-primes from it at session start. Decision *values* live only here; everything else cites
-IDs.
+seat re-primes from it at session start. Every decision's **current value** lives here; a
+`decisions/` file records the act of deciding and never updates — a changed answer is a new file,
+and this board points at the newest. Everything else cites IDs.
 
-**This file is bounded.** It holds current state, never history. Completed specs go to
-`archive/`, reasoning to `decisions/`, roadmap detail to `phases/`. A retired row leaves a
-one-line tombstone with a pointer, not its content.
+**This file is bounded because it is present tense.** It holds current state, never history —
+completed specs go to `archive/`, reasoning to `decisions/`, roadmap detail to `phases/`, and a
+retired row is **removed entirely**: `archive/`, `decisions/` and git history are the residue,
+and a pointer the filesystem already gives would be restatement.
 
 The Captain owns stance, structure and the roadmap. Seats move statuses and add dated notes.
 Seats may add rows as PROPOSED; only the Captain moves PROPOSED to DRAFT.
@@ -1612,12 +1614,15 @@ A dead process cannot mutate a tree; there is no state in which two run.
 | # | Decision | Recommendation | Blocks |
 |---|---|---|---|
 
-## Declined proposals
+## Declined proposals — awaiting challenge
 
 | Date | Proposer | Proposal | Declined because | Settled by |
 |---|---|---|---|---|
 
-*Cite a `decisions/` file where one exists, rather than re-arguing it here.*
+*Not a history of declines — the queue of declines the Reviewer has not yet had the chance to
+contest. A row lives until the next direction audit passes over it; leaving, a decline likely to
+be re-proposed graduates to a `decisions/` file — the existing trigger — and the rest are removed.
+Cite a `decisions/` file where one exists, rather than re-arguing it here.*
 
 ## Founding rules
 

@@ -354,7 +354,15 @@ forced a mid-task compaction.** Unbounded current-state files fail mechanically.
 
 [AB]: the `In flight` row still asks for a status that `bc79ad9` made the directory's job.
 
-**Decision:**
+**Decision:** Settled 2026-08-05 under one law the board almost already stated: **the board is
+present tense** — anything past tense does not belong on it, rather than needing bounding. Three
+consequences landed: the tombstone rule is deleted (a retired row is removed entirely; `archive/`,
+`decisions/` and git history are the residue); the Declined table is reframed as what it correctly
+was — **the queue of declines awaiting the Reviewer's challenge**, rows leaving when the direction
+audit passes over them, recurring-risk ones graduating to `decisions/` via the existing trigger;
+and the [WDA] contradiction resolved by tense — the board holds every decision's current value, a
+`decisions/` file records the act and never updates, so the two cannot drift because only one
+moves. The [AB] In flight sub-item was already resolved by the 6.2 enum (`ac1d62b`).
 
 ## 4.3 · The Chart is heavy before the first artifact
 **Sources:** [C] §8 (obs), [AB] §B8
