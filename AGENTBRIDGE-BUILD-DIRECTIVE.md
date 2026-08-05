@@ -330,7 +330,11 @@ between the last two is unchanged and lives in `protocols/apparatus.md` — *a v
 decides, or an answer when asked.*
 
 **Blocked is a dropped baton, and it is announced** — what you are waiting on, and who owns it.
-Silence is indistinguishable from running.
+Silence is indistinguishable from running — **except to the detector**. Every status movement
+stamps the board's `last activity`, so a row stale past the project's threshold is treated as a
+dropped baton whether or not anyone announced it: the awaited seat is pinged, and silence past the
+response window ends in termination and takeover. The mechanics sit on the board beside the values
+they use.
 
 ## Two repositories
 
@@ -537,6 +541,10 @@ spawned, never in a working session.
 **take next → spec into `review/` → Reviewer to green, and the green *is* the move to `specs/` →
 Navigator coherence read → implement → review to green → the push gate → take next.**
 
+Two columns run it: generation and falsification. **Every artifact that authorizes work meets an
+adversarial read at its own altitude before work is built from it** — specs and implementations in
+the Reviewer's deliberation, the map and every phase read's deltas in the red-team.
+
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
 
@@ -635,7 +643,8 @@ drift, visible at the moment it happens rather than four days later. The Impleme
 the count; the Navigator says what it means.
 
 **The Captain decides** — back down the ladder to Implementer, Reviewer or Navigator, or confirm
-and push. Then the code commit pins the bridge commit, the spec moves to `archive/`, and the
+and push **the exact tree the green named; a tree that differs goes back to review rather than
+shipping**. Then the code commit pins the bridge commit, the spec moves to `archive/`, and the
 next item starts.
 
 ### Proposals
@@ -1182,7 +1191,8 @@ always — and **write the owners only after they approve**. Items in phases not
 ownerless by design, so nobody can run ahead of the re-evaluation. It is a read and a delta, never a
 re-charting: if what wants to change is the bet, that reopens the Chart instead. A one-phase project
 never does this; a twenty-phase one does it at every boundary, each time at the moment the plan is
-about to be spent.
+about to be spent. **The phase read ends the way the Chart's map ended: its deltas are red-teamed
+by the Reviewer** before the phase's first spec is taken.
 
 **Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
 needed, hand the Captain one message holding all three of: the launch command (runtime, project
@@ -1246,7 +1256,9 @@ column is what lets the Captain send an improvement upstream, and it cannot be r
 
 **Harness.** Schedule direction audits. Fire a validity re-check when a founding claim retracts.
 **The bet resolving — proven as much as killed — reopens the Chart**; a project that continues past
-its bet needs a new one.
+its bet needs a new one. **Liveness is yours to run**: on a stale-row report, ping the awaited seat
+and hold the response window; on expiry, hand the Captain the termination and write the takeover
+only after it is verified. Values and sequence live on the board.
 
 ## Sessions
 
@@ -1411,7 +1423,9 @@ you share that root with the Implementer. **Verify ARMED.**
 ## Jobs
 
 **Red-team the map** before any code exists. Your first task, and the highest-leverage review in
-the project's life.
+the project's life. **The same read meets every phase read's deltas** before that phase's first
+spec is taken — the map's per-phase revisions carry more accumulated assumption than the original
+did, not less.
 
 **Deliberate specs to green. Review implementations to green.** Per spec, never per batch.
 
@@ -1423,6 +1437,13 @@ finished — and the Navigator may only send one back.
 **A red moves nothing.** The file stays where it is: a red spec in `review/`, a red implementation
 in `specs/` — accurate, because it is still in flight. You are sent a path; open it, and do not ask
 for its contents.
+
+**An implementation green names the exact commit it examined, and says in one line what it did
+not.** The push gate ships only the tree the green named, which closes *the thing checked was not
+the thing kept* mechanically — and *nothing beyond the diff* is a real answer, the same way
+*nothing was unexpected* is. A spec green needs neither; the text in the file is the whole object.
+**When the board names consumers** — a row that exists once the first real one appears, and not
+before — **findings also rule what each changes for them, including "nothing."**
 
 **A red names direction and constraint, never replacement text.** *"This must not assume the
 extractor sees the key"* and *"the invariant belongs at the boundary, not in the caller"* are
@@ -1550,15 +1571,39 @@ end-to-end 2/5`. Never a count of work done. `HYPOTHESIS` until first contact, l
 
 **Current phase** — *(e.g. `2.0.0` — Execution. Detail in `phases/2-execution.md` if split out.)*
 
-**In flight** — *(spec ID and owner, or `none — slot empty`. The location carries the status.)*
+**In flight** — *(spec ID and owner, or `none — slot empty`.)*
 
-| # | Spec | Status | Owner | Note |
-|---|---|---|---|---|
+| # | Spec | Status | Owner | Last activity | Note |
+|---|---|---|---|---|---|
 
-**The location is the status.** `review/` = awaiting a verdict · `specs/` = cleared, being built ·
-`archive/` = done, and out of this table. The board carries only what the filesystem cannot show:
-`PROPOSED` before any file exists, and whether a spec sitting in `specs/` is being implemented or
-has gone back to the Reviewer. Do not restate a status the directory already gives.
+**Status is a closed set, and each value names the seat the loop is waiting on:**
+
+`PROPOSED` → Implementer (item taken, no file yet) · `spec-deliberating` → Reviewer ·
+`spec-red-revising` → Implementer · `coherence-read` → Navigator · `coherence-red-revising` →
+Implementer (spec back in `review/`; exits by resending the path) · `building` → Implementer ·
+`impl-deliberating` → Reviewer · `impl-red-repairing` → Implementer · `reporting` → Implementer ·
+`at-push-gate` → Navigator · `awaiting-captain` → Captain · `pushing` → Implementer, exiting to
+slot empty — which awaits nobody, correctly.
+
+The seat performing a status movement writes Status and `last activity` (ISO-8601 UTC) **in the
+same bridge commit as the file move** — the commit is the transaction, and committed state is the
+only state the detector reads. Where Status and location contradict, **location wins**: repair
+Status to match and tell the Navigator. `last activity` has one other writer — the Navigator,
+resetting it on an alive reply.
+
+**Liveness** — *(two values, set at the Chart and revisable: `stall threshold: —` ·
+`response window: —`, default threshold/2. Detector layers: the platform scheduler if one is
+named here; every seat's session-start board read; past those the residual detector is the
+Captain reading this row, which is stated here so nobody mistakes the floor.)*
+
+Stale past threshold → the Navigator pings the awaited seat with an AgentPost question; any reply
+inside the response window counts as alive, and *still working, here is why it is slow* is an
+alive reply — the Navigator resets `last activity`. Stale past threshold **plus** window — or the
+awaited seat *is* the Navigator — reports directly to the Captain, **who still runs the ping and
+its deadline if the Navigator never sent them**. Takeover is one fixed sequence: deadline expiry →
+the Captain terminates the runtime — start authority implies stop authority, and takeover before
+verified termination is forbidden — → the Navigator writes the new owner → the replacement starts.
+A dead process cannot mutate a tree; there is no state in which two run.
 
 **Next up** — *(the following two or three item IDs, no more)*
 

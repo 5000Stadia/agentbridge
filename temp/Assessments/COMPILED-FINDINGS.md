@@ -282,7 +282,17 @@ unverified areas, must/should/minor, and whether anything changes the public sur
 **[WDA]'s framing is the summary:** this makes green *a reproducible claim rather than a
 conversational state.*
 
-**Decision:**
+**Decision:** Settled 2026-08-05 by live smoke test — a five-round Implementer/Reviewer
+deliberation with `abr` on a deliberately contract-free spec (item 6.2). Result: **deliberation is
+the contract for content** — every round demanded done-criteria, edges, and mechanics unprompted,
+and each red stated its own green condition; the proposed spec template and spec questions are
+**dropped entirely**. What five verdicts never carried was evidence about themselves, so the
+residue landed: an **implementation green names the exact commit it examined and says in one line
+what it did not** (spec greens need neither — the text is the whole object); the **push gate ships
+only the tree the green named**, closing checked-not-kept mechanically; and the [PB] pairing is
+**row-triggered** — verdicts rule per-finding external impact only once a consumers row exists,
+which happens when the first real consumer does. [PB] §4's invocation rule was found already
+covered by the standing suite-identity/denominator rules.
 
 ## 3.2 · The two-repository commit transaction is undefined
 **Sources:** [WDA] §6
