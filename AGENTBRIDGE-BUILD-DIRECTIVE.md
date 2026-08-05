@@ -309,11 +309,11 @@ it and the level above almost certainly has not either; or **what you are about 
 surprise the Navigator**. Either way the baton goes *up* rather than along, and you say what and
 why.
 
-**You should not have to guess whose call something is — the spec says.** Shaping assigns the work
-before it starts, every seat named, the Captain included. **Assigned to you** means run it without
-asking. **Assigned elsewhere** means hand off. **Unassigned is the signal** — the shaping missed
-something, so it goes back to the Navigator rather than being absorbed by whoever happened to find
-it.
+**You should not have to guess whose call something is — the roadmap row says.** Shaping assigns
+the work before it starts, every seat named, the Captain included. **Assigned to you** means run it
+without asking. **Assigned elsewhere** means hand off. **Unassigned is the signal** — the shaping
+missed something, so it goes back to the Navigator rather than being absorbed by whoever happened to
+find it.
 
 That is what makes motion safe. A seat runs hard on everything the plan named and stops on exactly
 what the plan did not, which is a lookup rather than a judgement made at speed.
@@ -1156,11 +1156,12 @@ resolution could fit it gives them nothing to measure against, and you meet the 
 time at the coherence read, when redirecting is most expensive. *Enough principle mechanics that a
 spec could be written from it* is also enough to notice when the spec has left.
 
-**Assign the work when you shape it — every seat, and the Captain too.** Name what is delegated and
-what is reserved, and reserve explicitly rather than by omission. An unassigned question reaches you
-mid-build as an interruption; the same question answered during shaping costs a line. **Whatever you
+**Assign the work in the row while you shape it — every seat, and the Captain too.** The item row
+carries an owner and you are the only seat that writes it; name what is delegated and what is
+reserved, and reserve explicitly rather than by omission. An unassigned question reaches a seat
+mid-build as an interruption; the same question answered during shaping costs a cell. **Whatever you
 leave unassigned, someone will either guess at or stall on**, and both are your gap rather than
-theirs.
+theirs. An item row with no owner is not ready to spec.
 
 **Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
 needed, hand the Captain one message holding all three of: the launch command (runtime, project
@@ -1277,10 +1278,9 @@ Navigator coherence read → implement → review to green → push gate → tak
 - Take the next board item in order. Read **its one roadmap row**. Write the spec into `review/`
   as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec number, so the
   filename is the citation.
-- **The spec names who does what — every seat, the Captain included.** Decisions reserved to the
-  Captain are written down as reserved, so nobody has to infer them mid-build. Anything you find
-  that the spec did not assign goes back to the Navigator; it is not yours by default just because
-  you found it.
+- **The row already names the owner — cite it, do not restate it.** Assignment is the Navigator's,
+  made at shaping, and the spec inherits it by pointing at the row. Anything the row did not assign
+  goes back to the Navigator; it is not yours by default just because you found it.
 - **Send the Reviewer the path and nothing else.** On red, revise in place and send the same path
   again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
   it there is how you learn you are cleared to build.
@@ -1625,12 +1625,19 @@ rows here, because the method cannot see which of its own rules are dead weight.
 The shape of the whole project. Item numbers are spec numbers. **Numbers are allocated once and
 never reused or renumbered**; sequence is the order of rows.
 
-| # | Item | Purpose and principle mechanics | Downstream of first contact? |
-|---|---|---|---|
-| `1.0.0` | *phase* | | |
-| `1.1.0` | *workstream* | | |
-| `1.1.1` | *item — a spec is written from this* | | |
-| `2.0.0` | *phase* | | |
+| # | Item | Owner | Purpose and principle mechanics | Downstream of first contact? |
+|---|---|---|---|---|
+| `1.0.0` | *phase* | | | |
+| `1.1.0` | *workstream* | | | |
+| `1.1.1` | *item — a spec is written from this* | *seat* | | |
+| `2.0.0` | *phase* | | | |
+
+**Owner.** Item rows carry one; phase and workstream rows do not. It names the seat that runs the
+item, and where a call inside the item belongs to someone else it is written in the same cell —
+`build · scope reserved to Captain`. **Only the Navigator writes this column, and only at shaping.**
+An item row with an empty Owner is not ready to spec. The board's Owner column is the same word for
+the one spec in flight: this file plans who will carry each item, the board reports who is carrying
+the current one.
 
 **Splitting.** This file holds the whole map while it fits. When a phase's items crowd it, move
 them to `phases/<n>-<name>.md` and leave the phase and workstream rows here with a pointer. At
