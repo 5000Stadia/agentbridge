@@ -512,6 +512,7 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | Status | File | Awaits | The act that exits it | Next |
 |---|---|---|---|---|
 | *(slot empty)* | none | Implementer | take the next item: create the row with `last activity` — its own bridge commit, **before any drafting** | `PROPOSED` |
+| *(slot empty)* | none | Implementer | an eligible standalone skip-review change: create its row the same way — **before any mutation** | `skip-review` |
 | `PROPOSED` | none | Implementer | author the spec into `review/`, message the Reviewer the path | `spec-deliberating` |
 | `spec-deliberating` | `review/` | Reviewer | red: reply, direction and constraint · green: `git mv` to `specs/` | red → `spec-red-revising` · green → `coherence-read` |
 | `spec-red-revising` | `review/` | Implementer | revise in place, resend the path | `spec-deliberating` |
@@ -521,10 +522,10 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | `impl-deliberating` | `specs/` | Reviewer | red: reply · green: name the commit examined and what was not, `git mv` to `archive/`, the archive commit message naming that code commit | red → `impl-red-repairing` · green → `reporting` |
 | `impl-red-repairing` | `specs/` | Implementer | fix, resend the same handoff form as before | `impl-deliberating` |
 | `reporting` | `archive/` | Implementer | the three-part report to the Navigator | `at-push-gate` |
-| `at-push-gate` | `archive/` | Navigator | translate for the Captain | `awaiting-captain` |
-| `awaiting-captain` | `archive/` | Captain | approve, or back down the ladder — reopening the implementation is the Navigator moving `archive/` → `specs/` | approve → `pushing` · reopen → `building` |
-| `pushing` | `archive/` | Implementer | push exactly the named tree — the green's, or the gate report's for the skip-review class — and clear the row | slot empty |
-| `skip-review` *(standalone only)* | none | Implementer | make the change, then report to the Navigator — exact commit, review skipped, the three conditions justified | `at-push-gate` |
+| `skip-review` *(standalone)* | none | Implementer | make the change, then report to the Navigator — exact commit, review skipped, the three conditions justified | `at-push-gate` |
+| `at-push-gate` | `archive/` *(none: standalone skip)* | Navigator | translate for the Captain | `awaiting-captain` |
+| `awaiting-captain` | `archive/` *(none: standalone skip)* | Captain | approve, or back down the ladder — reopening a reviewed implementation is the Navigator moving `archive/` → `specs/`; a standalone-skip decline is a named triage, below | approve → `pushing` · reopen → `building` · triage per ruling |
+| `pushing` | `archive/` *(none: standalone skip)* | Implementer | push exactly the named tree — the green's, or the gate report's for the skip-review class — and clear the row | slot empty |
 
 Three rules govern every row. **The seat performing a transition writes Status and
 `last activity` in the same bridge commit** — where the transition moves a file, the move shares
@@ -549,7 +550,10 @@ commit before any mutation, then the `skip-review` transition through the shared
 **The Implementer establishes eligibility and the report is the receipt**; the Reviewer may rule
 afterward that it should have been reviewed, the same check as detours. `pushing` ships the
 report-named, Captain-approved commit; the exact-tree rule holds with only the naming act
-differing. No review may be appropriate — no durable heartbeat is not.
+differing. **A standalone decline is the Captain's triage, named in the ruling**: repair and
+resubmit the same way; abandon — revert, clear the row; or review is required — the change
+converts to a normal item and enters as `PROPOSED`. No review may be appropriate — no durable
+heartbeat is not.
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -640,12 +644,10 @@ approval ends in the push and the slot clearing, nothing else. A decline that re
 implementation is the Navigator sending the spec back from `archive/` to `specs/`: the same
 send-back power as at the coherence read, one step later, and still never the Implementer's move.
 
-**Skip-review changes reach the remote through this same gate and no other path.** Riding a
-cycle's gate, the report names one exact commit that contains them, states the green'd commit it
-extends, and justifies each skipped change's three conditions. Standalone, the `skip-review` row
-is created **before** the work — the heartbeat rule — and the same three-part act follows: report
-naming the exact commit, approval of an unreviewed tree, push of exactly that commit, row
-cleared.
+**Skip-review changes reach the remote through this same gate and no other path** — riding a
+cycle's report, or standalone through their own row, per the table's class block. Either way the
+report names the exact commit and justifies the three conditions, and the approval is of an
+unreviewed tree.
 
 **A matured gate is a standing delegation, not a hole.** When the board's named list says what
 still requires a decision, everything outside the list proceeds *already authorized* — by the
