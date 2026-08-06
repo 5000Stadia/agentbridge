@@ -551,6 +551,7 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | `at-push-gate` | `archive/` | Navigator | translate for the Captain | `awaiting-captain` |
 | `awaiting-captain` | `archive/` | Captain | approve, or back down the ladder — reopening the implementation is the Navigator moving `archive/` → `specs/` | approve → `pushing` · reopen → `building` |
 | `pushing` | `archive/` | Implementer | push exactly the named tree — the green's, or the gate report's for the skip-review class — and clear the row | slot empty |
+| `skip-review` *(standalone only)* | none | Implementer | make the change, then report to the Navigator — exact commit, review skipped, the three conditions justified | `at-push-gate` |
 
 Three rules govern every row. **The seat performing a transition writes Status and
 `last activity` in the same bridge commit** — where the transition moves a file, the move shares
@@ -567,14 +568,15 @@ same coordinates by message, stated as such**: exact commit, its direct parent, 
 changed paths. The Reviewer claims the message, verifies the coordinates against the repository,
 and on failure replies with the coordinate error, **the changed artifacts unopened**.
 
-**One class runs beside the table, and it is stated here so the table stays exact.** A
-**skip-review change** — no invariant, no boundary, nothing green touched — never occupies the
-slot: no spec, no row, no location, entering whenever it is made. **The Implementer establishes
-eligibility and the report is the receipt**; the Reviewer may rule afterward that it should have
-been reviewed, the same check as detours. A live spec is unaffected — the class rides the next
-gate, where the report names one exact commit containing it, or stands alone at an empty slot as
-report → approval → push. `pushing` ships the report-named, Captain-approved commit; the
-exact-tree rule holds with only the naming act differing.
+**The skip-review class** — no invariant, no boundary, nothing green touched — carries no spec
+and takes no review, but **it is never invisible to liveness**. Riding a live cycle it needs no
+row of its own: the cycle's heartbeat covers it, the cycle's gate report names one exact commit
+containing it. **Standalone — the slot empty — it enters like any work: the row first**, its own
+commit before any mutation, then the `skip-review` transition through the shared gate states.
+**The Implementer establishes eligibility and the report is the receipt**; the Reviewer may rule
+afterward that it should have been reviewed, the same check as detours. `pushing` ships the
+report-named, Captain-approved commit; the exact-tree rule holds with only the naming act
+differing. No review may be appropriate — no durable heartbeat is not.
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -679,11 +681,12 @@ approval ends in the push and the slot clearing, nothing else. A decline that re
 implementation is the Navigator sending the spec back from `archive/` to `specs/`: the same
 send-back power as at the coherence read, one step later, and still never the Implementer's move.
 
-**Skip-review changes reach the remote through this same gate and no other path.** They never
-occupy the slot — no spec, no row. Riding a cycle's gate, the report names one exact commit that
-contains them, states the green'd commit it extends, and justifies each skipped change's three
-conditions. With the slot empty, the same three-part act stands alone: report naming the exact
-commit, approval of an unreviewed tree, push of exactly that commit.
+**Skip-review changes reach the remote through this same gate and no other path.** Riding a
+cycle's gate, the report names one exact commit that contains them, states the green'd commit it
+extends, and justifies each skipped change's three conditions. Standalone, the `skip-review` row
+is created **before** the work — the heartbeat rule — and the same three-part act follows: report
+naming the exact commit, approval of an unreviewed tree, push of exactly that commit, row
+cleared.
 
 **A matured gate is a standing delegation, not a hole.** When the board's named list says what
 still requires a decision, everything outside the list proceeds *already authorized* — by the
