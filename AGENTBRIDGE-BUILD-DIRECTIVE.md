@@ -726,8 +726,10 @@ Universal. A project's own hard-won rules go on its board, not here.
   the author's blind spots.
 - **Attack with counterexamples run against the real path**, not by inspection.
 - **Skip review** only for changes that introduce no invariant, cross no boundary, and touch
-  nothing green — regardless of line count. A skipped-review change still passes the push gate
-  and is named in the report; that naming is its receipt.
+  nothing green — regardless of line count. **The receipt is at the gate**: the report names the
+  exact commit, says review was skipped, and says why all three conditions held — and the
+  Captain's approval is approval of an *unreviewed* tree, never described as green. A standing
+  gate delegation does not cover skipped-review changes unless it names that class.
 - **When an instruction does not cover something, ask.** A plausible assumption held confidently
   is the founding failure mode of agent work.
 - **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — **name where you are
