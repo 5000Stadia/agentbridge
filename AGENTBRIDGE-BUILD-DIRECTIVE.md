@@ -563,7 +563,7 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | `reporting` | `archive/` | Implementer | the three-part report to the Navigator | `at-push-gate` |
 | `at-push-gate` | `archive/` | Navigator | translate for the Captain | `awaiting-captain` |
 | `awaiting-captain` | `archive/` | Captain | approve, or back down the ladder — reopening the implementation is the Navigator moving `archive/` → `specs/` | approve → `pushing` · reopen → `building` |
-| `pushing` | `archive/` | Implementer | push exactly the tree the green named, clear the row | slot empty |
+| `pushing` | `archive/` | Implementer | push exactly the named tree — the green's, or the gate report's for the skip-review class — and clear the row | slot empty |
 
 Three rules govern every row. **The seat performing a transition writes Status and
 `last activity` in the same bridge commit** — where the transition moves a file, the move shares
@@ -682,12 +682,18 @@ does not move the measure is still correct work — but three summaries in a row
 drift, visible at the moment it happens rather than four days later. The Implementer supplies
 the count; the Navigator says what it means.
 
-**The Captain decides; the Implementer pushes** — **exactly the tree the green named; a tree that
-differs goes back to review rather than shipping**. The spec is already in `archive/` — the green
-put it there — so approval ends in the push and the slot clearing, nothing else. A decline that
-reopens the implementation is the Navigator sending the spec back from `archive/` to `specs/`:
-the same send-back power as at the coherence read, one step later, and still never the
-Implementer's move.
+**The Captain decides; the Implementer pushes** — **exactly the tree the naming act named: the
+green's for reviewed work, the gate report's for the skip-review class. A tree that differs goes
+back rather than shipping.** The spec is already in `archive/` — the green put it there — so
+approval ends in the push and the slot clearing, nothing else. A decline that reopens the
+implementation is the Navigator sending the spec back from `archive/` to `specs/`: the same
+send-back power as at the coherence read, one step later, and still never the Implementer's move.
+
+**Skip-review changes reach the remote through this same gate and no other path.** They never
+occupy the slot — no spec, no row. Riding a cycle's gate, the report names one exact commit that
+contains them, states the green'd commit it extends, and justifies each skipped change's three
+conditions. With the slot empty, the same three-part act stands alone: report naming the exact
+commit, approval of an unreviewed tree, push of exactly that commit.
 
 **A matured gate is a standing delegation, not a hole.** When the board's named list says what
 still requires a decision, everything outside the list proceeds *already authorized* — by the
