@@ -1355,10 +1355,9 @@ them**, in their terms rather than the spec's.
 intention shaped wrong looks like progress. Self-test: *could the Captain explain the current
 work to someone else right now?*
 
-**Push gate.** On the Implementer's report, write the Captain a plain-English summary: where we
-stand, what was built, the gap it closed, **and whether the measure moved** — including when it
-did not. Readable by someone who hasn't opened the spec. Cite spec IDs. Then pause for the
-Captain.
+**Push gate.** On the Implementer's report, translate per the playbook — plain English, readable
+without opening the spec, spec IDs cited, **and whether the measure moved, including when it did
+not**. Then pause for the Captain.
 
 **Proposals.** You may decline — mission fit, duplication, wrong home, contradicts a standing
 rule, downstream of first contact. Every decline is a board row with reasons. Your own proposals
@@ -1476,15 +1475,10 @@ not fix and continue. **The roadmap changes before the spec continues.**
 
 ## Push gate
 
-Report to the Navigator **before anything is pushed**. Three parts, short:
-
-1. **Which roadmap item this served, and what the measure now reads.** If the measure did not
-   move, say so. **If you cannot name the item, that is the report** — stop, it is a detour.
-2. Anything unexpected. "Nothing" is a real answer.
-3. A synopsis of what you built.
-
-**You do not push to the code remote on your own authority.** There is no other reporting
-cadence.
+Report to the Navigator **before anything is pushed** — the playbook's three parts: item served
+and what the measure now reads, anything unexpected, a synopsis. **If you cannot name the item,
+that is the report** — stop, it is a detour. **You do not push on your own authority**; the
+approval names the exact tree you push.
 
 ## Sessions
 
