@@ -85,10 +85,13 @@ runs over an existing repository.
 
 1. Create the two sibling directories.
 2. `git init` in each, on the named default branch.
-3. Create the files below — **verbatim except rendering**: every `<project>` and `<Project>`
-   placeholder is substituted with the slug or display name, and the last act before the initial
-   commits is a scan for any unresolved `<...>` placeholder, which is a failure to fix, not to
-   report away. Include `directives/` and `protocols/`. Create empty
+3. Create the files below — **verbatim except rendering**: exactly two tokens render,
+   `<project>` → the slug and `<Project>` → the display name. **Every other angle-bracket form —
+   `<item>`, `<slug>`, `<seat>`, `<root>`, `<runtime>`, `<n>`, `<name>`, and the rest — is a
+   runtime metavariable the method uses on purpose, preserved untouched**, as are angle-bracket
+   URLs. The last act before the initial commits is a scan for any surviving `<project>` or
+   `<Project>`, which is a failure to fix, not to report away. Include `directives/` and
+   `protocols/`. Create empty
    `review/`, `specs/`, `archive/` and
    `decisions/` directories with a `.gitkeep` in each. **Do not create `phases/`.** The empty
    directories are real states — the filesystem carries the loop's coarse state. An empty
@@ -256,7 +259,8 @@ done — point new seats at their own directive.**
 2. **`PROJECT-BOARD.md`** — where we are now. It supersedes everything, including this file
    and your directive.
 3. **your own directive** in `directives/` — what your job is
-4. **the live spec** in `specs/`, if the slot is occupied
+4. **the live spec, where the board's Status has it** — `review/` or `specs/` — if the slot is
+   occupied
 
 That is the whole onboarding. Paths are relative to the bridge root; from the project repo,
 prefix `../<project>-bridge/`. **Re-prime from the board at session start, never from
@@ -268,8 +272,9 @@ Navigator's to determine.
 
 ---
 
-**Four protocols exist and none is read in a normal session.** Each opens only when its trigger
-fires; that is what keeps the four-file onboarding honest as the method grows.
+**Four protocols exist and none is preloaded.** Each opens only when its trigger fires — which
+for liveness can be mid-session; that is what keeps the four-file onboarding honest as the method
+grows.
 
 | Protocol | Read it when |
 |---|---|
@@ -546,7 +551,8 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 
 | Status | File | Awaits | The act that exits it | Next |
 |---|---|---|---|---|
-| `PROPOSED` | none | Implementer | take the item: create the row, author the spec into `review/`, message the Reviewer the path | `spec-deliberating` |
+| *(slot empty)* | none | Implementer | take the next item: create the row with `last activity` — its own bridge commit, **before any drafting** | `PROPOSED` |
+| `PROPOSED` | none | Implementer | author the spec into `review/`, message the Reviewer the path | `spec-deliberating` |
 | `spec-deliberating` | `review/` | Reviewer | red: reply, direction and constraint · green: `git mv` to `specs/` | red → `spec-red-revising` · green → `coherence-read` |
 | `spec-red-revising` | `review/` | Implementer | revise in place, resend the path | `spec-deliberating` |
 | `coherence-read` | `specs/` | Navigator | pass: message the Implementer · drift: move the file back to `review/`, board row saying why | pass → `building` · drift → `coherence-red-revising` |
@@ -561,11 +567,18 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 
 Three rules govern every row. **The seat performing a transition writes Status and
 `last activity` in the same bridge commit** — where the transition moves a file, the move shares
-that commit; otherwise the commit is the board edit alone. **A committed contradiction between
-Status and location freezes the leg** — no further transition; the Navigator reconstructs the
-last valid state from committed history. Location narrows the candidates; it never chooses the
-awaited seat. **Spec handoff is a path; implementation handoff is the envelope** — two visibly
-different acts, because two different objects are under review: a text, and a tree.
+that commit; otherwise the commit is the board edit alone, and **the message follows the commit**:
+the commit records, the reply or path or envelope notifies, one act in sequence rather than one
+artifact. **A committed contradiction between Status and location freezes the leg** — no further
+transition; the Navigator reconstructs the last valid state from committed history. Location
+narrows the candidates; it never chooses the awaited seat. **Spec handoff is a path;
+implementation handoff is the envelope** — two visibly different acts, because two different
+objects are under review: a text, and a tree. The envelope requires a test node, which is a
+feature: an implementation normally names its witness. **Where the work genuinely has no
+executable witness** — prose, configuration, a repository without a suite — **the handoff is the
+same coordinates by message, stated as such**: exact commit, its direct parent, the complete
+changed paths. The Reviewer verifies those against the repository before reading anything; a
+handoff whose coordinates do not check is returned unread.
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -728,8 +741,10 @@ Universal. A project's own hard-won rules go on its board, not here.
 - **Skip review** only for changes that introduce no invariant, cross no boundary, and touch
   nothing green — regardless of line count. **The receipt is at the gate**: the report names the
   exact commit, says review was skipped, and says why all three conditions held — and the
-  Captain's approval is approval of an *unreviewed* tree, never described as green. A standing
-  gate delegation does not cover skipped-review changes unless it names that class.
+  Captain's approval is approval of an *unreviewed* tree, never described as green. **The
+  report's named commit is the tree the approval covers and the push ships** — the exact-tree
+  rule with the report standing in for the green as the naming act. A standing gate delegation
+  does not cover skipped-review changes unless it names that class.
 - **When an instruction does not cover something, ask.** A plausible assumption held confidently
   is the founding failure mode of agent work.
 - **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — **name where you are
@@ -845,6 +860,23 @@ seats learn by observation.
       --project-roots /path/to/projecto-bridge \
       --handles 'nav,roadmap questions,coherence checks,reframes'
 
+**The stock doing-seat registrations, complete — a cold seat substitutes its slug and roots and
+invents nothing:**
+
+    agentpost profile-register projecto-i \
+      --display-name 'Projecto Implementer' --kind project \
+      --summary 'Writes the specs and code; the heartbeat of the loop.' \
+      --roles implementer --projects projecto \
+      --project-roots /path/to/projecto \
+      --handles 'build,spec requests,implementation questions'
+
+    agentpost profile-register projecto-r \
+      --display-name 'Projecto Reviewer' --kind project \
+      --summary 'Falsifies the work and the direction; deliberates specs and implementations to green.' \
+      --roles reviewer --projects projecto \
+      --project-roots /path/to/projecto \
+      --handles 'check,spec reviews,implementation reviews'
+
     cd /path/to/projecto-bridge && agentpost join projecto-n --cli claude   # always name the seat
     agentpost identities --project projecto
     agentpost resolve projecto.nav
@@ -955,9 +987,10 @@ continue deserves a deliberate wind-down, not a drift into ambient maintenance. 
 reads permanently green, and that is not health — it is a dead instrument wearing a health
 indicator.
 
-*Captain and Navigator. No other seat exists yet. Setup — repositories, AgentPost, instantiating
-the board — is `boot.md`'s and is already done by the time you are here; this file is the
-conversation.*
+*Captain and Navigator. At first boot no other seat exists yet; setup — repositories, AgentPost,
+instantiating the board — is `boot.md`'s and is already done by the time you are here. On a
+re-Chart the doing seats may exist: they pause — the in-flight slot runs to empty or the
+Navigator sends it back, and no new item is taken until this closes.*
 
 **Instantiating the board meant:** setup fields filled at boot (repositories, seats, your own
 identity — recorded on the board and reported to the Captain; there is nobody else to announce
@@ -1078,12 +1111,12 @@ board. Operating values recorded. Founding rules written as one-liners, with `de
 for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
 structural test. Seat question answered. First-contact artifact at the top of the board.
 
-**The Chart closes on the spine, not on the full apparatus.** `decisions/` files, `phases/` and the
-Harness cadences are **deferred until their trigger fires** — a decision with a real alternative, a
-phase that crowds the map, a founding claim worth attacking. Standing them up before the first
-artifact is precisely the *governance outrunning the governed* failure this method is named
-against, and the ramp is the same asymmetry as everywhere else: start minimal, let weight be
-earned.
+**The Chart closes on the spine, not on the full apparatus.** `decisions/` files and `phases/`
+are **deferred until their trigger fires** — a decision with a real alternative, a phase that
+crowds the map. Standing them up before the first artifact is precisely the *governance
+outrunning the governed* failure this method is named against, and the ramp is the same asymmetry
+as everywhere else: start minimal, let weight be earned. **The audits are not deferred** — a
+cadence cannot wait for its own trigger, which is why the operating values record it here.
 
 **The measure is the exception and is never deferred.** It is the cheapest anti-drift mechanism
 here, it costs one line, and it is the first thing a lighter start would be tempted to drop.
@@ -1184,7 +1217,7 @@ directive if approved.
 ```markdown
 # PROTOCOL — LIVENESS
 
-**Read when a board row is stale past the threshold. Never in a working session.**
+**Not preloaded — open the moment a board row is stale past the threshold, mid-session included.**
 
 The seat that most needs to announce is the one that cannot. This protocol is how a dead seat
 stops looking like a working one.
@@ -1249,15 +1282,10 @@ seat types.
 
 ## Duties
 
-**Clarification** — the answer is in the design and the Implementer can't see it. Answer alone,
-cite the board.
-
-**Reframe** — the answer isn't there, or the design's answer is wrong. Frame it for the Captain.
-**The same test applies to you: would this surprise them?** If it might, it is theirs before it is
-yours, and the depth you pitch it at is your call to make.
-
-**Fork** — the doing channel found shapes that differ in what they add. Settle it, or take it to
-the Captain if choosing would move the architecture.
+**Route by surprise — the playbook's names.** *Clarification*: answer alone, cite the board.
+*Fork*: settle it, or the Captain if choosing would move the architecture. *Reframe*: frame it
+for the Captain — the same test applies to you, *would this surprise them?* — and the depth you
+pitch it at is your call to make.
 
 **Coherence read** before implementation — does this spec still serve its roadmap item, did
 anything drift in deliberation? Not correctness; that's the Reviewer's.
@@ -1424,7 +1452,8 @@ sequence:
   and finding it there is how you learn you are cleared to build.
 - **Implementation handoff is the envelope, not a path** — `agentpost review` with the exact
   commit, its parent, the changed paths and the test nodes. The Reviewer greens a tree, so hand
-  them an immutable one.
+  them an immutable one. Where the work has no executable witness, the same coordinates go by
+  message, stated as such — never a bare "done".
 - Verdicts per spec, never per batch.
 - On **implementation** green **the Reviewer** moves it from `specs/` to `archive/`, same
   filename — archiving never renames, because every citation already written points at that name.
@@ -1438,17 +1467,11 @@ sequence:
 
 **One test: would this surprise the Navigator?** If it might, it goes to them before you build it.
 When in doubt about *whose* call it is, run it and surface it; what you may not do is absorb a
-surprise quietly, which makes it an architectural decision taken by whoever was typing.
-
-**Clarification** — the answer is in the design and you can't see it. Nothing is surprised; ask.
-
-**Fork** — the fix could take shapes that differ in what they add to the system. Not yours to pick.
-
-**Reframe** — the answer isn't there, or following the design gives the wrong shape. The Navigator
-frames it for the Captain. **The roadmap changes before the spec continues.**
+surprise quietly, which makes it an architectural decision taken by whoever was typing. The
+routing names — clarification, fork, reframe, detour — are the playbook's, not four more tests.
 
 **Pause and surface** — if contact shows an approved spec is wrong, stop and kick it back. Do
-not fix and continue.
+not fix and continue. **The roadmap changes before the spec continues.**
 
 ## Push gate
 
@@ -1541,12 +1564,14 @@ repositories.** Reply green citing the new path. The Implementer never advances 
 it cannot clear its own spec or declare its own work finished — and the Navigator may only send
 one back.
 
-**A red moves nothing — but it is still a transition**: your reply, the Status change and
-`last activity`, one bridge commit, per the table. The file stays where it is: a red spec in
-`review/`, a red implementation in `specs/` — accurate, because it is still in flight. **A spec
-arrives as a path; an implementation arrives as a review envelope** — an immutable commit with
-parent, paths and tests. Inspect that tree, not the working directory, and do not ask for
-contents either way.
+**A red moves nothing — but it is still a transition**: the Status change and `last activity` are
+one bridge commit, and your reply follows it — the commit records, the reply notifies. The file
+stays where it is: a red spec in `review/`, a red implementation in `specs/` — accurate, because
+it is still in flight. **A spec arrives as a path; an implementation arrives as a review
+envelope** — an immutable commit with parent, paths and tests, or the same coordinates by message
+where no executable witness exists. **Verify the coordinates against the repository before
+reading anything; a handoff whose coordinates do not check is returned unread.** Inspect that
+tree, not the working directory, and do not ask for contents either way.
 
 **An implementation green names the exact commit it examined, and says in one line what it did
 not.** The push gate ships only the tree the green named, which closes *the thing checked was not
@@ -1747,6 +1772,8 @@ that, something is a spec or a preference rather than a rule.*
   here so a change is visible; a gate nobody revisits becomes a bottleneck mistaken for virtue.
   **History rewrites and releases should expect to stay on the list** — their cost of error does
   not decline with trust the way routine pushes do.
+- **Current gate value:** — *(per-completion unless renegotiated; the named list, when one
+  exists, goes here)*
 - Direction audit every **N** *(period)*.
 - Stop at the first running end-to-end artifact and show it — never at "complete."
 ```
