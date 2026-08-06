@@ -602,7 +602,19 @@ audit's checklist.
 
 Both agree the current text is under-specified. They disagree on the default.
 
-**Decision:**
+**Decision:** Settled 2026-08-06, by the Captain, against both proposals: **single slot, and the
+method encodes nothing else.** Rationale: parallelism inside the current spec is already the
+Implementer's through subagents — the seat-vs-subagent test draws that line, and it covers nearly
+all real throughput pressure; [K]'s serialization pain was mostly the per-completion gate, since
+made a renegotiable cadence value (5.2), plus drafting-ahead as an existing board decision.
+Genuinely concurrent specs are rare enough that when real they are a structural change with a
+complete existing route (Navigator judges → Captain decides → apparatus protocol → muster), and
+the adopting project adapts its board under the Captain's direction, logged in apparatus-log —
+upstreamed if proven, with an incident behind it instead of [K]'s extrapolation. The one-slot
+shape is also load-bearing: the liveness row, the slot-emptying signal, the push-gate boundary
+and the baton metaphor all lean on there being one. A "slot count = seat count" clause was
+considered and rejected as insurance against a prediction — the adding bar this document has
+applied throughout.
 
 ## 7.2 · Scope versus enforcement
 **Sources:** [WDA] §9
