@@ -629,6 +629,10 @@ reporting cadence** — not a fixed number of implementations. It sits on a natu
 gives the Captain a decision rather than a status update. Bridge commits are internal record and
 flow freely; the gate governs the external artifact.
 
+**Reaching the remote is any operation that changes what it holds or what it means** — push,
+merge, opening or closing a PR, tag, release, branch deletion, history rewrite. The gate is about
+the remote, not the push verb; a merge without approval is a push without approval.
+
 **The Implementer reports** — three parts, all short. *Which roadmap item this served*, and
 **what the measure now reads** — it knows, having just built the thing. *Anything unexpected*:
 an assumption that turned out wrong, a defect the spec did not anticipate, a dependency that
@@ -1652,12 +1656,16 @@ that, something is a spec or a preference rather than a rule.*
 
 ## Cadence
 
-- **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise.
+- **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise — and
+  *reaching the remote* is any operation that changes what it holds or means: push, merge, PR,
+  tag, release, branch deletion, history rewrite.
 - **Gate cadence is a value on this board, not a constant of the method.** Per-completion approval
   is the starting default and **expects to be renegotiated** as trust matures and against the
   Captain's bandwidth. The mature form is a **named list** of what still requires a decision, with
   everything else proceeding — never "escalate when it seems important". Record the current value
   here so a change is visible; a gate nobody revisits becomes a bottleneck mistaken for virtue.
+  **History rewrites and releases should expect to stay on the list** — their cost of error does
+  not decline with trust the way routine pushes do.
 - Direction audit every **N** *(period)*.
 - Stop at the first running end-to-end artifact and show it — never at "complete."
 ```

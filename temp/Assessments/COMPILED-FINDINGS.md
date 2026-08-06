@@ -507,7 +507,14 @@ authority-bearing paths in 2.3; a spec that reached revision three.
 - Who may change it, and does a change need a `decisions/` file? It voids prior practice, so
   probably yes.
 
-**Decision:**
+**Decision:** Settled 2026-08-06. The gate's *object* is widened, not its machinery: *reaching
+the remote* is defined once as any operation that changes what the remote holds or means — push,
+merge, PR open/close, tag, release, branch deletion, history rewrite — "a merge without approval
+is a push without approval." Severity grading rides on 5.2's existing named-list mechanism rather
+than a second policy, with one expectation stated: history rewrites and releases should expect to
+stay on the list permanently, since their cost of error does not decline with trust. cx's
+four-step release ladder was deliberately not adopted into the method — right shape for a project
+that ships releases, wrong weight as method text; a Chart extractable where relevant.
 
 ## 5.4 · The measure may not be countable in every domain
 **Sources:** [C] (least-confident item), [WDA] smaller refinements, [K] (validates the principle)
