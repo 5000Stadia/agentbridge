@@ -71,20 +71,29 @@ the shareable unit. Siblings cost one directory level and remove all three.
 If agent scoping forces nesting, the bridge is still its own repository, its path is given
 explicitly in every directive rather than discovered, and the heartbeat reports both.
 
-**Ask the Captain for the project name.** Use it for both directories. Do not invent one.
+**Preflight — confirm five inputs with the Captain before touching the filesystem, and invent
+none of them:** the **display name**; the **dot-free slug** used for both directory names and as
+the AgentPost project alias (one slug, all three uses); the **absolute workspace parent** the two
+directories are created under; **each repository's remote and visibility choice**; and the
+**default branch name**. **Fail before mutation**: if any input is unresolved, or a target path
+exists and is not confirmed empty, stop and ask — this directive scaffolds greenfield and never
+runs over an existing repository.
 
 ---
 
 ## Your tasks
 
 1. Create the two sibling directories.
-2. `git init` in each.
-3. Create the files below, verbatim, including `directives/` and `protocols/`. Create empty
+2. `git init` in each, on the named default branch.
+3. Create the files below — **verbatim except rendering**: every `<project>` and `<Project>`
+   placeholder is substituted with the slug or display name, and the last act before the initial
+   commits is a scan for any unresolved `<...>` placeholder, which is a failure to fix, not to
+   report away. Include `directives/` and `protocols/`. Create empty
    `review/`, `specs/`, `archive/` and
-   `decisions/` directories with a `.gitkeep` in each. **Do not create `phases/`.** Empty
-   `review/` means nothing awaits a verdict, empty `specs/` means nothing is in flight, empty
-   `archive/` means nothing is finished — all real states. An empty `phases/` states nothing at
-   all; the Navigator creates it the first time a phase outgrows `roadmap.md`.
+   `decisions/` directories with a `.gitkeep` in each. **Do not create `phases/`.** The empty
+   directories are real states — the filesystem carries the loop's coarse state. An empty
+   `phases/` states nothing at all; the Navigator creates it the first time a phase outgrows
+   `roadmap.md`.
 4. In the project directory create **only** `AGENTS.md` and `CLAUDE.md` — no README, no
    license, no config, no `.gitignore` unless the Captain asks.
 5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is.
@@ -92,7 +101,8 @@ explicitly in every directive rather than discovered, and the heartbeat reports 
      state — the half that actually bites. A remote is one command away later.
    - **A remote now** needs the account or organisation named, and never a guessed one. **The
      bridge defaults to private** — create it private unless the Captain says otherwise, and ask
-     rather than assume. If no CLI is authenticated, report the exact commands rather than
+     rather than assume. A created remote is finished: add it as `origin` and push the initial
+     branch. If no CLI is authenticated, report the exact unperformed commands rather than
      improvising.
 
    Record the answer on the board either way, so "no remote yet" stays visible.
@@ -190,6 +200,9 @@ that it finished.** Nothing here repeats, which is why none of it lives in `play
 your directive.
 
 Read `playbook.md` first — everything below assumes it and cites it rather than restating it.
+**Its four-file onboarding assumes an instantiated board, which does not exist yet — while this
+file exists, this file is the read.** Normal onboarding begins for everyone after the Chart's
+closing commit.
 
 ## 1. Repositories
 
@@ -209,9 +222,11 @@ receiving.
 
 ## 3. The board
 
-Instantiate `PROJECT-BOARD.md`. Announce yourself on the channel with canonical, qualified,
-display and local spoken forms — you are the only seat alive, but later seats should arrive into
-an existing convention.
+Instantiate `PROJECT-BOARD.md`: fill the setup fields — repositories, your row in Seats with
+canonical, qualified, display and local spoken forms — and report the identity to the Captain.
+You are the only mailbox alive, so there is nobody to announce to; **the board row is the
+convention later seats arrive into.** The Stance and operating values are written during the
+Chart, not here.
 
 ## 4. The Chart
 
@@ -253,14 +268,15 @@ Navigator's to determine.
 
 ---
 
-**Three protocols exist and none is read in a normal session.** Each opens only when its trigger
+**Four protocols exist and none is read in a normal session.** Each opens only when its trigger
 fires; that is what keeps the four-file onboarding honest as the method grows.
 
 | Protocol | Read it when |
 |---|---|
 | `protocols/spawn.md` | a seat is being spawned, or its mailbox misbehaves |
-| `protocols/chart.md` | booting the project, or a reframe reopens the bet |
+| `protocols/chart.md` | booting the project, or the bet resolves or reframes |
 | `protocols/apparatus.md` | proposing a structural change, or a new seat |
+| `protocols/liveness.md` | a board row is stale past the threshold |
 
 ## The structure
 
@@ -271,14 +287,25 @@ model; the rest is each seat holding to its own directive.
 they choose** — that depth is theirs to set and it moves. No relayed message carries a Captain
 decision unless the Captain stated it directly.
 
-**The Navigator** owns the architecture's detail and the roadmap, and two duties follow from the
-line above. It **reads how deep the Captain is currently engaging** and pitches to that depth — a
-Captain who wants the mechanics and a Captain who wants the shape need different things, and
+**The Navigator** authors and maintains the architecture's detail and the roadmap — **the roadmap
+itself is the Captain's**, approved before the project moves on it — and two duties follow from
+the line above. It **reads how deep the Captain is currently engaging** and pitches to that depth
+— a Captain who wants the mechanics and a Captain who wants the shape need different things, and
 guessing wrong fails silently in both directions. And it **puts the architecture and roadmap in
 front of the Captain, in their terms, for approval before the project moves on them.**
 
 **The Implementer** owns implementation — handed the shape, it finds the best form for it. **The
 Reviewer** owns falsification, of the work and of the direction.
+
+The whole of it in one table, because scattered ownership prose is how two seats end up owning
+one thing:
+
+| | Decides and approves | Authors and maintains | May delegate |
+|---|---|---|---|
+| Captain | stance, architecture, roadmap, apparatus, publication | — | named classes, recorded on the board (the gate's list) |
+| Navigator | within standing delegation | roadmap detail, board, decisions, addenda | — |
+| Implementer | implementation choices inside a green spec | specs, code | subagents inside the spec's scope |
+| Reviewer | verdicts | — | — |
 
 **Whoever owns the judgement makes it.** When you cannot tell whether a call is yours, the test is
 whether it would surprise the owner — if it would, it was not yours. *Clarification*, *reframe*,
@@ -331,11 +358,10 @@ between the last two is unchanged and lives in `protocols/apparatus.md` — *a v
 decides, or an answer when asked.*
 
 **Blocked is a dropped baton, and it is announced** — what you are waiting on, and who owns it.
-Silence is indistinguishable from running — **except to the detector**. Every status movement
-stamps the board's `last activity`, so a row stale past the project's threshold is treated as a
-dropped baton whether or not anyone announced it: the awaited seat is pinged, and silence past the
-response window ends in termination and takeover. The mechanics sit on the board beside the values
-they use.
+Silence is indistinguishable from running — **except to the detector**. Every transition stamps
+the board's `last activity`; **compare it against the threshold every time you read the board**,
+and a row stale past the threshold means open `protocols/liveness.md` — a dropped baton whether or
+not anyone announced it.
 
 ## Two repositories
 
@@ -361,10 +387,6 @@ afterwards is a filter and filters leak. That rule is also what makes a *public*
 a project's mission calls for one: a showcase or research project whose design record is part of
 the artifact should not have to hide it.
 
-**A decision that exists only in the channel is not in the record.** Mail lives outside every
-repository, so a decision is written to the board — and to `decisions/` if it meets the bar —
-before the exchange scrolls away.
-
 ## Where things live
 
 **The board is bounded.** Its length does not grow with the project — two hundred specs and
@@ -380,9 +402,9 @@ trigger is a location nobody reads.
 | `playbook.md` | how do we work | everyone, every session. Stable, not frozen — it changes when the Captain changes it. The re-read is the price of stateless seats. |
 | `directives/` | what is my job | your own, every session. |
 | `apparatus-log.md` | what have we changed about how we work, and would it help anyone else | Navigator, appending at the moment of every structural change. Captain, when deciding what to send upstream. Never read in a normal session. |
-| `review/` | what is waiting on my verdict | Reviewer, when the Implementer sends a path. Occupied means the ball is yours. |
+| `review/` | what spec is in deliberation | Reviewer on a sent path; Implementer on a red. The board's Status says whose ball. |
 | `specs/` | what am I building | Implementer. Occupied means the Reviewer cleared it, so that is the work. |
-| `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for the item it is about to spec** — that row is what the spec is written from. Navigator reads the whole when mapping. |
+| `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for the item it is about to spec** — that row is what the spec is written from. Navigator reads the whole when mapping. Reviewer reads the whole when red-teaming the map or a phase read's deltas. |
 | `archive/` | how was item 3.2.1 built | anyone, when behaviour and agreement disagree and the spec arbitrates; when someone proposes changing something built earlier; when a seat needs context on an existing component. |
 | `decisions/` | why did we choose that | Navigator when declining a settled proposal; Reviewer during a direction audit, or when a founding claim retracts. Not the Implementer. |
 
@@ -403,13 +425,14 @@ spec's state; the Navigator may send it back.** A coherence read that finds drif
 to `review/` with a board row saying why, which is a reversal, not an advance.
 
 Consequences, and all of them are removals: the Implementer cannot clear its own spec or declare
-its own work finished, no status is maintained in two places, and *what is waiting on me* is
-answered by `ls` rather than by asking. **A red implementation simply stays in `specs/`** — which is
-accurate, since it is still in flight, and is why no fourth location is needed.
+its own work finished, and no status is maintained in two places. **A red implementation simply
+stays in `specs/`** — accurate, since it is still in flight, and why no fourth location is needed.
 
-Empty `review/` means nothing awaits a verdict; empty `specs/` means nothing is in flight and the
-next item is ready to be written. **The filesystem carries the state; the board carries the
-position.**
+**The filesystem carries the coarse state; the board's Status carries the awaited seat** — one
+location legitimately holds several statuses (a spec in `review/` may await the Reviewer's verdict
+or the Implementer's revision), so the two are read together and defined once, in The Loop's
+transition table. **The slot is empty only after the approved tree is pushed and the row cleared**
+— a spec in `archive/` with a live row is still in flight, at the gate.
 
 **A spec is named `<item>-<slug>.md` and is never renamed** — `1.2.1-blueprints.md`. The item
 number is already the spec number, so the name *is* the citation; the slug is what anyone actually
@@ -474,68 +497,38 @@ its items crowd the map — the same growth rule as the board. At three phases t
 Mail lives at `~/.agentpost`, outside every repository — which is why a decision is written to
 the board before its exchange scrolls away.
 
+**The working verbs are `message` and `question`** — they resolve identities and infer the
+sender. `question` when an answer is awaited; **`reply` against the original Message-ID**.
+**Implementation handoffs use `agentpost review`** — the fail-closed envelope carrying exact
+commit, parent, paths and tests, per the transition table. Where an installed AgentPost skill or
+integration provides its own instructions, prefer those over anything remembered.
+
 **Bare is local; qualified is deliberate.** `nav`, `build`, and `check` resolve only among
-profiles sharing the sender's registered project aliases. AgentPost must never retry a missing
-bare seat against another project's directory, even when that other seat is globally unique.
-Cross-project asks use `<other-project>.nav`; inspect the complete target roster first with
-`agentpost identities --project <other-project>`. Named groups are deliberate global fan-out
-objects and should use `@group` when their name could look like a seat.
+profiles sharing the sender's registered project aliases. Cross-project asks use
+`<other-project>.nav` — rare, legitimate, and the whole reason qualified addressing exists; what
+the rule prevents is a bare handle silently finding a stranger. Inspect the roster first with
+`agentpost identities --project <other-project>`. Named groups are global fan-out objects; use
+`@group` where the name could look like a seat.
 
-**Two projects talking is rare, legitimate, and the whole reason qualified addressing exists.**
-A seat in one project asking a seat in another is a normal occasional need; what the rule
-prevents is it happening *by accident*, through a bare handle that silently found a stranger.
-
-**`send` does not obey either half of that rule on 1.3.0 — verified, not inferred.** `resolve`
-and `list` enforce it correctly: bare cross-project is refused with *"cross-project addresses
-must use PROJECT.SEAT"*, and qualified works. `send` is the exact inverse — it **accepts** a bare
-cross-project address the rule forbids, and **rejects** the qualified address the rule mandates
-with *"unknown agent"*. So a cross-project message is addressed in two steps until this is fixed:
-
-    agentpost resolve <other-project>.nav     # confirms the target, qualified
-    agentpost send <me> <their-canonical> ... # send takes canonical only
-
-Treat the isolation rule as **discipline, not enforcement**: on this release nothing stops a bare
-handle reaching another project's box, so the sender is the only check. Re-test with the two
-commands above after any AgentPost upgrade — if `send` starts accepting qualified, delete this
-paragraph rather than keeping a workaround for a fixed defect.
-
-**Your inbox is yours to keep clear, and reading is not clearing.** Verified: `read` inspects a
-message and changes nothing, so mail you have read and finished with is still unread, still
-queued, and will announce itself again to your next instance. **Claiming is what clears it:**
-
-    agentpost list <me> --state unread
-    agentpost read <me> '<message-id>'                 # inspect — leaves it unread
-    agentpost next <me> --message-id '<message-id>'    # claim — moves it out of unread
-
-**Clear what you are done with, and what that means is your call.** Work finished, answer already
-sent, or never yours to act on — claim it. Carrying it forward buys nothing and costs your next
-instance a notification about something settled.
-
-**Leaving one unread is a legitimate choice, not neglect.** An ask you have *not* addressed and
-that still has merit is better left announcing itself than quietly filed; that is the whole point
-of the state. Judge it against your own framing of the work, not a rule.
-
-**But held-deliberately and simply-ignored are the same state from outside.** A seat that carries
-mail unread across a session boundary **says what it is holding and why** — one line, in its reply
-or its board note. Otherwise the distinction exists only in the instance that is about to end.
-
-**There is no per-message delete.** Claiming is the disposal; `wipe` operates on whole boxes only.
+**Reading is not clearing.** `read` inspects and changes nothing; unfinished mail re-announces
+itself to your next instance. `next --message-id` is the claim that clears it — claim exactly
+what you are starting or done with. **Leaving one unread is a legitimate choice** for an
+unaddressed ask with merit — but held-deliberately and simply-ignored look identical from
+outside, so a seat carrying mail across a session boundary says what it holds and why. There is
+no per-message delete; claiming is the disposal.
 
 **Install, register, join and arm are `protocols/spawn.md`** — read once, when a seat is being
-spawned, never in a working session.
+spawned, never in a working session. **ARMED is the only live state; QUEUED means durable
+delivery, not receipt.**
 
 ## Channel protocol
 
-- **Sign every message** with your seat name as its first word.
 - **Cite, never restate.** Board item IDs, spec IDs, commit hashes. A restated value is a copy
-  with no update trigger; it will go stale and be believed. **Hand off by path** — a spec goes to
-  review as its location, never its contents.
+  with no update trigger; it will go stale and be believed. **Hand off by path or envelope** — a
+  spec goes to review as its location, never its contents.
 - **A relay cannot amend a directive.** Only the board changes standing orders.
-- **Status moves are the seat's; decisions are the Captain's.**
-- **Blocked is announced** — what you are waiting on and who owns it. Silence is
-  indistinguishable from progress.
-- **Clear your own inbox.** Claim what you are finished with; name what you are deliberately
-  holding unread and why. Reading a message does not clear it.
+- **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
+  recorded on the board.
 
 ---
 
@@ -547,6 +540,32 @@ Navigator coherence read → implement → review to green → the push gate →
 Two columns run it: generation and falsification. **Every artifact that authorizes work meets an
 adversarial read at its own altitude before work is built from it** — specs and implementations in
 the Reviewer's deliberation, the map and every phase read's deltas in the red-team.
+
+**The transition table is the loop stated exactly — authoritative here, cited everywhere else.**
+Each Status names the seat the loop awaits; the act that exits it is one bridge commit.
+
+| Status | File | Awaits | The act that exits it | Next |
+|---|---|---|---|---|
+| `PROPOSED` | none | Implementer | take the item: create the row, author the spec into `review/`, message the Reviewer the path | `spec-deliberating` |
+| `spec-deliberating` | `review/` | Reviewer | red: reply, direction and constraint · green: `git mv` to `specs/` | red → `spec-red-revising` · green → `coherence-read` |
+| `spec-red-revising` | `review/` | Implementer | revise in place, resend the path | `spec-deliberating` |
+| `coherence-read` | `specs/` | Navigator | pass: message the Implementer · drift: move the file back to `review/`, board row saying why | pass → `building` · drift → `coherence-red-revising` |
+| `coherence-red-revising` | `review/` | Implementer | revise, resend the path | `spec-deliberating` |
+| `building` | `specs/` | Implementer | implement, then send the Reviewer a **review envelope** — exact commit, parent, paths, tests | `impl-deliberating` |
+| `impl-deliberating` | `specs/` | Reviewer | red: reply · green: name the commit examined and what was not, `git mv` to `archive/`, the archive commit message naming that code commit | red → `impl-red-repairing` · green → `reporting` |
+| `impl-red-repairing` | `specs/` | Implementer | fix, resend the envelope | `impl-deliberating` |
+| `reporting` | `archive/` | Implementer | the three-part report to the Navigator | `at-push-gate` |
+| `at-push-gate` | `archive/` | Navigator | translate for the Captain | `awaiting-captain` |
+| `awaiting-captain` | `archive/` | Captain | approve, or back down the ladder — reopening the implementation is the Navigator moving `archive/` → `specs/` | approve → `pushing` · reopen → `building` |
+| `pushing` | `archive/` | Implementer | push exactly the tree the green named, clear the row | slot empty |
+
+Three rules govern every row. **The seat performing a transition writes Status and
+`last activity` in the same bridge commit** — where the transition moves a file, the move shares
+that commit; otherwise the commit is the board edit alone. **A committed contradiction between
+Status and location freezes the leg** — no further transition; the Navigator reconstructs the
+last valid state from committed history. Location narrows the candidates; it never chooses the
+awaited seat. **Spec handoff is a path; implementation handoff is the envelope** — two visibly
+different acts, because two different objects are under review: a text, and a tree.
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -579,9 +598,10 @@ outright where the answer already exists in how we work; it proposes to the Capt
 answer requires changing how we work. Either way **the change is recorded in `apparatus-log.md`**,
 because a workflow improvement nobody wrote down is one the next project has to rediscover.
 
-The boundary is unchanged: the Navigator may cut freely, may resolve within the apparatus as it
-stands, and takes anything that alters it to the Captain. Working around friction silently is the
-failure this route exists to prevent — it leaves the method looking healthy while nobody follows it.
+The boundary: **removal is a standing delegation to the Navigator** — cut freely, log the cut,
+reversible from git; the Navigator resolves within the apparatus as it stands, and takes
+**additions and reshapes** to the Captain. Working around friction silently is the failure this
+route exists to prevent — it leaves the method looking healthy while nobody follows it.
 
 **The Navigator's coherence read is not a second review.** It asks whether the spec still serves
 the roadmap item it came from and whether anything drifted during deliberation — not whether it
@@ -649,12 +669,17 @@ does not move the measure is still correct work — but three summaries in a row
 drift, visible at the moment it happens rather than four days later. The Implementer supplies
 the count; the Navigator says what it means.
 
-**The Captain decides** — back down the ladder to Implementer, Reviewer or Navigator, or confirm
-and push **the exact tree the green named; a tree that differs goes back to review rather than
-shipping**. The spec is already in `archive/` — the green put it there — so approval ends in the
-push and the slot clearing, nothing else. A decline that reopens the implementation is the
-Navigator sending the spec back from `archive/` to `specs/`: the same send-back power as at the
-coherence read, one step later, and still never the Implementer's move.
+**The Captain decides; the Implementer pushes** — **exactly the tree the green named; a tree that
+differs goes back to review rather than shipping**. The spec is already in `archive/` — the green
+put it there — so approval ends in the push and the slot clearing, nothing else. A decline that
+reopens the implementation is the Navigator sending the spec back from `archive/` to `specs/`:
+the same send-back power as at the coherence read, one step later, and still never the
+Implementer's move.
+
+**A matured gate is a standing delegation, not a hole.** When the board's named list says what
+still requires a decision, everything outside the list proceeds *already authorized* — by the
+Captain, in advance, revocably, on the board. Nothing is ever ungated; what changes is when the
+authorization was given.
 
 ### Proposals
 
@@ -701,7 +726,8 @@ Universal. A project's own hard-won rules go on its board, not here.
   the author's blind spots.
 - **Attack with counterexamples run against the real path**, not by inspection.
 - **Skip review** only for changes that introduce no invariant, cross no boundary, and touch
-  nothing green — regardless of line count.
+  nothing green — regardless of line count. A skipped-review change still passes the push gate
+  and is named in the report; that naming is its receipt.
 - **When an instruction does not cover something, ask.** A plausible assumption held confidently
   is the founding failure mode of agent work.
 - **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — **name where you are
@@ -753,24 +779,15 @@ merely whether a binary exists**:
 retain it, and never run an older installer over it. If the command is absent or the check fails,
 install from the pinned commit below, then run the same check again:
 
-    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/9e3f3f74c385f91def16a9ae9417f83b1791554d/scripts/install.sh | sh
+    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.3.0/scripts/install.sh | sh
     agentpost identities --help | grep -q -- --project
 
-The source is <https://github.com/5000Stadia/agentpost>.
+The source is <https://github.com/5000Stadia/agentpost>; `v1.3.0` is the earliest release
+carrying the project-qualified contract — a newer release is fine, which is why the check above
+is the gate rather than the version.
 
 Needs Python 3.11+; the Codex managed adapter also needs Node 22+. `join` writes a
 machine-local `.agentpost.toml` in the project root and excludes it from git itself.
-
-**Why a commit and not a release — verified 2026-07-29, and this paragraph is written to expire.**
-No published tag carries the project-qualified contract. `v1.2.0` was executed from its own tag and
-exposes only `-h/--help`; `main` does not carry it either; **there is no `v1.3.0` tag, and the URL
-that named one returned 404.** The capability lives on `agent/live-binding-project-addressing`,
-which is also `refs/pull/1/head`, at commit `9e3f3f74`. That commit is public and immutable — it
-cannot move or vanish, which a tag can and did.
-
-**When a release carrying the contract publishes, replace the commit with its tag and delete this
-paragraph.** That sentence is the update trigger the previous version pin did not have, which is
-why it went stale and was believed.
 
 **The capability check is the gate; a version number never is.** Never downgrade a capable
 installation, and never fall back to global bare-handle routing. If the post-install check still
@@ -915,7 +932,9 @@ Seats table, so the difference, or its absence, is visible rather than assumed.
 
 **The Reviewer's first job is to red-team the map**, before any code exists. Its remit already
 covers *is this still the right work*; pointing that at a plan is far cheaper than pointing it
-at an implementation built from a bad plan.
+at an implementation built from a bad plan. **Map green unlocks the first phase read** — a red
+returns through the Navigator to the Captain — and until a phase read has written owners, the
+Implementer mechanically cannot take an item, so nothing races this gate.
 ```
 
 ---
@@ -934,11 +953,15 @@ continue deserves a deliberate wind-down, not a drift into ambient maintenance. 
 reads permanently green, and that is not health — it is a dead instrument wearing a health
 indicator.
 
-*Captain and Navigator. No other seat exists yet.*
+*Captain and Navigator. No other seat exists yet. Setup — repositories, AgentPost, instantiating
+the board — is `boot.md`'s and is already done by the time you are here; this file is the
+conversation.*
 
-**Boot.** Confirm both repositories are wired. Install AgentPost, register, join, verify armed.
-Instantiate the board. Announce yourself, signed — you are the only seat alive, but later seats
-should arrive into an existing convention.
+**Instantiating the board meant:** setup fields filled at boot (repositories, seats, your own
+identity — recorded on the board and reported to the Captain; there is nobody else to announce
+to yet). The Stance, the measure, the operating values and the founding rules are written *during*
+this conversation. **No template hint survives the Chart's closing commit** — a placeholder left
+standing reads as an answer.
 
 **The conversation.** Free-form first, extraction second. Six things, reflected back as drafts:
 
@@ -975,10 +998,11 @@ activity and would have looked healthy through four days of drift. *Papers: 0/21
 demonstrated end-to-end: 2/5* is distance, and it does not move when the work is beside the
 point.
 
-It must be countable rather than judged, and small enough to sit in one line. This is the
-cheapest anti-drift mechanism in the method: a gate needs someone to act, a number needs
-nobody to do anything and cannot be unseen. **Like the map, it is `HYPOTHESIS` until first
-contact** — expect the first artifact to correct what it counts, not just where it stands.
+Small enough to sit in one line — quantified where a count is valid, an observation protocol
+where it is not. This is the cheapest anti-drift mechanism in the method: a gate needs someone
+to act, a reading needs nobody to do anything and cannot be unseen. **Like the map, it is
+`HYPOTHESIS` until first contact** — expect the first artifact to correct what it counts, not
+just where it stands.
 
 **The founding rules.** The six imply rules, and the Chart is not done until they are written
 as rules. Ours arrived late as corrections — *prototype not proof*, *the demo must be
@@ -998,7 +1022,9 @@ is what everyone holds in their head; it stops working the moment it needs looki
 **Research happens here, before the bet is written down.** Survey occupied territory, adjacent
 systems, and the strongest existing alternative while the conversation runs, so the bet is born
 located against the field. A novelty claim written first and checked later gets narrowed later,
-expensively.
+expensively. **Name the route the evidence comes by** — a search tool, a research tasking, the
+Captain's own knowledge; where none exists, the bet's novelty claim is recorded as a blocking
+`OPEN`, never improvised.
 
 **The map.** Captain and Navigator map the project end to end. **Identify the phases first** —
 their shape comes from the work, not from a template — then decompose:
@@ -1031,14 +1057,23 @@ what it honestly is: visible shape, not executable plan.
 
 **The seat question.** Are three stock seats adequate here? Ask deliberately.
 
-**The workspace map** goes into the board: one line per folder — purpose, and **who may be
-pointed at it**. Pointing a seat at a folder *is* its permission.
+**The workspace map** goes into the board: one line per folder — purpose, and who may be pointed
+at it. **Intended scope, not an enforced boundary** — where isolation genuinely matters, use
+something that enforces.
+
+**The operating values** — the board fields this week's machinery reads, each one line, asked
+here because nothing else asks: **gate cadence** (per-completion is the default and expects
+renegotiation), **liveness threshold and response window**, **the detector** (a scheduler command
+and cadence, or plainly *none — the floor is the Captain*), and the **direction-audit cadence**.
+And **the per-seat addenda, written before Muster** — the project-specific scope each doing seat
+finds on the board at its first read, which is how the Navigator tailors cold seats without
+forking their directives.
 
 **Exit.** Repositories wired and visibilities decided. Six extractables confirmed explicitly —
 silence is not approval, and an extractable the Captain explicitly defers becomes an open-decision
 row on the board: deferral is allowed, silent omission is not. The measure defined and on the
-board. Founding rules written as
-one-liners, with `decisions/` files for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
+board. Operating values recorded. Founding rules written as one-liners, with `decisions/` files
+for any that had alternatives. Claims tagged. Prior art cited in the bet. Map complete by the
 structural test. Seat question answered. First-contact artifact at the top of the board.
 
 **The Chart closes on the spine, not on the full apparatus.** `decisions/` files, `phases/` and the
@@ -1142,6 +1177,52 @@ directive if approved.
 
 ---
 
+# FILE: `<project>-bridge/protocols/liveness.md`
+
+```markdown
+# PROTOCOL — LIVENESS
+
+**Read when a board row is stale past the threshold. Never in a working session.**
+
+The seat that most needs to announce is the one that cannot. This protocol is how a dead seat
+stops looking like a working one.
+
+**Detection is layered, cheapest guaranteed layer last.** A platform scheduler where the board
+names one, running the comparison on its stated cadence; **every seat's session-start board
+read** — the comparison is part of reading the board, so every live session is a passive
+detector; and past those, the Captain reading the row. If no scheduler exists and no session
+opens, nothing mechanical fires — that floor is stated on the board so nobody mistakes it.
+
+**Escalation is stateless — both conditions computable from `last activity` and the two board
+values alone:**
+
+1. **Stale past threshold** → the Navigator pings the awaited seat with an AgentPost question.
+   Any reply inside the response window counts as alive — *still working, here is why it is
+   slow* is an alive reply — and the Navigator resets `last activity`.
+2. **Stale past threshold plus response window** — or the awaited seat *is* the Navigator — →
+   directly to the Captain, **who still runs the ping and its deadline if the Navigator never
+   sent them**. The detector never reports a failure to the seat suspected of it.
+
+**The Captain is exempt as a target.** `awaiting-captain` going stale is a reminder in the human
+channel, never this sequence — there is no higher actor to terminate and replace a human.
+
+**Takeover replaces a runtime, not an owner.** The item's Owner does not change because a process
+died; a replacement is a new runtime for the same seat. Owner changes only when the Captain
+actually reassigns the item. The sequence is fixed:
+
+1. Response deadline expires.
+2. **The Captain terminates the runtime** — start authority implies stop authority, and takeover
+   before verified termination is forbidden. A dead process cannot mutate a tree; there is no
+   state in which two run.
+3. **Inspect both worktrees before anything restarts** — `git status` in project and bridge. A
+   killed process can leave uncommitted residue; it is reported to the Navigator, never silently
+   adopted or overwritten by the replacement.
+4. The Navigator records the takeover on the board; the Captain starts the replacement runtime
+   for the awaited seat.
+```
+
+---
+
 # FILE: `<project>-bridge/directives/navigator.md`
 
 ```markdown
@@ -1194,20 +1275,25 @@ theirs. An item row with no owner is not ready to spec.
 
 **The phase read — shaping at phase scale.** Entering a phase begins with you, not the Implementer.
 Re-read the phase's rows against everything learned since they were written — they were drafted at
-the project's point of least knowledge, and whole phases of reality have landed since. Propose the
-deltas to the Captain in their terms — rows added, voided, reshaped; numbers allocated once, as
-always — and **write the owners only after they approve**. Items in phases not yet entered sit
-ownerless by design, so nobody can run ahead of the re-evaluation. It is a read and a delta, never a
-re-charting: if what wants to change is the bet, that reopens the Chart instead. A one-phase project
-never does this; a twenty-phase one does it at every boundary, each time at the moment the plan is
-about to be spent. **The phase read ends the way the Chart's map ended: its deltas are red-teamed
-by the Reviewer** before the phase's first spec is taken.
+the project's point of least knowledge, and whole phases of reality have landed since. Draft the
+deltas — rows added, voided, reshaped; numbers allocated once, as always — then the order is the
+law's: **the Reviewer red-teams the deltas, the Captain approves them in their terms, and only
+then do you write the owners.** The adversarial read precedes the authorization, same as
+everywhere. Items in phases not yet entered sit ownerless by design, so nobody can run ahead of
+the re-evaluation — the empty Owner cell is the gate. It is a read and a delta, never a
+re-charting: if what wants to change is the bet, that reopens the Chart instead. A one-phase
+project never does this; a twenty-phase one does it at every boundary, each time at the moment
+the plan is about to be spent.
 
 **Muster seats — you judge when, the Captain starts them.** You never spawn a seat. When one is
 needed, hand the Captain one message holding all three of: the launch command (runtime, project
 root, `--agent` switch), the directive path the seat reads on first contact, and the box it
 registers, canonical and qualified. Then confirm it reports ARMED. A seat given two of the three
-starts anyway and adopts the wrong identity in silence.
+starts anyway and adopts the wrong identity in silence. **The per-seat addenda are on the board
+before the packet is sent** — that is how a cold seat gets its project-specific scope in its
+mandatory first read, without its directive being forked. Modifying a stock directive stays an
+apparatus-level change: you propose, the Captain decides, the log records — and one made before
+the Reviewer exists is audited by the Reviewer together with the map, before the loop unlocks.
 
 **Hold the course.** At every coherence read and push gate ask: does this trace to a roadmap
 item, and is it still the size that item implied? Untraceable work is a detour. An item that
@@ -1265,9 +1351,9 @@ column is what lets the Captain send an improvement upstream, and it cannot be r
 
 **Harness.** Schedule direction audits. Fire a validity re-check when a founding claim retracts.
 **The bet resolving — proven as much as killed — reopens the Chart**; a project that continues past
-its bet needs a new one. **Liveness is yours to run**: on a stale-row report, ping the awaited seat
-and hold the response window; on expiry, hand the Captain the termination and write the takeover
-only after it is verified. Values and sequence live on the board.
+its bet needs a new one. **Liveness is yours to run**: on a stale-row report, open
+`protocols/liveness.md` and follow it — the ping and window are yours; termination and restart
+are the Captain's; the takeover is recorded only after termination is verified.
 
 ## Sessions
 
@@ -1308,33 +1394,41 @@ status.**
 
 ## Boot
 
-Register `<project>-i` (or the name the Navigator assigned) with a display name and verb handle
-`build` first and the same dot-free project alias. Verify `<project>.build` in
-`identities --project <project>`. Join from the project root, **naming your seat explicitly** —
-you share that root with the Reviewer. **Verify ARMED**; if QUEUED, give
-the Captain the exact remaining commands.
+**Open `protocols/spawn.md` once and follow it** — your row in its naming table is
+`<project>-i` / `<project>.build` unless the Navigator assigned otherwise. You share the project
+root with the Reviewer, so **always name your seat in `join`**. **Verify ARMED**; if QUEUED, give
+the Captain the exact remaining commands. Then this file and normal onboarding.
 
 ## The loop
 
-**take next → spec into `review/` → Reviewer to green, and the green *is* the move to `specs/` →
-Navigator coherence read → implement → review to green → push gate → take next.**
+**The playbook's transition table is the loop; your rows are the ones that await you.** In
+sequence:
 
-- Take the next board item in order. Read **its one roadmap row**. Write the spec into `review/`
-  as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec number, so the
-  filename is the citation.
+- Take the next board item in order — **taking it is creating the In flight row**, `PROPOSED`,
+  with `last activity`, in its own bridge commit. Read **its one roadmap row**. Write the spec
+  into `review/` as `<item>-<slug>.md` — `1.2.1-blueprints.md`. The item number is the spec
+  number, so the filename is the citation.
+- **A spec answers two questions** — *what does done look like*, stated so someone who did not
+  build it could check it, and *where are the edges*: what this must not touch, and who outside
+  feels it, where "nothing, nobody" is a real answer. Not fields to fill — the first things the
+  Reviewer will attack if missing.
 - **The row already names the owner — cite it, do not restate it.** Assignment is the Navigator's,
   made at shaping, and the spec inherits it by pointing at the row. Anything the row did not assign
   goes back to the Navigator; it is not yours by default just because you found it. **A next item
   with an empty Owner is not yours to start** — the phase has not had its phase read; announce that
   to the Navigator rather than waiting in silence.
-- **Send the Reviewer the path and nothing else.** On red, revise in place and send the same path
-  again. **You never move a spec into `specs/`** — the Reviewer's green is that move, and finding
-  it there is how you learn you are cleared to build.
+- **Send the Reviewer the spec's path and nothing else.** On red, revise in place and send the
+  same path again. **You never move a spec into `specs/`** — the Reviewer's green is that move,
+  and finding it there is how you learn you are cleared to build.
+- **Implementation handoff is the envelope, not a path** — `agentpost review` with the exact
+  commit, its parent, the changed paths and the test nodes. The Reviewer greens a tree, so hand
+  them an immutable one.
 - Verdicts per spec, never per batch.
 - On **implementation** green **the Reviewer** moves it from `specs/` to `archive/`, same
   filename — archiving never renames, because every citation already written points at that name.
-  **You advance a spec's state in neither direction**; the slot emptying is how you learn you are
-  done.
+  **You advance a spec's state in neither direction.** After the Captain's approval you push
+  exactly the tree the green named and clear the row — the slot emptying is the loop's end, and
+  yours is the seat that ends it.
 - **Read only what is cited** — board, this file, the live spec. Not the archive, not the
   roadmap beyond your item.
 
@@ -1413,10 +1507,10 @@ because a shared family makes agreeable reading the easy failure.
 
 ## Boot
 
-Register `<project>-r` (or the name the Navigator assigned) with a display name and verb handle
-`check` first and the same dot-free project alias. Verify `<project>.check` in
-`identities --project <project>`. Join from the project root, **naming your seat explicitly** —
-you share that root with the Implementer. **Verify ARMED.**
+**Open `protocols/spawn.md` once and follow it** — your row in its naming table is
+`<project>-r` / `<project>.check` unless the Navigator assigned otherwise. You share the project
+root with the Implementer, so **always name your seat in `join`**. **Verify ARMED.** Then this
+file and normal onboarding.
 
 ## Standard
 
@@ -1445,9 +1539,12 @@ repositories.** Reply green citing the new path. The Implementer never advances 
 it cannot clear its own spec or declare its own work finished — and the Navigator may only send
 one back.
 
-**A red moves nothing.** The file stays where it is: a red spec in `review/`, a red implementation
-in `specs/` — accurate, because it is still in flight. You are sent a path; open it, and do not ask
-for its contents.
+**A red moves nothing — but it is still a transition**: your reply, the Status change and
+`last activity`, one bridge commit, per the table. The file stays where it is: a red spec in
+`review/`, a red implementation in `specs/` — accurate, because it is still in flight. **A spec
+arrives as a path; an implementation arrives as a review envelope** — an immutable commit with
+parent, paths and tests. Inspect that tree, not the working directory, and do not ask for
+contents either way.
 
 **An implementation green names the exact commit it examined, and says in one line what it did
 not.** The push gate ships only the tree the green named, which closes *the thing checked was not
@@ -1524,7 +1621,7 @@ retired row is **removed entirely**: `archive/`, `decisions/` and git history ar
 and a pointer the filesystem already gives would be restatement.
 
 The Captain owns stance, structure and the roadmap. Seats move statuses and add dated notes.
-Seats may add rows as PROPOSED; only the Captain moves PROPOSED to DRAFT.
+Anything else a seat wants added routes as a proposal through the Navigator to the Captain.
 
 ---
 
@@ -1589,36 +1686,20 @@ end-to-end 2/5`. Never a count of work done. `HYPOTHESIS` until first contact, l
 | # | Spec | Status | Owner | Last activity | Note |
 |---|---|---|---|---|---|
 
-**Status is a closed set, and each value names the seat the loop is waiting on:**
+**Status takes its values from the playbook's transition table** — each names the awaited seat,
+and the seat performing a transition writes Status and `last activity` (ISO-8601 UTC) in that
+transition's bridge commit. `last activity` has one other writer: the Navigator, resetting it on
+an alive reply.
 
-`PROPOSED` → Implementer (item taken, no file yet) · `spec-deliberating` → Reviewer ·
-`spec-red-revising` → Implementer · `coherence-read` → Navigator · `coherence-red-revising` →
-Implementer (spec back in `review/`; exits by resending the path) · `building` → Implementer ·
-`impl-deliberating` → Reviewer · `impl-red-repairing` → Implementer · `reporting` → Implementer ·
-`at-push-gate` → Navigator · `awaiting-captain` → Captain · `pushing` → Implementer, exiting to
-slot empty — which awaits nobody, correctly.
-
-The seat performing a status movement writes Status and `last activity` (ISO-8601 UTC) **in the
-same bridge commit as the file move** — the commit is the transaction, and committed state is the
-only state the detector reads. Where Status and location contradict, **location wins**: repair
-Status to match and tell the Navigator. `last activity` has one other writer — the Navigator,
-resetting it on an alive reply.
-
-**Liveness** — *(two values, set at the Chart and revisable: `stall threshold: —` ·
-`response window: —`, default threshold/2. Detector layers: the platform scheduler if one is
-named here; every seat's session-start board read; past those the residual detector is the
-Captain reading this row, which is stated here so nobody mistakes the floor.)*
-
-Stale past threshold → the Navigator pings the awaited seat with an AgentPost question; any reply
-inside the response window counts as alive, and *still working, here is why it is slow* is an
-alive reply — the Navigator resets `last activity`. Stale past threshold **plus** window — or the
-awaited seat *is* the Navigator — reports directly to the Captain, **who still runs the ping and
-its deadline if the Navigator never sent them**. Takeover is one fixed sequence: deadline expiry →
-the Captain terminates the runtime — start authority implies stop authority, and takeover before
-verified termination is forbidden — → the Navigator writes the new owner → the replacement starts.
-A dead process cannot mutate a tree; there is no state in which two run.
+**Liveness** — *(set at the Chart, revisable: `stall threshold: —` · `response window: —`
+(default threshold/2) · `detector: —` (scheduler command and cadence, or plainly `none — floor is
+the Captain reading this row`).)* **Compare `last activity` against the threshold every time you
+read this board.** Stale → open `protocols/liveness.md`.
 
 **Next up** — *(the following two or three item IDs, no more)*
+
+**Consumers** — *(`none yet`, or who couples to what. The row appears when the first real
+consumer does; while it exists, implementation verdicts rule per finding what changes for them.)*
 
 ## Open decisions
 
@@ -1651,14 +1732,12 @@ that, something is a spec or a preference rather than a rule.*
 
 - A capability turns out absent where the map said present.
 - Anything that changes what a core concept means.
-- Any spec reaching revision three.
 - Anything that would change the roadmap or a founding claim.
 
 ## Cadence
 
-- **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise — and
-  *reaching the remote* is any operation that changes what it holds or means: push, merge, PR,
-  tag, release, branch deletion, history rewrite.
+- **The push gate is the reporting cadence.** Nothing reaches the code remote otherwise; what
+  counts as reaching the remote is the playbook's definition.
 - **Gate cadence is a value on this board, not a constant of the method.** Per-completion approval
   is the starting default and **expects to be renegotiated** as trust matures and against the
   Captain's bandwidth. The mature form is a **named list** of what still requires a decision, with
@@ -1744,7 +1823,8 @@ three phases nothing splits; at twenty, each has a file.
 2. Confirm the bridge remote is **private** if one was requested, or that the Captain chose local
    only — recorded on the board — or report the exact commands if you could not create one.
 3. Confirm the project directory holds only `AGENTS.md`, `CLAUDE.md` and `.git`, and that the
-   bridge root has no file that duplicates another.
+   bridge root has no file that duplicates another — the `AGENTS.md`/`CLAUDE.md` doormat twins
+   are identical by design and exempt from that check.
 4. Report the tree and this handoff line:
 
 > Scaffold complete. To begin the Chart, spawn a Navigator seat pointed at
