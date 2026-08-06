@@ -53,7 +53,7 @@ Two sibling directories, two repositories, two visibilities.
     ├── apparatus-log.md          ← what we changed about how we work. append-only.
     ├── playbook.md               ← how we work
     ├── directives/               ← what my job is. one per seat.
-    ├── protocols/                ← read only when a trigger fires. never in a session.
+    ├── protocols/                ← trigger-only; not preloaded.
     ├── roadmap.md                ← the shape of the whole thing
     ├── phases/                   ← not created now. added if a phase outgrows the map.
     ├── review/                   ← spec awaiting a verdict. empty = nothing waiting.
@@ -417,27 +417,16 @@ trigger is a location nobody reads.
 cost flat as the project grows: four files every session regardless of whether the project has
 five specs or two hundred.
 
-**`review/` and `specs/` are slots, not directories, and the move between them is the verdict.**
-The Implementer writes the spec into `review/` and sends the Reviewer **the path, nothing else**.
-A red moves nothing: the Reviewer says what is wrong and which direction fixes it, the Implementer
-revises in place, and the file stays where it is until it passes. **A green is the Reviewer moving
-the file into `specs/`** — the judgement and the state change are one act, performed by the seat
-with the authority to make it.
-
-**Implementation green is the same act one step along: the Reviewer moves the file from `specs/`
-to `archive/`.** So the rule is one sentence with no exceptions — **only the Reviewer advances a
-spec's state; the Navigator may send it back.** A coherence read that finds drift returns the file
-to `review/` with a board row saying why, which is a reversal, not an advance.
-
-Consequences, and all of them are removals: the Implementer cannot clear its own spec or declare
-its own work finished, and no status is maintained in two places. **A red implementation simply
-stays in `specs/`** — accurate, since it is still in flight, and why no fourth location is needed.
+**`review/` and `specs/` are slots, and the move between them is the verdict** — the judgement
+and the state change are one act, performed by the seat with the authority to make it. **Only the
+Reviewer advances a spec's state; the Navigator may send it back.** So the Implementer cannot
+clear its own spec or declare its own work finished, a red moves nothing, and no status is
+maintained in two places — the mechanics, act by act, are The Loop's transition table.
 
 **The filesystem carries the coarse state; the board's Status carries the awaited seat** — one
-location legitimately holds several statuses (a spec in `review/` may await the Reviewer's verdict
-or the Implementer's revision), so the two are read together and defined once, in The Loop's
-transition table. **The slot is empty only after the approved tree is pushed and the row cleared**
-— a spec in `archive/` with a live row is still in flight, at the gate.
+location legitimately holds several statuses, so the two are read together. **The slot is empty
+only after the approved tree is pushed and the row cleared** — a spec in `archive/` with a live
+row is still in flight, at the gate.
 
 **A spec is named `<item>-<slug>.md` and is never renamed** — `1.2.1-blueprints.md`. The item
 number is already the spec number, so the name *is* the citation; the slug is what anyone actually
@@ -445,9 +434,6 @@ searches, the same shape as `decisions/`. On implementation green the Reviewer *
 which is the whole convention: `archive/1.2.1-blueprints.md` is reachable from a roadmap row alone,
 and a citation written during implementation still resolves years later. A move that renames breaks
 that, so archiving renames nothing.
-
-Two Implementers cannot collide, because they take different items and the numbers differ. *Who*
-holds the live spec is the board's Owner column, not a suffix on a filename.
 
 **Drafting ahead is a board decision, not a default.** Writing the next spec while the current
 one is being implemented risks building on assumptions the current one is about to invalidate —
@@ -505,7 +491,8 @@ the board before its exchange scrolls away.
 **The working verbs are `message` and `question`** — they resolve identities and infer the
 sender. `question` when an answer is awaited; **`reply` against the original Message-ID**.
 **Implementation handoffs use `agentpost review`** — the fail-closed envelope carrying exact
-commit, parent, paths and tests, per the transition table. Where an installed AgentPost skill or
+commit, parent, paths and tests — **or the declared no-witness coordinate message**, per the
+transition table. Where an installed AgentPost skill or
 integration provides its own instructions, prefer those over anything remembered.
 
 **Bare is local; qualified is deliberate.** `nav`, `build`, and `check` resolve only among
@@ -557,7 +544,7 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | `spec-red-revising` | `review/` | Implementer | revise in place, resend the path | `spec-deliberating` |
 | `coherence-read` | `specs/` | Navigator | pass: message the Implementer · drift: move the file back to `review/`, board row saying why | pass → `building` · drift → `coherence-red-revising` |
 | `coherence-red-revising` | `review/` | Implementer | revise, resend the path | `spec-deliberating` |
-| `building` | `specs/` | Implementer | implement, then send the Reviewer a **review envelope** — exact commit, parent, paths, tests | `impl-deliberating` |
+| `building` | `specs/` | Implementer | implement, then hand the Reviewer the tree: a **review envelope** — exact commit, parent, paths, tests — or, where no executable witness exists, **the same coordinates by message, declared as such** | `impl-deliberating` |
 | `impl-deliberating` | `specs/` | Reviewer | red: reply · green: name the commit examined and what was not, `git mv` to `archive/`, the archive commit message naming that code commit | red → `impl-red-repairing` · green → `reporting` |
 | `impl-red-repairing` | `specs/` | Implementer | fix, resend the envelope | `impl-deliberating` |
 | `reporting` | `archive/` | Implementer | the three-part report to the Navigator | `at-push-gate` |
@@ -577,8 +564,17 @@ objects are under review: a text, and a tree. The envelope requires a test node,
 feature: an implementation normally names its witness. **Where the work genuinely has no
 executable witness** — prose, configuration, a repository without a suite — **the handoff is the
 same coordinates by message, stated as such**: exact commit, its direct parent, the complete
-changed paths. The Reviewer verifies those against the repository before reading anything; a
-handoff whose coordinates do not check is returned unread.
+changed paths. The Reviewer claims the message, verifies the coordinates against the repository,
+and on failure replies with the coordinate error, **the changed artifacts unopened**.
+
+**One class runs beside the table, and it is stated here so the table stays exact.** A
+**skip-review change** — no invariant, no boundary, nothing green touched — never occupies the
+slot: no spec, no row, no location, entering whenever it is made. **The Implementer establishes
+eligibility and the report is the receipt**; the Reviewer may rule afterward that it should have
+been reviewed, the same check as detours. A live spec is unaffected — the class rides the next
+gate, where the report names one exact commit containing it, or stands alone at an empty slot as
+report → approval → push. `pushing` ships the report-named, Captain-approved commit; the
+exact-tree rule holds with only the naming act differing.
 
 **First contact is the loop's first item.** Expect the map to change; that is its purpose, not
 its failure. Anything the contact retracts or demotes fires a validity re-check immediately.
@@ -587,18 +583,12 @@ The Implementer is the heartbeat. It drives what is next and is idle only when b
 blocked is announced.
 
 **Escalation is the one rule from *The structure*** — *if it might surprise the level above,
-discuss it there first.* The names below are routing, not four more tests:
-
-- *Clarification* — the answer is already in the design and the Implementer cannot see it. Nothing
-  is surprised; the Navigator answers alone, citing the board.
-- *Fork* — the fix would come back in a shape the Navigator would not recognise. To the Navigator,
-  **before it is built**.
-- *Reframe* — the design's answer is wrong. The Navigator frames it for the Captain, and the
-  roadmap changes before the spec continues.
-- *Detour* — the work has left its roadmap item. Below.
-
-**When in doubt, run** — the baton rule above. What you may not do is absorb a surprise quietly;
-that is an architectural decision made by whoever was typing.
+discuss it there first.* The names are routing, not four more tests: *clarification*, the answer
+is in the design and the Navigator gives it alone, citing the board; *fork*, shapes that differ
+in what they add, to the Navigator **before it is built**; *reframe*, the design's answer is
+wrong, framed for the Captain, and the roadmap changes before the spec continues; *detour*, the
+work has left its roadmap item — below. **When in doubt, run** — what you may not do is absorb a
+surprise quietly, which is an architectural decision made by whoever was typing.
 
 **The other axis is friction: the apparatus rather than the work, and it goes to the Navigator.**
 When
@@ -870,18 +860,23 @@ seats learn by observation.
 invents nothing:**
 
     agentpost profile-register projecto-i \
-      --display-name 'Projecto Implementer' --kind project \
+      --display-name 'Projecto Implementer' --kind role \
       --summary 'Writes the specs and code; the heartbeat of the loop.' \
       --roles implementer --projects projecto \
       --project-roots /path/to/projecto \
       --handles 'build,spec requests,implementation questions'
 
     agentpost profile-register projecto-r \
-      --display-name 'Projecto Reviewer' --kind project \
+      --display-name 'Projecto Reviewer' --kind role \
       --summary 'Falsifies the work and the direction; deliberates specs and implementations to green.' \
       --roles reviewer --projects projecto \
       --project-roots /path/to/projecto \
       --handles 'check,spec reviews,implementation reviews'
+
+The Navigator registers `--kind project` — it holds the project's chart. The doing seats are
+`--kind role`: a role does not claim project ownership merely because it runs from the project's
+workspace, which is AgentPost's own guidance. All three share the project alias and answer at
+`projecto.*`.
 
     cd /path/to/projecto-bridge && agentpost join projecto-n --cli claude   # always name the seat
     agentpost identities --project projecto
@@ -1575,9 +1570,9 @@ one bridge commit, and your reply follows it — the commit records, the reply n
 stays where it is: a red spec in `review/`, a red implementation in `specs/` — accurate, because
 it is still in flight. **A spec arrives as a path; an implementation arrives as a review
 envelope** — an immutable commit with parent, paths and tests, or the same coordinates by message
-where no executable witness exists. **Verify the coordinates against the repository before
-reading anything; a handoff whose coordinates do not check is returned unread.** Inspect that
-tree, not the working directory, and do not ask for contents either way.
+where no executable witness exists. **Claim the message, verify the coordinates against the
+repository, and on failure reply with the coordinate error, the changed artifacts unopened.**
+Inspect that tree, not the working directory, and do not ask for contents either way.
 
 **An implementation green names the exact commit it examined, and says in one line what it did
 not.** The push gate ships only the tree the green named, which closes *the thing checked was not
