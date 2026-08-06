@@ -446,36 +446,11 @@ the bar. Where the reasoning needs the exchange, the decision file quotes it. Ar
 transcript instead would be insurance against a failure this rule already prevents.
 
 **`decisions/` has a bar**, or it becomes a dump. The board holds *what was decided*;
-`decisions/` holds *why*, and only when the why will be needed again.
-
-A decision earns a file in three cases: **alternatives were weighed and the rejected one will
-look attractive again**; the decision **voids or reverses prior work**, so a reader finding that
-work needs to know why it is dead; or it is **likely to be re-proposed**. Everything else stays
-a board row — a value with a one-line reason is complete as a row, and filing it is the dump
-behaviour.
-
-The first entries are usually the Chart's — a founding rule that had a real alternative gets a
-file, and the board's one-liner cites it.
-
-**Written at the moment of decision, by the Navigator, as part of recording it** — never
-reconstructed afterwards. A narrative assembled from memory is not the reasoning; it is a story
-about the reasoning, and it will be believed as though it were the first.
-
-Four fields, and the last is what earns the folder:
-
-    The question · What was decided · What else was considered and why it lost ·
-    **What would change the answer**
-
-That last field makes a decision premise-bearing. When its condition fires, the Harness
-re-checks it mechanically rather than waiting for someone to feel uneasy.
-
-**Read on four paths**, one far more than the others. The common one: **a proposal arrives that
-a decision already settled** — the Navigator declines and the decline row cites the file rather
-than re-arguing it. The others: a founding claim retracts and the Harness asks which decisions
-rested on it; the direction audit needs to know what was decided in order to attack it; a new
-seat asks why something is the way it is.
-
-Name them `D<n>-<slug>.md` — the number orders, the slug is what anyone actually searches.
+`decisions/` holds *why*, and only when the why will be needed again: **alternatives weighed and
+the loser will look attractive again; prior work voided; likely to be re-proposed.** Everything
+else stays a board row — a value with a one-line reason is complete as a row. Filing — fields,
+naming, when written — is the Navigator's directive; every other seat only ever follows a
+citation into the folder.
 
 **`roadmap.md` holds the whole map while it fits.** A phase moves to `phases/<n>-<name>.md` when
 its items crowd the map — the same growth rule as the board. At three phases there is no
@@ -502,12 +477,10 @@ the rule prevents is a bare handle silently finding a stranger. Inspect the rost
 `agentpost identities --project <other-project>`. Named groups are global fan-out objects; use
 `@group` where the name could look like a seat.
 
-**Reading is not clearing.** `read` inspects and changes nothing; unfinished mail re-announces
-itself to your next instance. `next --message-id` is the claim that clears it — claim exactly
-what you are starting or done with. **Leaving one unread is a legitimate choice** for an
-unaddressed ask with merit — but held-deliberately and simply-ignored look identical from
-outside, so a seat carrying mail across a session boundary says what it holds and why. There is
-no per-message delete; claiming is the disposal.
+**Reading is not clearing.** `read` changes nothing; `next --message-id` is the claim that
+clears, and claiming is the disposal — there is no per-message delete. **Holding one unread is
+legitimate** for an unaddressed ask with merit, but held and ignored look identical from outside:
+across a session boundary, say what you hold and why.
 
 **Install, register, join and arm are `protocols/spawn.md`** — read once, when a seat is being
 spawned, never in a working session. **ARMED is the only live state; QUEUED means durable
@@ -516,8 +489,8 @@ delivery, not receipt.**
 ## Channel protocol
 
 - **Cite, never restate.** Board item IDs, spec IDs, commit hashes. A restated value is a copy
-  with no update trigger; it will go stale and be believed. **Hand off by path or envelope** — a
-  spec goes to review as its location, never its contents.
+  with no update trigger; it will go stale and be believed. **Hand off by spec path or immutable
+  tree handoff** — never contents; the transition table defines the tree forms.
 - **A relay cannot amend a directive.** Only the board changes standing orders.
 - **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
   recorded on the board.
@@ -546,7 +519,7 @@ Each Status names the seat the loop awaits; the act that exits it is one bridge 
 | `coherence-red-revising` | `review/` | Implementer | revise, resend the path | `spec-deliberating` |
 | `building` | `specs/` | Implementer | implement, then hand the Reviewer the tree: a **review envelope** — exact commit, parent, paths, tests — or, where no executable witness exists, **the same coordinates by message, declared as such** | `impl-deliberating` |
 | `impl-deliberating` | `specs/` | Reviewer | red: reply · green: name the commit examined and what was not, `git mv` to `archive/`, the archive commit message naming that code commit | red → `impl-red-repairing` · green → `reporting` |
-| `impl-red-repairing` | `specs/` | Implementer | fix, resend the envelope | `impl-deliberating` |
+| `impl-red-repairing` | `specs/` | Implementer | fix, resend the same handoff form as before | `impl-deliberating` |
 | `reporting` | `archive/` | Implementer | the three-part report to the Navigator | `at-push-gate` |
 | `at-push-gate` | `archive/` | Navigator | translate for the Captain | `awaiting-captain` |
 | `awaiting-captain` | `archive/` | Captain | approve, or back down the ladder — reopening the implementation is the Navigator moving `archive/` → `specs/` | approve → `pushing` · reopen → `building` |
@@ -619,32 +592,18 @@ bakes itself into every consumer at once.
 ### Detours
 
 **A detour is work that cannot be traced to a roadmap item, or an item that has outgrown what it
-asked for.** Both can be legitimate — the map is a hypothesis and contact changes it — but
-neither is the Navigator's or the Implementer's to authorise.
+asked for** — legitimate, since the map is a hypothesis, but neither the Navigator's nor the
+Implementer's to authorise. The Navigator asks at both checkpoints, coherence read and push gate:
+**does this trace to a roadmap item, and is it still the size the item implied?** Growth is the
+detour that hides — every step authorised, only the shape across sessions shows it.
 
-The Navigator holds the course and asks at two natural checkpoints, the coherence read before
-implementation and the push gate after:
+**Growth is never yours** — the size was the Navigator's framing; stop. **Discovery is yours only
+if the fix falls entirely inside what you already own** — touching an invariant, a boundary, a
+document carrying authority, anything green means the call is not yours and the work stops;
+otherwise log it and carry it to the push gate. The check on self-assessed ownership: **the
+Reviewer sees the diff and may rule afterwards that a detour should have stopped.**
 
-- **Does this trace to a roadmap item?** Work that cannot be named to one is a detour.
-- **Is it still the size that item implied?** An item that keeps consuming without completing is
-  a **detour by growth**, and that is the one that hides — every individual step was authorised,
-  the coherence read passes each time, and only the shape across sessions shows it.
-
-**Both are surfaced immediately. Whether the work stops is a question of who owns the judgement.**
-
-**Growth is never yours.** The size that item implied was the Navigator's framing, so growth is
-theirs to rule on. Stop.
-
-**Discovery is yours only if the fix falls entirely inside what you already own.** The moment it
-touches something owned elsewhere — an invariant, a boundary, a document that carries authority,
-anything green — the call is not yours and the work stops. Otherwise log it and carry it to the
-push gate, where the Captain is deciding anyway.
-
-Ownership is self-assessed in the moment, so it has a check: **the Reviewer sees the diff and may
-rule afterwards that a detour should have stopped** — the same shape as challenging a decline.
-
-Three things reach the Captain — a **reframe** when the design's answer is wrong, a **detour**
-when the course has changed without anyone choosing it, and the **push gate** at every
+Three things reach the Captain — a **reframe**, a **detour**, and the **push gate** at every
 completion.
 
 ### The push gate
@@ -1367,8 +1326,12 @@ rule, downstream of first contact. Every decline is a board row with reasons. Yo
 go to the Reviewer first.
 
 **Decisions.** File one when alternatives were weighed, prior work is voided, or it will be
-re-proposed. Write it when the decision is made, never later. Include what would change the
-answer.
+re-proposed — **at the moment of decision, never reconstructed**: a narrative from memory is a
+story about the reasoning, believed as though it were the reasoning. Four fields, the last
+earning the folder: *the question · what was decided · what else was considered and why it lost ·
+**what would change the answer*** — premise-bearing, so the Harness re-checks mechanically when
+the condition fires. Name them `D<n>-<slug>.md`; declines cite the file rather than re-arguing
+it. The Chart's founding rules with real alternatives are usually the first entries.
 
 **Board hygiene.** Current state only. History to `archive/` and `decisions/`, cited by ID.
 Split a phase to `phases/` when it crowds `roadmap.md`.
