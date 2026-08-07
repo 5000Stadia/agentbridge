@@ -35,6 +35,11 @@ seats talk. AgentBridge is how they are organised.
    `<project>-bridge/` for the board, specs and decisions. It commits both, reports the tree,
    and stops. It makes no design decisions.
 
+   *This is deliberately not the Navigator.* A seat's identity comes from its spawn, and the
+   Navigator's home — the bridge — does not exist until this step finishes. The scaffolder is a
+   disposable seat that builds the world and hands off; the Navigator then boots cold into it,
+   the same way every one of its future sessions will.
+
 3. **Spawn the Navigator.** Per the scaffolder's handoff line, start a new agent session pointed
    at `<project>-bridge/boot.md`. It wires AgentPost, registers its seat, verifies it is
    receiving live, and instantiates the board.
