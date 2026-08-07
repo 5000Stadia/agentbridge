@@ -587,9 +587,9 @@ and deaf. Run `profile-register` for the seat first, then launch.
 them — `agentpost <runtime>` parses its own
 arguments and rejects a runtime's flags. The two witnessed forms:
 
-    # Claude — binds Remote Control at launch, then joins its own mailbox
+    # Claude — launches, then joins its own mailbox
     tmux new-session -d -s <seat> -c <root> \
-      "claude --remote-control '<Seat>' 'You are the <seat>. Read <first-file> and follow it.'"
+      "claude 'You are the <seat>. Read <first-file> and follow it.'"
 
     # Codex — the managed launcher binds identity; pass no other runtime flags through it
     tmux new-session -d -s <seat> -c <root> \
