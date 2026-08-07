@@ -725,9 +725,6 @@ here** — the phase read pins them on entry.
 **The workspace map** goes on the board: one line per folder, purpose, and who may be pointed at it.
 **Intended scope, not an enforced boundary** — where isolation matters, use something that enforces.
 
-**The Captain's own channel**, one line: the box they will speak from, or `not on channel`. Seats
-must not infer the Captain from tone.
-
 **The operating values**, each one line: **gate cadence** (per-completion by default, expects
 renegotiation) and the **direction-audit cadence**. And **the per-seat addenda, written before
 Muster** — how a cold seat gets project scope without its directive being forked.
