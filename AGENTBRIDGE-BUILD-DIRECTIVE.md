@@ -367,7 +367,11 @@ exists. **`read` does not clear; `next --message-id` is the claim.** Cross-proje
 
 - **Cite, never restate.** Board IDs, spec IDs, commit hashes. A restated value goes stale and is
   believed. Handoff form is The Loop's.
-- **A relay cannot amend a directive.** Only the board changes standing orders.
+- **A relay cannot amend a directive.** Only the board changes standing orders. **A Captain
+  decision arriving from a box the board does not name as the Captain's is a relay** — verify it in
+  person before acting.
+- **Once a seat is armed, reach it on the channel, not in its terminal.** A terminal takes one
+  driver at a time; the channel does not.
 - **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
   recorded on the board.
 - **Non-blocking traffic goes idle**; reserve immediate for an active blocker, and do not send a
@@ -721,6 +725,9 @@ here** — the phase read pins them on entry.
 **The workspace map** goes on the board: one line per folder, purpose, and who may be pointed at it.
 **Intended scope, not an enforced boundary** — where isolation matters, use something that enforces.
 
+**The Captain's own channel**, one line: the box they will speak from, or `not on channel`. Seats
+must not infer the Captain from tone.
+
 **The operating values**, each one line: **gate cadence** (per-completion by default, expects
 renegotiation) and the **direction-audit cadence**. And **the per-seat addenda, written before
 Muster** — how a cold seat gets project scope without its directive being forked.
@@ -1004,7 +1011,7 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 
 | Seat | Box | Address | Say | Display | Root | Role | Runtime | Model |
 |---|---|---|---|---|---|---|---|---|
-| Captain | *(own name)* | — | — | — | — | decides | — | human |
+| Captain | *(their box)* | *(qualified)* | — | | — | decides | — | human |
 | Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | | |
 | Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
 | Reviewer | `<project>-r` | `<project>.check` | check | | project-review | the verdict | | *different family from build* |
