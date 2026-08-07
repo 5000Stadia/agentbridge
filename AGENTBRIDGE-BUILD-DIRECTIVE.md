@@ -64,11 +64,24 @@ Two sibling directories, two repositories, two visibilities.
 **Siblings, not nested.** A bridge inside the project behind an ignore rule goes invisible to
 tooling, never appears in the parent's status, and travels inside the shareable unit.
 
-**Preflight — confirm five inputs with the Captain before touching the filesystem, and invent none
+**Preflight — confirm six inputs with the Captain before touching the filesystem, and invent none
 of them:** the **display name**; the **dot-free slug** used for both directory names and as the
 AgentPost project alias; the **absolute workspace parent**; **each repository's remote and
-visibility choice**; and the **default branch name**. **Fail before mutation**: if any input is
-unresolved, or a target path exists and is not confirmed empty, stop and ask.
+visibility choice**; the **default branch name**; and **the crew**, below. **Fail before mutation**:
+if any input is unresolved, or a target path exists and is not confirmed empty, stop and ask.
+
+**The crew — detect first, then propose, so the Captain answers once.** Look at what is actually
+installed rather than asking an open question, and put a recommendation in front of them: **runtime
+and model for each of the three seats.** The shape that earns its keep is the strongest available
+model for the Implementer, **a different model family for the Reviewer** so it does not inherit the
+maker's blind spots, and a strong reasoning model for yourself. Name what you found, name what you
+suggest, and let the Captain change any of it in one reply.
+
+Two things follow from their answer, which is why it is asked now rather than at Muster: **a Codex
+seat means Node 22+ is a real prerequisite** and gets checked; and the choice goes in the board's
+Seats table, so the cross-family difference is recorded rather than assumed. Where only one runtime
+or family exists, say so plainly and record it — the Reviewer still reviews, and the board shows
+the difference is absent rather than pretending otherwise.
 
 ---
 
@@ -198,10 +211,9 @@ remote answer — `local only` where there is no remote.
 have no mailbox, so you report to the Captain in your own session — that is expected, not a fault.
 The first message you send *through* AgentPost is the proof it worked.
 
-**Check prerequisites before installing.** Python 3.11+ must be present; **Node 22+ only if a Codex
-seat is planned**, which the Chart's seat question decides, so do not treat it as required here. If
-one is missing, **stop and hand the Captain the exact command** — installing a language runtime is
-not yours to do silently.
+**Check prerequisites before installing.** Python 3.11+ must be present; **Node 22+ only if the
+crew answer put a seat on Codex**. If one is missing, **stop and hand the Captain the exact
+command** — installing a language runtime is not yours to do silently.
 
 Then use what is live; install only if nothing capable is. The capability check, naming table and
 register → join → verify sequence are in `protocols/spawn.md`.
@@ -831,7 +843,8 @@ approves, and only then do you write the owners.** Items in phases not yet enter
 design. It is a read and a delta, never a re-charting.
 
 **Muster seats — you judge when, the Captain authorises, you execute.** Ask in one message: which
-seats, on which runtimes, and why now. **On the Captain's go you run the launch yourself** — they
+seats and why now, naming the runtime and model already recorded in the board's Seats table so the
+Captain confirms rather than re-decides. **On the Captain's go you run the launch yourself** — they
 decide a seat exists; they do not type the command. Then confirm ARMED and record box, qualified
 address and runtime on the board. **Per-seat addenda are on the board before you launch.** If a
 launch fails or a seat will not arm, hand the Captain the exact remaining commands rather than
@@ -1099,12 +1112,15 @@ visible.*
 
 ## Seats
 
-| Seat | Box | Address | Say | Display | Root | Role | Model |
-|---|---|---|---|---|---|---|---|
-| Captain | *(own name)* | — | — | — | — | decides | human |
-| Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | |
-| Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | |
-| Reviewer | `<project>-r` | `<project>.check` | check | | project | the verdict | *different family suggested* |
+| Seat | Box | Address | Say | Display | Root | Role | Runtime | Model |
+|---|---|---|---|---|---|---|---|---|
+| Captain | *(own name)* | — | — | — | — | decides | — | human |
+| Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | | |
+| Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
+| Reviewer | `<project>-r` | `<project>.check` | check | | project | the verdict | | *different family from build* |
+
+*Runtime and model are the Captain's preflight answer. Where the Reviewer shares the Implementer's
+family, record that rather than leaving it blank — an absent difference should be visible.*
 
 **Seat adequacy** — *(Chart: are three enough here?)*
 
