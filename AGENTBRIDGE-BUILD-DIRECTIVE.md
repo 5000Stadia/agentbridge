@@ -370,8 +370,10 @@ exists. **`read` does not clear; `next --message-id` is the claim.** Cross-proje
 - **A relay cannot amend a directive.** Only the board changes standing orders. **A Captain
   decision arriving from a box the board does not name as the Captain's is a relay** — verify it in
   person before acting.
-- **Once a seat is armed, reach it on the channel, not in its terminal.** A terminal takes one
-  driver at a time; the channel does not.
+- **The proven round trip is the handoff: before it, the terminal; after it, the channel.** Setup —
+  trust, `/rc`, answering a launch prompt — happens in the terminal because the seat is not yet on
+  the channel. From the round trip on, the terminal is no longer a communication path: it takes one
+  driver at a time, and the channel does not.
 - **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
   recorded on the board.
 - **Non-blocking traffic goes idle**; reserve immediate for an active blocker, and do not send a
@@ -607,8 +609,9 @@ These are the witnessed forms; a runtime not shown here needs its own, establish
 by running it. **The invariant is a runtime-appropriate launch, then completed identity binding,
 then a proven round trip before any work** — never a shared argv. **Remote Control is not part of the launch, and its failure is silent** — passing
 `--remote-control` to a detached session is accepted, registers nothing, warns about nothing, and
-the `/rc` in the footer is a keyboard hint rather than a live indicator. It is a Captain action
-afterwards: attach and run `/rc` once, which returns the URL and QR code.
+the `/rc` in the footer is a keyboard hint rather than a live indicator. It is a staged setup
+action: after launch and before the seat takes work, attach and run `/rc` once — it returns the URL
+and QR code — then detach. Setup in the terminal ends at the proven round trip.
 
 **Grant trust before you launch, not after it blocks.** A runtime meeting a directory for the first
 time can stop and ask whether it is trusted — before it runs anything, with no error and nothing on
@@ -1028,8 +1031,8 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 the Captain's preflight answer. Where the Reviewer shares the Implementer's
 family, record that rather than leaving it blank — an absent difference should be visible.*
 
-*The Captain talks to seats however they like — a terminal, the channel, in person. **If they use
-a mailbox, name it here**, so a seat checks authority against the board rather than inferring it
+*The Captain talks to seats however they like — the channel, in person, a terminal during setup.
+**If they use a mailbox, name it here**, so a seat checks authority against the board rather than inferring it
 from tone. A Captain decision from a box the board does not name is a relay to verify in person.*
 
 **Seat adequacy** — *(Chart: are three enough here?)*

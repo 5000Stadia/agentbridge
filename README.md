@@ -48,8 +48,9 @@ plain-English summary and a yes/no — and nothing reaches your remote without t
 
 **From then on it's one question at a time.** Approve a push, answer a fork, set the next target.
 
-*Seats launch through AgentPost's managed launcher, which binds each one's mailbox at start and,
-on runtimes that support Remote Control, makes it reachable from your phone.*
+*How a seat launches and takes its mailbox is runtime-specific — some launchers bind identity at
+start, others join just after. Remote Control, where a runtime supports it, is enabled separately
+once the seat is up, and then it's reachable from your phone.*
 
 The directive holds the method in full: the playbook, the three seat directives, three
 trigger-loaded protocols, and the board and roadmap templates. This README is the door; the
