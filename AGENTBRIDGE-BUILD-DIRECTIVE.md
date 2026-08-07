@@ -413,7 +413,9 @@ forbidden** — two live writers on one repository is a fault no blind critic ca
 
 **One escalation rule: if it might surprise the level above, discuss it there first.** Anything the
 design already answers, the Navigator answers alone. Anything that would change the roadmap changes
-it before the spec continues. **When in doubt, run** — what you may not do is absorb a surprise
+it before the spec continues. **Assigned work runs; missing authority asks.** If the work is yours and only its shape is
+uncertain, run it and surface the surprise. If what is missing is authority, scope, or a step whose
+consequence cannot be undone, ask before acting. What you may not do is absorb a surprise
 quietly.
 
 **Friction — the apparatus rather than the work — goes to the Navigator**, never settled between two
@@ -457,14 +459,8 @@ Universal, and stated only here. A project's own earned rules go on its board.
 - **Absent evidence never defaults to the affirmative**, and the thing being classified is never the
   evidence for its classification.
 - **Every set-level claim states its denominator** — "2 of 3", never "2".
-- **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — and name where you are
-  least confident.
 - **A demonstration proves the thing demonstrated and nothing adjacent**, and prose does not
   enforce: where a rule must hold against a mistake, it needs a mechanism.
-- **When an instruction does not cover something, ask.**
-- **The shareable artifact documents itself** — a stranger can understand and run it, written as
-  part of the work that changes it. Doing it well needs no permission; the Captain may say
-  otherwise.
 ```
 
 ---
@@ -584,17 +580,25 @@ a seat launched before its mailbox exists cannot bind to it — that is the diff
 launch and a later relaunch, and getting it backwards is what leaves a seat registered, resolvable
 and deaf. Run `profile-register` for the seat first, then launch.
 
-**Launch through the managed launcher, never bare.** A runtime that binds its mailbox at process
-start cannot be attached afterward, and a bare launch comes up QUEUED. The launcher forwards the
-runtime's own arguments, so one form binds identity and Remote Control together:
+**There is no common launch command. Preflight records one exact string per runtime**, because
+their surfaces differ and a wrapper does not reconcile them — `agentpost <runtime>` parses its own
+arguments and rejects a runtime's flags. The two witnessed forms:
 
+    # Claude — binds Remote Control at launch, then joins its own mailbox
     tmux new-session -d -s <seat> -c <root> \
-      "agentpost <runtime> --agent <seat> --remote-control '<Seat>' \
-       'You are the <seat>. Read <first-file> and follow it.'"
+      "claude --remote-control '<Seat>' 'You are the <seat>. Read <first-file> and follow it.'"
 
-Remote Control is named here because it cannot be added to a detached session afterward; a runtime
-without it drops that flag and keeps the rest. **The test is the same whatever the runtime**: ARMED
-without a relaunch, and the announcement round-trips.
+    # Codex — the managed launcher binds identity; pass no other runtime flags through it
+    tmux new-session -d -s <seat> -c <root> \
+      "agentpost codex --agent <seat> 'You are the <seat>. Read <first-file> and follow it.'"
+
+**The invariant is identity-bound launch and a proven round trip, never a shared argv.** Remote
+Control is named at launch where the runtime takes it that way; where it is a subcommand instead,
+the seat starts it itself.
+
+**A fresh workspace may hold a trust prompt.** A runtime meeting a directory for the first time can
+block before it runs anything, and no detached seat clears that alone. **Launch the first seat in a
+new workspace where someone can answer it**, or clear the prompt once before mustering the rest.
 
 **If a seat cannot get live any other way, it says so and the Navigator relaunches it.** The seat
 sends one message naming what it needs — the exact command, and the session or thread to resume if
@@ -1025,12 +1029,10 @@ first contact.)*
 
 **In flight** — *(the target, or `none`.)*
 
-| Target | Holder | Artifact under review | Verdict or the one gap | Approval pending? |
+| Target | Holder · where the work stands | Artifact under review | Verdict or the one gap | Approval pending? |
 |---|---|---|---|---|
 
 *Five things and no more, written in the transition's bridge commit. Locations carry the rest.*
-
-**The scoreboard** — *(target · where the work stands · the gap. One glance.)*
 
 **Next up** — *(the following two or three item IDs, no more)*
 
