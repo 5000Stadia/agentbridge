@@ -23,6 +23,10 @@ else; the crew installs its own tooling.
 > Read `https://raw.githubusercontent.com/5000Stadia/agentbridge/main/AGENTBRIDGE-BUILD-DIRECTIVE.md`
 > and follow it. You are the Navigator. The project is called *<your project>*.
 
+If that URL does not resolve — a private fork, no network — clone this repository and point at the
+local `AGENTBRIDGE-BUILD-DIRECTIVE.md` instead. **Stay for the first minute:** a runtime opening a
+folder for the first time asks whether you trust it, and nothing runs until you answer.
+
 **2. Answer six questions, once.** Display name, a dot-free slug, where to put it, whether either
 repository gets a remote, the default branch, and the crew — which runtime and model each seat
 runs on, proposed to you from what it finds installed. It builds two sibling repositories — your code,

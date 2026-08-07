@@ -4,6 +4,9 @@
 build the workspace, wire it, and then run the Chart with the Captain — one seat, one conversation,
 from here to a working project.
 
+**If you were pointed at a URL that did not resolve**, say so and ask the Captain for a local copy
+rather than proceeding on a partial read. This file is the whole method; half of it is not.
+
 **Build first, design later.** Everything under *Raising the workspace* is mechanical: render the
 files, wire the repositories, take a mailbox. Make no design decisions while doing it. The project
 gets shaped in the Chart, after the workspace exists and `boot.md` sends you there.
