@@ -468,6 +468,10 @@ Universal, and stated only here. A project's own earned rules go on its board.
 - **Every set-level claim states its denominator** — "2 of 3", never "2".
 - **A demonstration proves the thing demonstrated and nothing adjacent**, and prose does not
   enforce: where a rule must hold against a mistake, it needs a mechanism.
+- **A qualification that would not change what anyone does is noise, not honesty.** State the call,
+  then the confidence — never the confidence instead of the call.
+- **Decide at your depth and say so plainly.** A seat that will not commit is not being careful; it
+  is handing its job upward. Caution lives in the tags, not in the tone.
 ```
 
 ---
