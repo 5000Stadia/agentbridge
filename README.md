@@ -48,6 +48,6 @@ plain-English summary and a yes/no — and nothing reaches your remote without t
 *Every seat comes up reachable from your phone, so you can watch or steer any of them from
 anywhere.*
 
-The directive holds the method in full: the playbook, the three seat directives, four
+The directive holds the method in full: the playbook, the three seat directives, three
 trigger-loaded protocols, and the board and roadmap templates. This README is the door; the
 directive is the building.
