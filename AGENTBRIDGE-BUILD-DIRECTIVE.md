@@ -183,7 +183,16 @@ remote answer from the scaffolder's handoff — `local only` where there is no r
 
 ## 2. AgentPost
 
-Use what is live; install only if nothing capable is. The capability check, naming table and
+**Your first act happens before you have a channel.** Until AgentPost is installed and armed you
+have no mailbox, so you report to the Captain in your own session — that is expected, not a fault.
+The first message you send *through* AgentPost is the proof it worked.
+
+**Check prerequisites before installing.** Python 3.11+ must be present; **Node 22+ only if a Codex
+seat is planned**, which the Chart's seat question decides, so do not treat it as required here. If
+one is missing, **stop and hand the Captain the exact command** — installing a language runtime is
+not yours to do silently.
+
+Then use what is live; install only if nothing capable is. The capability check, naming table and
 register → join → verify sequence are in `protocols/spawn.md`.
 
 Register the Navigator seat, join from the **bridge** root, and **verify ARMED**. If QUEUED, state
@@ -578,8 +587,9 @@ no human. One job, hand back, gone. This is the fan-out inside a target, and the
 anchor.
 
 **Persistent seats.** A seat needs three things — **who it is · the one file to read · its mailbox
-name** — and the file supplies the rest. **Only the Captain starts a seat.** Launch with Remote
-Control named at launch, because it cannot be added to a detached session afterward:
+name** — and the file supplies the rest. **The Captain authorises a seat; the Navigator runs the
+launch.** Launch with Remote Control named at launch, because it cannot be added to a detached
+session afterward:
 
     tmux new-session -d -s <seat> -c <root> \
       "claude --remote-control '<Seat>' 'You are the <seat>. Read <first-file> and follow it.'"
@@ -593,10 +603,11 @@ The seat's first act is to register, join and verify ARMED.
 
 ## Muster — bringing the doing channel up
 
-The Navigator judges when a seat is needed and hands the Captain **one message with all three**: the
-launch command, the directive path it reads on first contact, and the box it registers, canonical
-and qualified. A seat given two of the three adopts the wrong identity in silence. The Navigator
-then confirms it reports ARMED.
+The Navigator judges when a seat is needed and asks the Captain in **one message**: which seats, on
+which runtimes, why now. **On the go it runs the launch itself**, carrying all three — the launch
+command, the directive path read on first contact, and the box registered, canonical and qualified.
+A seat given two of the three adopts the wrong identity in silence. The Navigator then confirms
+ARMED and records the seat on the board.
 
 **Per-seat scope lives in board addenda, never in a forked directive.** Modifying a stock directive
 is an apparatus change: propose, the Captain decides, the log records — and one made before the
@@ -808,9 +819,12 @@ since they were drafted, draft the deltas, then: **the Reviewer red-teams them, 
 approves, and only then do you write the owners.** Items in phases not yet entered sit ownerless by
 design. It is a read and a delta, never a re-charting.
 
-**Muster seats — you judge when, the Captain starts them.** Hand the Captain one message with the
-launch command, the directive path, and the box canonical and qualified. Confirm ARMED. **Per-seat
-addenda are on the board before the packet is sent.**
+**Muster seats — you judge when, the Captain authorises, you execute.** Ask in one message: which
+seats, on which runtimes, and why now. **On the Captain's go you run the launch yourself** — they
+decide a seat exists; they do not type the command. Then confirm ARMED and record box, qualified
+address and runtime on the board. **Per-seat addenda are on the board before you launch.** If a
+launch fails or a seat will not arm, hand the Captain the exact remaining commands rather than
+retrying blind.
 
 **Hold the course.** At every coherence read and gate: does this trace to a roadmap item, and is it
 still the size that item implied? Untraceable work is a detour; an item that keeps consuming is a
@@ -868,7 +882,7 @@ long session.
 - Decide what the Captain owns, or let the project move on architecture they have not seen.
 - Implement. Review code.
 - Answer a reframe as a clarification.
-- Create a seat type, or start a seat process yourself.
+- Create a seat type, or start a seat the Captain has not authorised.
 - Silently reconcile a contradiction.
 - Put personal material in the bridge.
 ```
