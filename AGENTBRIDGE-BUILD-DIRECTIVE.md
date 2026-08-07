@@ -580,8 +580,8 @@ a seat launched before its mailbox exists cannot bind to it — that is the diff
 launch and a later relaunch, and getting it backwards is what leaves a seat registered, resolvable
 and deaf. Run `profile-register` for the seat first, then launch.
 
-**There is no common launch command. Preflight records one exact string per runtime**, because
-their surfaces differ and a wrapper does not reconcile them — `agentpost <runtime>` parses its own
+**There is no common launch command.** Runtime surfaces differ and a wrapper does not reconcile
+them — `agentpost <runtime>` parses its own
 arguments and rejects a runtime's flags. The two witnessed forms:
 
     # Claude — binds Remote Control at launch, then joins its own mailbox
@@ -592,9 +592,10 @@ arguments and rejects a runtime's flags. The two witnessed forms:
     tmux new-session -d -s <seat> -c <root> \
       "agentpost codex --agent <seat> 'You are the <seat>. Read <first-file> and follow it.'"
 
-**The invariant is identity-bound launch and a proven round trip, never a shared argv.** Remote
-Control is named at launch where the runtime takes it that way; where it is a subcommand instead,
-the seat starts it itself.
+These are the witnessed forms; a runtime not shown here needs its own, established the same way —
+by running it. **The invariant is a runtime-appropriate launch, then completed identity binding,
+then a proven round trip before any work** — never a shared argv. Remote Control is named at launch
+where the runtime takes it that way; where it is a subcommand instead, the seat starts it itself.
 
 **A fresh workspace may hold a trust prompt.** A runtime meeting a directory for the first time can
 block before it runs anything, and no detached seat clears that alone. **Launch the first seat in a
