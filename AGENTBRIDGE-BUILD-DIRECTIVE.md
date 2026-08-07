@@ -604,9 +604,14 @@ by running it. **The invariant is a runtime-appropriate launch, then completed i
 then a proven round trip before any work** — never a shared argv. Remote Control is named at launch
 where the runtime takes it that way; where it is a subcommand instead, the seat starts it itself.
 
-**A fresh workspace may hold a trust prompt.** A runtime meeting a directory for the first time can
-block before it runs anything, and no detached seat clears that alone. **Launch the first seat in a
-new workspace where someone can answer it**, or clear the prompt once before mustering the rest.
+**Grant trust before you launch, not after it blocks.** A runtime meeting a directory for the first
+time can stop and ask whether it is trusted — before it runs anything, with no error and nothing on
+the channel, so a detached seat looks launched and is dead. **The launcher grants it in the same act
+as the launch**: for Claude Code, set `hasTrustDialogAccepted` true for that root in
+`~/.claude.json` beforehand. Other runtimes have their own; find it once and record it in
+*Established shape* rather than discovering it per seat. Where a runtime has no such mechanism, that
+seat is launched attached the first time and detached after — and that is a stated limit of the
+runtime, not a step the method requires.
 
 **If a seat cannot get live any other way, it says so and the Navigator relaunches it.** The seat
 sends one message naming what it needs — the exact command, and the session or thread to resume if
