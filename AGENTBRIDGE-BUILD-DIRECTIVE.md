@@ -617,18 +617,39 @@ anchor.
 
 **Persistent seats.** A seat needs three things — **who it is · the one file to read · its mailbox
 name** — and the file supplies the rest. **The Captain authorises a seat; the Navigator runs the
-launch.** Launch with Remote Control named at launch, because it cannot be added to a detached
-session afterward:
+launch.**
 
+**Register the profile before you launch it.** The managed launchers resolve an existing profile, so
+a seat launched before its mailbox exists cannot bind to it — that is the difference between a first
+launch and a later relaunch, and getting it backwards is what leaves a seat registered, resolvable
+and deaf. Run `profile-register` for the seat first, then launch.
+
+**Launch through the runtime's AgentPost-aware form, never bare.** Some runtimes bind their mailbox
+at process start and cannot be attached afterward; launching bare produces a seat that comes up
+QUEUED and needs a managed relaunch to become live.
+
+    # Claude — Remote Control named at launch, since it cannot be added to a detached session
     tmux new-session -d -s <seat> -c <root> \
       "claude --remote-control '<Seat>' 'You are the <seat>. Read <first-file> and follow it.'"
 
-That makes each seat reachable by name from the Captain's phone. A different runtime uses its own
-launch form — **the Reviewer runs on a different model family from the Implementer where the Captain
-has one**, which is where the difference decides something. Setting `remoteControlAtStartup: true`
-in the Captain's own settings covers anything launched bare.
+    # Codex — the managed launcher carries the identity from the first instruction
+    tmux new-session -d -s <seat> -c <root> \
+      "agentpost codex --agent <seat> 'You are the <seat>. Read <first-file> and follow it.'"
 
-The seat's first act is to register, join and verify ARMED.
+`agentpost claude --agent <seat>` is the equivalent managed form where a Claude seat needs its
+identity bound at start rather than taken by its own `join`. **Whatever the runtime, the test is the
+same**: the seat reaches ARMED without a relaunch, and its announcement round-trips.
+
+**If a seat cannot get live any other way, it says so and the Navigator relaunches it.** The seat
+sends one message naming what it needs — the exact command, and the session or thread to resume if
+its runtime has one — and then stops rather than retrying. The Navigator ends that instance and
+relaunches it per this protocol. A seat asking for its own relaunch is cooperating, so this is not
+the replacement sequence and needs no exclusion ritual; it is the same seat, coming back correctly.
+**Twice for the same seat is a launch-form defect, not a recovery** — fix the form and record it.
+
+**The Reviewer runs on a different model family from the Implementer where the Captain has one**,
+which is where the difference decides something. Setting `remoteControlAtStartup: true` in the
+Captain's own settings covers anything launched bare.
 
 ## Muster — bringing the doing channel up
 
@@ -850,9 +871,12 @@ design. It is a read and a delta, never a re-charting.
 
 **Muster seats — you judge when, the Captain authorises, you execute.** Ask in one message: which
 seats and why now, naming the runtime and model already recorded in the board's Seats table so the
-Captain confirms rather than re-decides. **On the Captain's go you run the launch yourself** — they
-decide a seat exists; they do not type the command. Then confirm ARMED, **reply to the seat's announcement so its round trip closes**, and record box,
-qualified address, runtime and model on the board. **Per-seat addenda are on the board before you launch.** If a
+Captain confirms rather than re-decides. **On the Captain's go you register the seat's profile and then run the launch yourself** — they
+decide a seat exists; they do not type the command. Register first: a managed launcher binds an
+existing profile, so launching before the mailbox exists is what produces a deaf seat. Then confirm ARMED, **reply to the seat's announcement so its round trip closes**, and record box,
+qualified address, runtime and model on the board. **If a seat reports it cannot arm, end that
+instance and relaunch it yourself** — that is yours, not the Captain's. Twice for the same seat
+means the launch form is wrong; fix it and log it. **Per-seat addenda are on the board before you launch.** If a
 launch fails or a seat will not arm, hand the Captain the exact remaining commands rather than
 retrying blind.
 
