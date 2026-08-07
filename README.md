@@ -21,25 +21,23 @@ else; the crew installs its own tooling.
 **1. Open a fresh agent in an empty folder and say:**
 
 > Read `https://raw.githubusercontent.com/5000Stadia/agentbridge/main/AGENTBRIDGE-BUILD-DIRECTIVE.md`
-> and scaffold a project called *<your project>*.
+> and follow it. You are the Navigator. The project is called *<your project>*.
 
 **2. Answer five questions, once.** Display name, a dot-free slug, where to put it, whether either
 repository gets a remote, and the default branch. It builds two sibling repositories — your code,
-and a private `-bridge` holding the board, specs and decisions — commits both, and stops.
+and a private `-bridge` holding the board, specs and decisions — installs and wires AgentPost, and
+takes a mailbox. **This is the only seat you ever start by hand.**
 
-**3. Start the Navigator.** The scaffolder hands you one line to run. It installs and wires
-AgentPost, takes a mailbox, and comes back to you.
-
-**4. Have the Chart conversation.** This is the one long conversation, and the only part that is
+**3. Have the Chart conversation.** This is the one long conversation, and the only part that is
 really yours: what you're making, what would make it not worth doing, and **the first target** — the
 smallest version that proves the idea, anchored to the most impressive real example of that shape.
 Direction, not the whole design; everything else is layered on later.
 
-**5. Say "go" when it asks for the crew.** The Navigator launches the Implementer and Reviewer
+**4. Say "go" when it asks for the crew.** The Navigator launches the Implementer and Reviewer
 itself — on different model families where you have them, so the reviewer doesn't share the
 builder's blind spots. You decide they exist; you don't type the commands.
 
-**6. Then watch.** Specs get written, attacked, and built; work fans out to parallel subagents, each
+**5. Then watch.** Specs get written, attacked, and built; work fans out to parallel subagents, each
 with its own critic; and the loop runs on its own. It comes back to you at the **push gate** — a
 plain-English summary and a yes/no — and nothing reaches your remote without that yes.
 

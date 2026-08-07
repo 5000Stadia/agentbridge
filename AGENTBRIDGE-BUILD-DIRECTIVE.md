@@ -1,8 +1,12 @@
 # AGENTBRIDGE — BUILD DIRECTIVE
 
-**To the agent reading this:** you are a one-off scaffolding seat. Create the workspace and files
-below, wire the repositories, then stop and report. You are not the Navigator, you do not begin the
-Chart, and you make no design decisions. Scaffold, confirm, hand off.
+**To the agent reading this: you are the Navigator, and this is your first session.** You will
+build the workspace, wire it, and then run the Chart with the Captain — one seat, one conversation,
+from here to a working project.
+
+**Build first, design later.** Everything under *Raising the workspace* is mechanical: render the
+files, wire the repositories, take a mailbox. Make no design decisions while doing it. The project
+gets shaped in the Chart, after the workspace exists and `boot.md` sends you there.
 
 ---
 
@@ -68,7 +72,11 @@ unresolved, or a target path exists and is not confirmed empty, stop and ask.
 
 ---
 
-## Your tasks
+## Raising the workspace
+
+**Hand the rendering to a subagent.** It is mechanical, it is the bulk of the work, and it does not
+belong in the context that is about to hold the Chart. Give it the render contract below; it returns
+the file count and the result of the token scan, nothing else.
 
 1. Create the two sibling directories.
 2. `git init` in each, on the named default branch.
@@ -89,9 +97,12 @@ unresolved, or a target path exists and is not confirmed empty, stop and ask.
    push the initial branch. If no CLI is authenticated, report the exact unperformed commands.
    Report the Captain's answer in your handoff — the Navigator writes it to the board.
 6. **First commit in each repository**, stating it is an initial scaffold with no project content.
-7. Report the tree and the handoff line.
+7. Confirm **15 files rendered**, that no `<project>` or `<Project>` token survives, and that the
+   project directory holds only `AGENTS.md`, `CLAUDE.md` and `.git` — the doormat twins are
+   identical by design and exempt from any duplicate check.
 
-**Do not install or configure AgentPost.** The Navigator owns that.
+**Then open `<project>-bridge/boot.md` and follow it.** It carries the rest of your first session:
+AgentPost, the board, and the Chart. It deletes itself when setup is done.
 
 ---
 
@@ -170,8 +181,8 @@ Captain.
 ```markdown
 # BOOT — delete this file when you are done
 
-**You are the Navigator, and this is a one-time task.** Its presence means setup is unfinished; its
-absence is the receipt that it finished.
+**You are the Navigator, and this is the rest of your first session.** Its presence means setup is
+unfinished; its absence is the receipt that it finished.
 
 Read `playbook.md` first. Its four-file onboarding assumes an instantiated board, which does not
 exist yet — **while this file exists, this file is the read.**
@@ -179,7 +190,7 @@ exist yet — **while this file exists, this file is the read.**
 ## 1. Repositories
 
 Confirm both exist as siblings, each its own repository, and record the Captain's visibility and
-remote answer from the scaffolder's handoff — `local only` where there is no remote.
+remote answer — `local only` where there is no remote.
 
 ## 2. AgentPost
 
@@ -1228,19 +1239,10 @@ to `phases/<n>-<name>.md` and leave the phase rows here with a pointer.
 
 ---
 
-## When you are done
+## When the workspace is up
 
-1. Confirm both directories exist as siblings, each with its own repository.
-2. Confirm the Captain's remote and visibility answer is in your handoff for the Navigator to
-   record — or report the exact commands if a requested remote could not be created.
-3. Confirm the project directory holds only `AGENTS.md`, `CLAUDE.md` and `.git`, and that no bridge
-   file duplicates another — the `AGENTS.md`/`CLAUDE.md` doormat twins are identical by design and
-   exempt.
-4. Confirm **15 files rendered** and that no `<project>` or `<Project>` token survives.
-5. Report the tree and this handoff line:
+Tell the Captain, in one message: the tree, the two repositories and their visibility, and that you
+are the Navigator and about to wire AgentPost. Then open `boot.md` and keep going — you do not stop
+here, and no second seat is spawned to continue.
 
-> Scaffold complete. To begin the Chart, spawn a Navigator seat pointed at
-> `<project>-bridge/boot.md`. It will wire AgentPost, open the chart conversation with the Captain,
-> instantiate the board, and delete `boot.md` when setup is done.
-
-Make no other changes. The next seat to act is the Navigator.
+The Implementer and Reviewer come later, at Muster, once the Chart has decided what they are for.
