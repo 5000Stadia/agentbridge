@@ -586,9 +586,9 @@ does not claim project ownership because it runs from the project's workspace.
     agentpost resolve <project>.nav
     agentpost armed <project>-n        # QUEUED here is expected — arm as join's output directs
 
-**Always name the seat in `join`.** Implementer and Reviewer share the project root, so two of three
-seats are always in the ambiguous case, and a wrong inference does not error — the process adopts
-another identity and sends as the wrong box.
+**Always name the seat in `join`.** With one seat per root the inference is usually right, but a
+wrong one does not error — the process adopts another identity and sends as the wrong box — so name
+it anyway.
 
 `agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once. **A seat
 cannot send to itself** — prove a new box against a real second box.
@@ -618,6 +618,16 @@ anchor.
 **Persistent seats.** A seat needs three things — **who it is · the one file to read · its mailbox
 name** — and the file supplies the rest. **The Captain authorises a seat; the Navigator runs the
 launch.**
+
+**One seat, one root.** Two seats sharing a directory share a git index and confuse `join` about
+which box they are — that is how one seat's commit captures another's uncommitted work under the
+wrong author, and how a seat ends up sending as its neighbour. The Navigator roots on the bridge and
+the Implementer on the project; **the Reviewer gets its own worktree of the project repo**, because
+it reviews immutable commits and never needs to write that tree:
+
+    git -C <project> worktree add ../<project>-review --detach
+
+Its root is that worktree. One directory, one seat, one box.
 
 **Register the profile before you launch it.** The managed launchers resolve an existing profile, so
 a seat launched before its mailbox exists cannot bind to it — that is the difference between a first
@@ -665,6 +675,17 @@ Reviewer exists is audited by the Reviewer with the map.
 
 **The Reviewer's first job is to red-team the map**, before any code exists. Map green unlocks the
 first phase read; until owners are written, no target is takeable, so nothing races that gate.
+
+## Standing a seat down
+
+**A seat that is done is closed, not left idle.** The Navigator does it, in the same order every
+time: end the runtime; confirm the work it held is committed or reported; `agentpost wipe agent
+<seat>` — its own box only; remove its worktree if it had one; and clear its row from the board's
+Seats table. **An idle registered box is a record; a live process with nothing to do is clutter that
+looks like a working seat.**
+
+Closing is not replacement. Replacement is for a seat that stopped mid-target and needs its
+capability ended before another takes the role; closing is for a seat whose work is finished.
 
 ## Clean starts
 
@@ -875,7 +896,8 @@ Captain confirms rather than re-decides. **On the Captain's go you register the 
 decide a seat exists; they do not type the command. Register first: a managed launcher binds an
 existing profile, so launching before the mailbox exists is what produces a deaf seat. Then confirm ARMED, **reply to the seat's announcement so its round trip closes**, and record box,
 qualified address, runtime and model on the board. **If a seat reports it cannot arm, end that
-instance and relaunch it yourself** — that is yours, not the Captain's. Twice for the same seat
+instance and relaunch it yourself** — that is yours, not the Captain's. **Closing a finished seat is
+also yours**: end the runtime, wipe its box, remove its worktree, clear its row. Twice for the same seat
 means the launch form is wrong; fix it and log it. **Per-seat addenda are on the board before you launch.** If a
 launch fails or a seat will not arm, hand the Captain the exact remaining commands rather than
 retrying blind.
@@ -1033,8 +1055,8 @@ Captain has one, that difference is most of your value at the whole-target verdi
 
 **Open `protocols/spawn.md` once and follow it** — your row is `<project>-r` / `<project>.check`
 unless the Navigator assigned otherwise. You share the project root with the Implementer, so
-**always name your seat in `join`**. **Verify ARMED**, then **announce yourself to the Navigator
-and wait for its reply** — a live reply proves the channel both ways, and you are set up but
+**name your seat in `join`**. Your root is your own worktree, not the Implementer's — one seat, one
+root. **Verify ARMED**, then **announce yourself to the Navigator and wait for its reply** — a live reply proves the channel both ways, and you are set up but
 unproven until it lands.
 
 ## Standard
@@ -1152,7 +1174,8 @@ visible.*
 | Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
 | Reviewer | `<project>-r` | `<project>.check` | check | | project | the verdict | | *different family from build* |
 
-*Runtime and model are the Captain's preflight answer. Where the Reviewer shares the Implementer's
+*One seat, one root — the Reviewer's is its own worktree of the project repo. Runtime and model are
+the Captain's preflight answer. Where the Reviewer shares the Implementer's
 family, record that rather than leaving it blank — an absent difference should be visible.*
 
 **Seat adequacy** — *(Chart: are three enough here?)*
