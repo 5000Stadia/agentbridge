@@ -601,8 +601,10 @@ arguments and rejects a runtime's flags. The two witnessed forms:
 
 These are the witnessed forms; a runtime not shown here needs its own, established the same way —
 by running it. **The invariant is a runtime-appropriate launch, then completed identity binding,
-then a proven round trip before any work** — never a shared argv. Remote Control is named at launch
-where the runtime takes it that way; where it is a subcommand instead, the seat starts it itself.
+then a proven round trip before any work** — never a shared argv. **Remote Control is not part of the launch, and its failure is silent** — passing
+`--remote-control` to a detached session is accepted, registers nothing, warns about nothing, and
+the `/rc` in the footer is a keyboard hint rather than a live indicator. It is a Captain action
+afterwards: attach and run `/rc` once, which returns the URL and QR code.
 
 **Grant trust before you launch, not after it blocks.** A runtime meeting a directory for the first
 time can stop and ask whether it is trusted — before it runs anything, with no error and nothing on
@@ -1013,7 +1015,7 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 
 | Seat | Box | Address | Say | Display | Root | Role | Runtime | Model |
 |---|---|---|---|---|---|---|---|---|
-| Captain | *(their box)* | *(qualified)* | — | | — | decides | — | human |
+| Captain | *(box, if any)* | *(qualified, if any)* | — | | — | decides | — | human |
 | Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | | |
 | Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
 | Reviewer | `<project>-r` | `<project>.check` | check | | project-review | the verdict | | *different family from build* |
@@ -1021,6 +1023,10 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 *One seat, one root — the Reviewer's is its own worktree of the project repo. Runtime and model are
 the Captain's preflight answer. Where the Reviewer shares the Implementer's
 family, record that rather than leaving it blank — an absent difference should be visible.*
+
+*The Captain talks to seats however they like — a terminal, the channel, in person. **If they use
+a mailbox, name it here**, so a seat checks authority against the board rather than inferring it
+from tone. A Captain decision from a box the board does not name is a relay to verify in person.*
 
 **Seat adequacy** — *(Chart: are three enough here?)*
 
