@@ -70,9 +70,9 @@ AgentPost project alias; the **absolute workspace parent**; **each repository's 
 visibility choice**; the **default branch name**; and **the crew**, below. **Fail before mutation**:
 if any input is unresolved, or a target path exists and is not confirmed empty, stop and ask.
 
-**The crew — detect first, then propose, so the Captain answers once.** Look at what is actually
-installed rather than asking an open question, and put a recommendation in front of them: **runtime
-and model for each of the three seats.** The shape that earns its keep is the strongest available
+**The crew — figure out what is available, then propose, so the Captain answers once.** Find the
+installed runtimes however is easiest — no detection machinery, just look — and put a recommendation
+in front of them: **runtime and model for each of the three seats.** The shape that earns its keep is the strongest available
 model for the Implementer, **a different model family for the Reviewer** so it does not inherit the
 maker's blind spots, and a strong reasoning model for yourself. Name what you found, name what you
 suggest, and let the Captain change any of it in one reply.
@@ -603,6 +603,12 @@ Some runtimes cannot self-arm and need a managed relaunch. A seat still QUEUED a
 `join`'s directive **states the exact remaining commands to the Captain and says plainly it is not
 receiving.**
 
+**Then prove it with a message, because ARMED is a claim about the notifier and not about the
+channel.** A new seat announces itself to the Navigator — canonical, qualified, display and spoken
+forms — and the Navigator replies. **A reply that arrives as a live wake rather than as catch-up on
+the seat's next turn is the proof**: it establishes send and receive in one exchange. Until that
+round trip lands, treat the seat as set up but unproven, and say so in those words.
+
 ## Spinning up work — two kinds
 
 **Ephemeral pieces.** The maker spawns them through its own agent tooling: no process, no mailbox,
@@ -845,8 +851,8 @@ design. It is a read and a delta, never a re-charting.
 **Muster seats — you judge when, the Captain authorises, you execute.** Ask in one message: which
 seats and why now, naming the runtime and model already recorded in the board's Seats table so the
 Captain confirms rather than re-decides. **On the Captain's go you run the launch yourself** — they
-decide a seat exists; they do not type the command. Then confirm ARMED and record box, qualified
-address and runtime on the board. **Per-seat addenda are on the board before you launch.** If a
+decide a seat exists; they do not type the command. Then confirm ARMED, **reply to the seat's announcement so its round trip closes**, and record box,
+qualified address, runtime and model on the board. **Per-seat addenda are on the board before you launch.** If a
 launch fails or a seat will not arm, hand the Captain the exact remaining commands rather than
 retrying blind.
 
@@ -930,7 +936,8 @@ announced. Code in the project repo; specs, board and decisions in the bridge.
 **Open `protocols/spawn.md` once and follow it** — your row is `<project>-i` / `<project>.build`
 unless the Navigator assigned otherwise. You share the project root with the Reviewer, so **always
 name your seat in `join`**. **Verify ARMED**; if QUEUED, give the Captain the exact remaining
-commands.
+commands. **Then announce yourself to the Navigator and wait for its reply** — a live reply is the
+proof the channel works in both directions, and you are set up but unproven until it lands.
 
 ## The loop
 
@@ -1002,7 +1009,9 @@ Captain has one, that difference is most of your value at the whole-target verdi
 
 **Open `protocols/spawn.md` once and follow it** — your row is `<project>-r` / `<project>.check`
 unless the Navigator assigned otherwise. You share the project root with the Implementer, so
-**always name your seat in `join`**. **Verify ARMED.**
+**always name your seat in `join`**. **Verify ARMED**, then **announce yourself to the Navigator
+and wait for its reply** — a live reply proves the channel both ways, and you are set up but
+unproven until it lands.
 
 ## Standard
 
