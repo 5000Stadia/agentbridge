@@ -23,8 +23,9 @@ else; the crew installs its own tooling.
 > Read `https://raw.githubusercontent.com/5000Stadia/agentbridge/main/AGENTBRIDGE-BUILD-DIRECTIVE.md`
 > and follow it. You are the Navigator. The project is called *<your project>*.
 
-**2. Answer five questions, once.** Display name, a dot-free slug, where to put it, whether either
-repository gets a remote, and the default branch. It builds two sibling repositories — your code,
+**2. Answer six questions, once.** Display name, a dot-free slug, where to put it, whether either
+repository gets a remote, the default branch, and the crew — which runtime and model each seat
+runs on, proposed to you from what it finds installed. It builds two sibling repositories — your code,
 and a private `-bridge` holding the board, specs and decisions — installs and wires AgentPost, and
 takes a mailbox. **This is the only seat you ever start by hand.**
 
@@ -43,8 +44,8 @@ plain-English summary and a yes/no — and nothing reaches your remote without t
 
 **From then on it's one question at a time.** Approve a push, answer a fork, set the next target.
 
-*Every seat comes up reachable from your phone, so you can watch or steer any of them from
-anywhere.*
+*Seats launch through AgentPost's managed launcher, which binds each one's mailbox at start and,
+on runtimes that support Remote Control, makes it reachable from your phone.*
 
 The directive holds the method in full: the playbook, the three seat directives, three
 trigger-loaded protocols, and the board and roadmap templates. This README is the door; the

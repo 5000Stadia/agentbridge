@@ -363,7 +363,7 @@ exists. **`read` does not clear; `next --message-id` is the claim.** Cross-proje
 ## Channel protocol
 
 - **Cite, never restate.** Board IDs, spec IDs, commit hashes. A restated value goes stale and is
-  believed. **Hand off by spec path or immutable tree handoff** — never contents.
+  believed. Handoff form is The Loop's.
 - **A relay cannot amend a directive.** Only the board changes standing orders.
 - **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
   recorded on the board.
@@ -398,8 +398,6 @@ resolve comes back unread.
 independent pieces and spawns a subagent per piece, each paired with a **blind critic** that sees
 only its piece and the target. One target in flight.
 
-**Keep one visible page:** the target, where the work stands, and the gap between them.
-
 **Grinding is a feature.** A model will refine custom work past the point any person would sit
 through — let it, aimed at a target that can be reached. **Point the stamina; never cap it.** The
 target is what makes it stop, not a clock and not a round count.
@@ -408,8 +406,8 @@ target is what makes it stop, not a clock and not a round count.
 git rather than in any process — but before a replacement starts: the Captain ends the old runtime's
 ability to write, both repositories are inspected for residue and what the replacement inherits is
 recorded, and the replacement takes the same board-held role. How a stopped seat is noticed is
-deliberately unspecified; a human noticing is enough. **Replacing without proven exclusion is not**
-— two live writers on one repository is a fault no blind critic can see.
+deliberately unspecified; a human noticing is enough. **Replacing without proven exclusion is
+forbidden** — two live writers on one repository is a fault no blind critic can see.
 
 **First contact is the loop's first target.** Expect the map to change; that is its purpose.
 
@@ -427,16 +425,6 @@ Removal is the Navigator's standing delegation; additions and reshapes are the C
 roadmap row and whether anything drifted — not whether it is correct.
 
 **Pause and surface.** If contact reveals an approved spec is wrong, stop and kick it back.
-
-### Detours
-
-**A detour is work that cannot be traced to a roadmap item, or an item that has outgrown what it
-asked for.** The Navigator asks at both checkpoints, coherence read and gate: does this trace to a
-row, and is it still the size the row implied? Growth is the detour that hides.
-
-**Growth is never yours** — the size was the Navigator's framing; stop. **Discovery is yours only if
-the fix falls entirely inside what you already own** — otherwise the work stops. The Reviewer sees
-the diff and may rule afterwards that a detour should have stopped.
 
 ### The gate
 
@@ -460,47 +448,23 @@ authorized.
 green. The report names the exact commit, says review was skipped, and justifies all three
 conditions; the Captain's approval is of an *unreviewed* tree and is never called green.
 
-### Proposals
-
-Anyone may propose. All proposals go to the Navigator, who may decline — mission fit, duplication,
-wrong home, contradicts a standing rule, downstream of first contact. **A decline is a board row
-with its reasons.** The Navigator's own proposals go to the Reviewer first.
-
-## The Harness
-
-- **A direction-audit cadence.** The Reviewer attacks founding claims on a schedule.
-- **Founding-claim triggers.** When a claim is retracted or demoted, a validity re-check fires.
-- **The question no insider volunteers**, on cadence: what would this look like if we merged it,
-  removed it, or bought it instead?
-
 ---
 
 ## Standing rules
 
-Universal. A project's own hard-won rules go on its board.
+Universal, and stated only here. A project's own earned rules go on its board.
 
-- **Implement → review → implement.** Never implement → publish.
-- **Blocked is announced**, never silent.
-- **"Fixed" names the witness** that fails without the change and passes with it. A claim that a
-  mechanism exists ships with the mechanism's output.
-- **A row marked settled names what settled it**, and who said it.
-- **Absent evidence never defaults to the affirmative**, and the thing being classified is never
-  the evidence for its classification.
+- **Absent evidence never defaults to the affirmative**, and the thing being classified is never the
+  evidence for its classification.
 - **Every set-level claim states its denominator** — "2 of 3", never "2".
-- **Instruments get the same scrutiny as code**; attack with counterexamples run against the real
-  path, not by inspection.
-- **When an instruction does not cover something, ask.**
 - **Tag your claims** — ESTABLISHED / DESIGNED / HYPOTHESIS / LIMIT / OPEN — and name where you are
   least confident.
 - **A demonstration proves the thing demonstrated and nothing adjacent**, and prose does not
   enforce: where a rule must hold against a mistake, it needs a mechanism.
-- **The shareable artifact documents itself.** A stranger can understand and run it — readme,
-  structure, whatever the domain expects — written as part of the work that changes it, never bolted
-  on at the end. **Doing it well is the default and needs no permission**; the Captain may say do it
-  differently, or stop.
-- **Follow the project's conventions** — how the repository is organised, how work is documented,
-  how commits read. They are on the board under *Established shape*, and a target that breaks one
-  without saying so has missed its cohesion.
+- **When an instruction does not cover something, ask.**
+- **The shareable artifact documents itself** — a stranger can understand and run it, written as
+  part of the work that changes it. Doing it well needs no permission; the Captain may say
+  otherwise.
 ```
 
 ---
@@ -565,7 +529,7 @@ does not claim project ownership because it runs from the project's workspace.
       --project-roots /path/to/<project>-review \
       --handles 'check,spec reviews,implementation reviews'
 
-    cd /path/to/<project>-bridge && agentpost join <project>-n --cli claude   # always name the seat
+    cd /path/to/<project>-bridge && agentpost join <project>-n --cli <runtime>   # always name the seat
     agentpost identities --project <project>
     agentpost resolve <project>.nav
     agentpost armed <project>-n        # QUEUED here is expected — arm as join's output directs
@@ -620,21 +584,17 @@ a seat launched before its mailbox exists cannot bind to it — that is the diff
 launch and a later relaunch, and getting it backwards is what leaves a seat registered, resolvable
 and deaf. Run `profile-register` for the seat first, then launch.
 
-**Launch through the runtime's AgentPost-aware form, never bare.** Some runtimes bind their mailbox
-at process start and cannot be attached afterward; launching bare produces a seat that comes up
-QUEUED and needs a managed relaunch to become live.
+**Launch through the managed launcher, never bare.** A runtime that binds its mailbox at process
+start cannot be attached afterward, and a bare launch comes up QUEUED. The launcher forwards the
+runtime's own arguments, so one form binds identity and Remote Control together:
 
-    # Claude — Remote Control named at launch, since it cannot be added to a detached session
     tmux new-session -d -s <seat> -c <root> \
-      "claude --remote-control '<Seat>' 'You are the <seat>. Read <first-file> and follow it.'"
+      "agentpost <runtime> --agent <seat> --remote-control '<Seat>' \
+       'You are the <seat>. Read <first-file> and follow it.'"
 
-    # Codex — the managed launcher carries the identity from the first instruction
-    tmux new-session -d -s <seat> -c <root> \
-      "agentpost codex --agent <seat> 'You are the <seat>. Read <first-file> and follow it.'"
-
-`agentpost claude --agent <seat>` is the equivalent managed form where a Claude seat needs its
-identity bound at start rather than taken by its own `join`. **Whatever the runtime, the test is the
-same**: the seat reaches ARMED without a relaunch, and its announcement round-trips.
+Remote Control is named here because it cannot be added to a detached session afterward; a runtime
+without it drops that flag and keeps the rest. **The test is the same whatever the runtime**: ARMED
+without a relaunch, and the announcement round-trips.
 
 **If a seat cannot get live any other way, it says so and the Navigator relaunches it.** The seat
 sends one message naming what it needs — the exact command, and the session or thread to resume if
@@ -643,24 +603,7 @@ relaunches it per this protocol. A seat asking for its own relaunch is cooperati
 the replacement sequence and needs no exclusion ritual; it is the same seat, coming back correctly.
 **Twice for the same seat is a launch-form defect, not a recovery** — fix the form and record it.
 
-**The Reviewer runs on a different model family from the Implementer where the Captain has one**,
-which is where the difference decides something. Setting `remoteControlAtStartup: true` in the
-Captain's own settings covers anything launched bare.
 
-## Muster — bringing the doing channel up
-
-The Navigator judges when a seat is needed and asks the Captain in **one message**: which seats, on
-which runtimes, why now. **On the go it runs the launch itself**, carrying all three — the launch
-command, the directive path read on first contact, and the box registered, canonical and qualified.
-A seat given two of the three adopts the wrong identity in silence. The Navigator then confirms
-ARMED and records the seat on the board.
-
-**Per-seat scope lives in board addenda, never in a forked directive.** Modifying a stock directive
-is an apparatus change: propose, the Captain decides, the log records — and one made before the
-Reviewer exists is audited by the Reviewer with the map.
-
-**The Reviewer's first job is to red-team the map**, before any code exists. Map green unlocks the
-first phase read; until owners are written, no target is takeable, so nothing races that gate.
 
 ## Standing a seat down
 
@@ -967,8 +910,7 @@ Read `playbook.md` and `PROJECT-BOARD.md` first. The board wins any disagreement
 only what is yours alone.
 
 **You decide whether the work hit its target.** Two seats optimising locally agree each other into a
-wall; you are the defence. **A different model family from the Implementer** is where your value
-concentrates, at the whole-target verdict.
+wall; you are the defence.
 
 **Boot:** open `protocols/spawn.md` once and follow it. Your root is your own worktree. Name your
 seat in `join`, **verify ARMED**, then announce yourself and wait for the reply.
@@ -1057,7 +999,7 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 | Captain | *(own name)* | — | — | — | — | decides | — | human |
 | Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | | |
 | Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
-| Reviewer | `<project>-r` | `<project>.check` | check | | project | the verdict | | *different family from build* |
+| Reviewer | `<project>-r` | `<project>.check` | check | | project-review | the verdict | | *different family from build* |
 
 *One seat, one root — the Reviewer's is its own worktree of the project repo. Runtime and model are
 the Captain's preflight answer. Where the Reviewer shares the Implementer's
@@ -1121,9 +1063,7 @@ together.*
 
 ## Escalation triggers
 
-- A capability turns out absent where the map said present.
-- Anything that changes what a core concept means.
-- Anything that would change the roadmap or a founding claim.
+*(project-specific, beyond the surprise route — blank until one is earned)*
 
 ## Cadence
 
