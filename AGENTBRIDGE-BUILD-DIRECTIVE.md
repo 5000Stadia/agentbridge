@@ -474,12 +474,14 @@ Universal, and stated only here. A project's own earned rules go on its board.
   then the confidence — never the confidence instead of the call.
 - **Decide at your depth and say so plainly.** A seat that will not commit is not being careful; it
   is handing its job upward. Caution lives in the tags, not in the tone.
-- **Where this method's shape pinches and no universal fix is obvious, take the simplest shape that
-  serves the project — and the seat doing the work chooses it.** The hands closest to the friction
-  hold the best opinion on the shape that removes it; that opinion is the one to use, not a generic
-  minimum. Form is the project's to fit; only the loop's authority — review to green, the gates,
-  the spine — is the method's. One line in *Established shape* records the departure; a departure
-  that recurs across projects is the method's finding, and travels at a push boundary.
+- **Where this method's shape pinches and no universal fix is obvious, the working seat takes the
+  simplest shape that serves the project — bounded by its own artifact.** The hands closest to the
+  friction hold the best opinion on the shape that removes it: a reversible form change confined to
+  the seat's own artifact is applied at once, recorded in one *Established shape* line, and named to
+  the Navigator. **Anything wider — another seat's contract, shared apparatus, authority, exclusion,
+  evidence burden, a repository boundary, anything irreversible — is a proposal on the apparatus
+  route, not a choice.** Departures travel in the push report; recurrence across projects is the
+  method maintainer's to detect, never a seat's to assert.
 ```
 
 ---
@@ -782,7 +784,10 @@ anyone deciding to — which is why changes are recorded, not why they are disco
 never fires, a step routinely skipped: say so and cut it. *Adding is harder* — a location answers a
 question and names who opens it when; a rule fits in one line; a seat meets the test below.
 
-**Anyone may propose; the Navigator holds coherence; the Captain decides.** A decline is a board row
+**Anyone may propose; the Navigator holds coherence; the Captain decides.** One standing delegation
+cuts past this route: a reversible form change confined to the working seat's own artifact, per the
+standing rule — chosen, applied, recorded, named to the Navigator. Everything else lands here. A
+decline is a board row
 with reasons. A structural change with real alternatives gets a `decisions/` file.
 
 **Three tests every surviving rule passes** — the same contract as founding rules, so the two
