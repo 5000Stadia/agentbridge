@@ -316,10 +316,14 @@ running.
 ignore rule is a filter, not a boundary. A remote is optional; version control is not.
 
 **Bind them one direction per commit.** Implementation commits cite the spec ID and the bridge
-commit that cleared it; the archive commit closing a spec names the exact code commit reviewed
-**and the Captain's approval of it** — that line is the durable approval record, and it is what a
-held push checks each unpushed commit against: enumerate `origin/<branch>..tip` and require a
-matching approval for every commit before pushing.
+commit that cleared it; the archive commit closing a spec is the verdict record and names the exact
+code commit reviewed. **The approval is its own record, written when it actually happens**: the
+target-clear is a bridge commit by the Navigator mapping the Captain's approval to that exact code
+commit — the durable approval ledger. A held push checks against it: enumerate
+`origin/<branch>..tip` — or, before any upstream exists, everything reachable from tip — and
+require a matching approval for every commit. **The first approval covers the history beneath it**:
+the first target's review takes the whole repository to date, scaffold included, and its approval
+record says so — which is what makes the first push provable at all.
 
 **No personal material in the bridge**, ever — enforced when writing, which is also what lets a
 bridge be public where the mission calls for it.
