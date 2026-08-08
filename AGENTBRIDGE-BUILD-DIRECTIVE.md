@@ -449,11 +449,14 @@ history rewrite. Bridge commits are internal record and flow freely.
 **The Implementer reports** — three parts, short: which roadmap item this served and what the measure
 now reads; anything unexpected ("nothing" is a real answer); a synopsis.
 
-**The Navigator translates** — plain English, readable by someone who has not opened the spec, and
+**The Navigator translates** — the maker's three ready lines carried in the maker's words, then
+plain English readable by someone who has not opened the spec, and
 **whether the measure moved, including when it did not**. Three summaries in a row saying it did not
 is drift.
 
-**The Captain decides; the Implementer pushes** — exactly the tree the verdict named. A decline that
+**The Captain decides; the Implementer pushes** — exactly the tree the verdict named. **The push
+cadence is execution timing, never scope**: a standing yes authorizes when a reviewed artifact
+ships, and no cadence permits pushing a tree other than the exact one the verdict named. A decline that
 reopens the implementation is the Navigator sending the spec back. **A matured gate is a standing
 delegation recorded on the board, not a hole**: work outside the named list proceeds already
 authorized.
@@ -932,10 +935,10 @@ it lands.
 - **State your inheritance**: what this coheres with, and what it establishes for later targets. The
   latter goes to the Navigator for *Established shape*.
 - **Send the path and the bridge commit containing it.** On red, revise in place and resend.
-- **Green makes a ready report**: when the verdict lands, send the Navigator three lines — what now
-  exists in plain terms, the exact commit, what you verified — and the gate letter carries them in
-  your words. Under an automatic push cadence the report still travels: the Captain sees what went
-  out, whether or not they were asked. **You
+- **Implementation green makes the ready report** — spec green makes nothing. Send the Navigator
+  three lines: what now exists in plain terms, the exact commit, what you verified. This is the
+  gate report of The Loop, not a second document. Under an automatic push cadence it still
+  travels: the Captain sees what went out, whether or not they were asked. **You
   never move a spec into `specs/`.**
 - **Fan out to build.** Break the target into the smallest independent pieces; a subagent per piece,
   each paired with a blind critic that sees only its piece and the target. Assemble, then hand the
@@ -1125,6 +1128,8 @@ together.*
 
 - **The gate is the reporting cadence.** Nothing reaches the code remote otherwise.
 - **Current gate value** — *(per-completion unless renegotiated; the named list goes here)*
+- **Current push cadence** — *(confirm each / automatic after approved green / hold until `<named
+  target>` — the Captain's standing answer from the Chart, revisable at any gate)*
 - Direction audit every **N** *(period)*.
 - Stop at the first running end-to-end artifact and show it — never at "complete."
 ```

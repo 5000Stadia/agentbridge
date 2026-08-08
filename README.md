@@ -43,10 +43,14 @@ itself — on different model families where you have them, so the reviewer does
 builder's blind spots. You decide they exist; you don't type the commands.
 
 **5. Then watch.** Specs get written, attacked, and built; work fans out to parallel subagents, each
-with its own critic; and the loop runs on its own. It comes back to you at the **push gate** — a
-plain-English summary and a yes/no — and nothing reaches your remote without that yes.
+with its own critic; and the loop runs on its own. It comes back to you at the **push gate** with a
+plain-English summary of what shipped-ready work exists. Whether that is a yes/no each time is
+yours: during the Chart you choose the push cadence — confirm each push, push automatically once
+you approve a target, or hold everything until a named milestone — and either way the report of
+what went out always reaches you.
 
-**From then on it's one question at a time.** Approve a push, answer a fork, set the next target.
+**From then on it's one question at a time.** Answer a fork, set the next target, and — if you
+chose to confirm each — approve a push.
 
 *How a seat launches and takes its mailbox is runtime-specific — some launchers bind identity at
 start, others join just after. Remote Control, where a runtime supports it, is enabled separately
