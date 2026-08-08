@@ -753,7 +753,9 @@ here** — the phase read pins them on entry.
 **Intended scope, not an enforced boundary** — where isolation matters, use something that enforces.
 
 **The operating values**, each one line: **gate cadence** (per-completion by default, expects
-renegotiation) and the **direction-audit cadence**. And **the per-seat addenda, written before
+renegotiation), the **direction-audit cadence**, and the **push cadence — asked, never assumed**:
+confirm each push, push automatically once a target is gate-approved green, or hold until a named
+target. The Captain's answer is a standing directive on the board, revisable at any gate. And **the per-seat addenda, written before
 Muster** — how a cold seat gets project scope without its directive being forked.
 
 **Exit.** Repositories wired and visibilities recorded. Six extractables confirmed explicitly —
@@ -929,7 +931,11 @@ it lands.
   omitted, and the absence is the statement** — never a written "nothing, nobody."
 - **State your inheritance**: what this coheres with, and what it establishes for later targets. The
   latter goes to the Navigator for *Established shape*.
-- **Send the path and the bridge commit containing it.** On red, revise in place and resend. **You
+- **Send the path and the bridge commit containing it.** On red, revise in place and resend.
+- **Green makes a ready report**: when the verdict lands, send the Navigator three lines — what now
+  exists in plain terms, the exact commit, what you verified — and the gate letter carries them in
+  your words. Under an automatic push cadence the report still travels: the Captain sees what went
+  out, whether or not they were asked. **You
   never move a spec into `specs/`.**
 - **Fan out to build.** Break the target into the smallest independent pieces; a subagent per piece,
   each paired with a blind critic that sees only its piece and the target. Assemble, then hand the
