@@ -457,7 +457,9 @@ plain English readable by someone who has not opened the spec, and
 **whether the measure moved, including when it did not**. Three summaries in a row saying it did not
 is drift.
 
-**The Captain decides; the Implementer pushes** — exactly the tree the verdict named. **The push
+**The Captain decides; the Implementer pushes — and no one else.** Publication is one seat's hands:
+the Reviewer's worktree shares the repository and is never a publication path, and the Navigator
+holds no code root at all. Exactly the tree the verdict named. **The push
 cadence is execution timing, never scope**: a standing yes authorizes when a reviewed artifact
 ships, and no cadence permits pushing a tree other than the exact one the verdict named. A decline that
 reopens the implementation is the Navigator sending the spec back. **A matured gate is a standing
@@ -1064,7 +1066,8 @@ Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
 | Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
 | Reviewer | `<project>-r` | `<project>.check` | check | | project-review | the verdict | | *different family from build* |
 
-*One seat, one root — the Reviewer's is its own worktree of the project repo. Runtime and model are
+*One seat, one root — the Reviewer's is its own worktree of the project repo, read-and-run only:
+it shares the repository and never pushes. Runtime and model are
 the Captain's preflight answer. Where the Reviewer shares the Implementer's
 family, record that rather than leaving it blank — an absent difference should be visible.*
 
