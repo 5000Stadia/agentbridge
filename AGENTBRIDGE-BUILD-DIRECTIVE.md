@@ -109,8 +109,12 @@ the file count and the result of the token scan, nothing else.
    not before it exists.
 5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is. **Local
    only is a complete answer.** A remote needs the account or organisation named, never a guessed
-   one; **the bridge defaults to private**. A created remote is finished: add it as `origin` and
-   push the initial branch. If no CLI is authenticated, report the exact unperformed commands.
+   one; **the bridge defaults to private**. A created remote is finished differently per repository: the **bridge** adds `origin` and pushes
+   at once — it is record, and the code-remote rule does not govern it. The **code repository adds
+   `origin` and pushes nothing**: its first push is the Implementer's, carrying the first
+   gate-approved artifact, so the public tree's first appearance is a reviewed one and
+   Implementer-only publication holds from the first byte. If no CLI is authenticated, report the
+   exact unperformed commands.
    Report the Captain's answer in your handoff — the Navigator writes it to the board.
 6. **First commit in each repository**, stating it is an initial scaffold with no project content.
 7. Confirm **15 files rendered**, that no `<project>` or `<Project>` token survives, and that the
@@ -312,7 +316,10 @@ running.
 ignore rule is a filter, not a boundary. A remote is optional; version control is not.
 
 **Bind them one direction per commit.** Implementation commits cite the spec ID and the bridge
-commit that cleared it; the archive commit closing a spec names the exact code commit reviewed.
+commit that cleared it; the archive commit closing a spec names the exact code commit reviewed
+**and the Captain's approval of it** — that line is the durable approval record, and it is what a
+held push checks each unpushed commit against: enumerate `origin/<branch>..tip` and require a
+matching approval for every commit before pushing.
 
 **No personal material in the bridge**, ever — enforced when writing, which is also what lets a
 bridge be public where the mission calls for it.
@@ -944,8 +951,10 @@ it lands.
 - **Implementation green makes the ready report** — spec green makes nothing. Send the Navigator
   three lines: what now exists in plain terms, the exact commit, what you verified. This is the
   gate report of The Loop, not a second document. It reports what is
-  ready; the push, whenever the cadence fires it, is its own line — so the Captain always sees
-  both states and never mistakes one for the other. **You
+  ready. **The push gets its own receipt, after it succeeds**: remote, ref, and the exact pushed
+  tip or range, sent to the Navigator, who carries it to the Captain. A failed push is reported as
+  a failure and nothing is called shipped — so the Captain always sees both states and never
+  mistakes one for the other. **You
   never move a spec into `specs/`.**
 - **Fan out to build.** Break the target into the smallest independent pieces; a subagent per piece,
   each paired with a blind critic that sees only its piece and the target. Assemble, then hand the
