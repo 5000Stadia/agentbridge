@@ -711,9 +711,11 @@ organised, how the work documents itself, how commits read. Later targets inheri
 re-deciding, and the Reviewer checks them as part of cohesion.
 
 **The founding rules.** The six imply rules, and the Chart is not done until they are written as
-rules. **One line each — a rule that will not fit in one line is a topic, not a rule.** Where a rule
-had a real alternative, the reasoning goes in `decisions/`. Founding and earned rules together stay
-under a dozen.
+rules. **One line each — a rule that will not fit in one line is a topic, not a rule.** And **a rule
+earns its ID by being citable against an act**: it binds across targets and forbids something a
+check can point to. A constraint one spec can check descends into that spec; direction and
+aspiration live in the stance and the map, not the law table. Where a rule had a real alternative,
+the reasoning goes in `decisions/`. Founding and earned rules together stay under a dozen.
 
 **Research happens here, before the bet is written down.** Survey occupied territory and the
 strongest existing alternative so the bet is born located against the field. **Name the route the
@@ -904,7 +906,10 @@ it lands.
   Read **its one roadmap row**: it carries the anchor and what this must cohere with.
 - **Write the spec into `review/`** as `<item>-<slug>.md`. It answers two questions: *what does done
   look like*, stated so someone else could check it, and *where are the edges* — what this must not
-  touch, and who outside feels it. "Nothing, nobody" is a real answer.
+  touch, and who outside feels it. **Edges point at the roadmap rather than restating it**; spend
+  prose only on the edge a reader would think this target crossed. "Nothing, nobody" is a real
+  answer, given once — **a section whose honest content is empty is omitted, and the absence is the
+  statement.**
 - **State your inheritance**: what this coheres with, and what it establishes for later targets. The
   latter goes to the Navigator for *Established shape*.
 - **Send the path and the bridge commit containing it.** On red, revise in place and resend. **You
