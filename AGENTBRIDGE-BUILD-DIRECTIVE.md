@@ -938,8 +938,9 @@ it lands.
 ## The loop
 
 - **Take the next target in order** and read **its one roadmap row**: it carries the anchor and
-  what this must cohere with. The board row lands in the same commit as the spec — the row is what
-  a replacement seat needs; a separate commit before anything exists was ritual.
+  what this must cohere with. **Write the board row into the live worktree before drafting begins**
+  — the board is present-tense authority, and a seat re-priming mid-draft must see the target as
+  taken. The row commits with the spec; only the separate commit was ritual, not the timing.
 - **Write the spec into `review/`** as `<item>-<slug>.md`. It answers two questions: *what does done
   look like*, stated so someone else could check it, and *where are the edges* — what this must not
   touch, and who outside feels it. **Edges point at the roadmap rather than restating it**; spend
@@ -1174,8 +1175,7 @@ appointment. A correction appends a supersession citing the row it replaces.
 | | | | |
 
 Whether a row is this project's own or the method's finding is judged when the log is read at a
-push boundary, from the row's content — a column for it varied on no real log and discriminated
-nothing.
+push boundary, from the row's content — never asserted by the seat that wrote it.
 
 Removals are logged the same as additions.
 ```
