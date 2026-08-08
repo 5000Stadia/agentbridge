@@ -716,8 +716,8 @@ part of the first target. Deferring by convenience is how a project proves the w
 organised, how the work documents itself, how commits read. Later targets inherit them rather than
 re-deciding, and the Reviewer checks them as part of cohesion.
 
-**The founding rules.** The six imply rules, and the Chart is not done until they are written as
-rules. **One line each — a rule that will not fit in one line is a topic, not a rule.** And **a rule
+**The founding rules.** The six imply rules; write only the rules among them that pass the test
+below — **zero is a valid count**. **One line each — a rule that will not fit in one line is a topic, not a rule.** And **a rule
 earns its ID by being citable against an act**: it binds across targets and forbids something a
 check can point to. A constraint one spec can check descends into that spec; direction and
 aspiration live in the stance and the map, not the law table. Where a rule had a real alternative,
@@ -753,7 +753,7 @@ Muster** — how a cold seat gets project scope without its directive being fork
 
 **Exit.** Repositories wired and visibilities recorded. Six extractables confirmed explicitly —
 silence is not approval, and an extractable the Captain defers becomes an open-decision row. Measure
-defined. Conventions seeded. Operating values recorded. Founding rules one-line. Claims tagged. Map
+defined. Conventions seeded. Operating values recorded. Founding rules one-line, only those that pass the citable test. Claims tagged. Map
 complete by the structural test. Seat question answered. **First target on the board, anchored.**
 
 **The Chart closes on the spine.** `decisions/` files and `phases/` are deferred until their trigger
@@ -785,8 +785,11 @@ question and names who opens it when; a rule fits in one line; a seat meets the 
 **Anyone may propose; the Navigator holds coherence; the Captain decides.** A decline is a board row
 with reasons. A structural change with real alternatives gets a `decisions/` file.
 
-**Two tests every surviving rule passes:**
+**Three tests every surviving rule passes** — the same contract as founding rules, so the two
+intakes cannot diverge:
 
+0. **Citable against an act** — it binds across targets and forbids something a check can point to.
+   A constraint one spec can check descends into that spec; direction lives in the stance and map.
 1. **Weight is justified only where continuity is needed** — a rule earns its place if a fresh
    agent, reading the board cold, would otherwise not know what to do. Orientation, not prevention.
 2. **Do not write rules to prevent what the critic already catches** — except where the critic is
@@ -913,9 +916,8 @@ it lands.
 - **Write the spec into `review/`** as `<item>-<slug>.md`. It answers two questions: *what does done
   look like*, stated so someone else could check it, and *where are the edges* — what this must not
   touch, and who outside feels it. **Edges point at the roadmap rather than restating it**; spend
-  prose only on the edge a reader would think this target crossed. "Nothing, nobody" is a real
-  answer, given once — **a section whose honest content is empty is omitted, and the absence is the
-  statement.**
+  prose only on the edge a reader would think this target crossed. **A section whose honest content is empty is
+  omitted, and the absence is the statement** — never a written "nothing, nobody."
 - **State your inheritance**: what this coheres with, and what it establishes for later targets. The
   latter goes to the Navigator for *Established shape*.
 - **Send the path and the bridge commit containing it.** On red, revise in place and resend. **You
