@@ -46,8 +46,8 @@ builder's blind spots. You decide they exist; you don't type the commands.
 with its own critic; and the loop runs on its own. It comes back to you at the **push gate** with a
 plain-English summary of what shipped-ready work exists. Whether that is a yes/no each time is
 yours: during the Chart you choose the push cadence — confirm each push, push automatically once
-you approve a target, or hold everything until a named milestone — and either way the report of
-what went out always reaches you.
+you approve a target, or hold everything until a named milestone — and either way the reports — what is
+ready, and what actually shipped — always reach you.
 
 **From then on it's one question at a time.** Answer a fork, set the next target, and — if you
 chose to confirm each — approve a push.

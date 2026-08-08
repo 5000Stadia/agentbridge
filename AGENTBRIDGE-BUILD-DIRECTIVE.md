@@ -391,8 +391,11 @@ is built from it — but the read asks *does this hit the target*, never *what e
 exclusion spine governs who may act and which exact artifact may ship.
 
 **The sequence, stated once.** Target set → maker builds → the Reviewer says done or names one gap →
-the Captain approves the exact reviewed artifact → the maker ships that same artifact and clears the
-target.
+the Captain approves the exact reviewed artifact → **approval clears the target**, and the maker
+ships that same artifact when the push cadence says so — at once under confirm-each and automatic,
+at the named trigger under hold. **A held push spans a range**: before pushing, the maker verifies
+every unpushed commit is covered by a recorded approval — the tip's verdict alone proves nothing
+about what rides beneath it — then pushes the approved tip.
 
 **The board names five things and no more:** the target, who holds it, the immutable artifact under
 review, the verdict or the one gap, and whether the Captain's approval is pending. Locations carry
@@ -937,8 +940,9 @@ it lands.
 - **Send the path and the bridge commit containing it.** On red, revise in place and resend.
 - **Implementation green makes the ready report** — spec green makes nothing. Send the Navigator
   three lines: what now exists in plain terms, the exact commit, what you verified. This is the
-  gate report of The Loop, not a second document. Under an automatic push cadence it still
-  travels: the Captain sees what went out, whether or not they were asked. **You
+  gate report of The Loop, not a second document. It reports what is
+  ready; the push, whenever the cadence fires it, is its own line — so the Captain always sees
+  both states and never mistakes one for the other. **You
   never move a spec into `specs/`.**
 - **Fan out to build.** Break the target into the smallest independent pieces; a subagent per piece,
   each paired with a blind critic that sees only its piece and the target. Assemble, then hand the
@@ -946,7 +950,9 @@ it lands.
 - **One target in flight.** Pieces run in parallel beneath it; targets do not run beside it.
 - **Document as you build** — the project's readme and structure are part of the work that changes
   them, not a later target.
-- After the Captain's approval, **push exactly the reviewed artifact** and clear the target.
+- The Captain's approval clears the target. **Push exactly the reviewed artifact when the cadence
+  says so** — and when a held push spans several targets, first verify every unpushed commit is
+  covered by a recorded approval, then push the approved tip.
 - **Read only what is cited** — board, this file, the live spec, your row. Not the archive.
 
 ## Never
