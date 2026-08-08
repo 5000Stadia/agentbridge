@@ -427,10 +427,13 @@ uncertain, run it and surface the surprise. If what is missing is authority, sco
 consequence cannot be undone, ask before acting. What you may not do is absorb a surprise
 quietly.
 
-**Friction — the apparatus rather than the work — goes to the Navigator**, never settled between two
-seats and never worked around. The Navigator resolves it where the answer exists in how we work, and
-proposes to the Captain where it does not. **Every change is appended to `apparatus-log.md`.**
-Removal is the Navigator's standing delegation; additions and reshapes are the Captain's.
+**Friction — the apparatus rather than the work — has one exception before it routes: the
+artifact-bound standing delegation applies first.** A reversible form change confined to your own
+artifact is yours to choose, apply, record and name to the Navigator. **Everything wider goes to the
+Navigator**, never settled between two seats and never worked around. The Navigator resolves it
+where the answer exists in how we work, and proposes to the Captain where it does not. **Every
+change is appended to `apparatus-log.md`.** Removal is the Navigator's standing delegation;
+additions and reshapes are the Captain's.
 
 **The Navigator's coherence read is not a second review.** It asks whether the spec still serves its
 roadmap row and whether anything drifted — not whether it is correct.
@@ -885,7 +888,8 @@ decision file never updates; a changed answer is a new file.
 Rules carry stable IDs allocated once. **Keep *Established shape* current** — conventions from the
 Chart, and what each landed target sets for later ones.
 
-**Apparatus.** Cut freely; additions and reshapes to the Captain. **Append every change to
+**Apparatus.** Cut freely; additions and reshapes to the Captain — save the artifact-bound standing
+delegation, which is any working seat's, including yours. **Append every change to
 `apparatus-log.md` as you make it.** Schedule direction audits; fire a validity re-check when a
 founding claim retracts. **Record replacements**: the Captain ends the old runtime first.
 
