@@ -930,8 +930,9 @@ it lands.
 
 ## The loop
 
-- **Take the next target in order** — creating its board row is its own commit, before any drafting.
-  Read **its one roadmap row**: it carries the anchor and what this must cohere with.
+- **Take the next target in order** and read **its one roadmap row**: it carries the anchor and
+  what this must cohere with. The board row lands in the same commit as the spec — the row is what
+  a replacement seat needs; a separate commit before anything exists was ritual.
 - **Write the spec into `review/`** as `<item>-<slug>.md`. It answers two questions: *what does done
   look like*, stated so someone else could check it, and *where are the edges* — what this must not
   touch, and who outside feels it. **Edges point at the roadmap rather than restating it**; spend
@@ -1159,12 +1160,13 @@ to take upstream.
 later, citing the implementation commit. **No placeholders** — a placeholder is an edit with an
 appointment. A correction appends a supersession citing the row it replaces.
 
-| Date | Event | What changed | What made us change it | Ours, or universal? |
-|---|---|---|---|---|
-| | | | | |
+| Date | Event | What changed | What made us change it |
+|---|---|---|---|
+| | | | |
 
-**Ours** — it serves this project's domain and another project would be wrong to copy it.
-**Universal** — the friction was in the method. **Unsure** is a legitimate value.
+Whether a row is this project's own or the method's finding is judged when the log is read at a
+push boundary, from the row's content — a column for it varied on no real log and discriminated
+nothing.
 
 Removals are logged the same as additions.
 ```
