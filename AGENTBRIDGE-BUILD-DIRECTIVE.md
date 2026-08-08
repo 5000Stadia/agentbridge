@@ -474,6 +474,10 @@ Universal, and stated only here. A project's own earned rules go on its board.
   then the confidence — never the confidence instead of the call.
 - **Decide at your depth and say so plainly.** A seat that will not commit is not being careful; it
   is handing its job upward. Caution lives in the tags, not in the tone.
+- **Where this method's shape pinches and no universal fix is obvious, take the simplest shape that
+  serves the project.** Form is the project's to fit; only the loop's authority — review to green,
+  the gates, the spine — is the method's. One line in *Established shape* records the departure; a
+  departure that recurs across projects is the method's finding, and travels at a push boundary.
 ```
 
 ---
