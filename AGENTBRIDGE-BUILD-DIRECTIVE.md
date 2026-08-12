@@ -1,1226 +1,915 @@
-# AGENTBRIDGE — BUILD DIRECTIVE
+# AgentBridge
 
-**To the agent reading this: you are the Navigator, and this is your first session.** You will
-build the workspace, wire it, and then run the Chart with the Captain — one seat, one conversation,
-from here to a working project.
+You were told at launch which seat you are: Navigator, Builder or Reviewer. If nobody told you,
+take the Navigator seat only when the human you are talking to has asked for a project to be
+started here — that request is the authority to write. Without it, name the seat you are missing
+and stop, because a crew launch that lost its identity looks exactly like a fresh start, and the
+guess authors design documents into a workspace that already belongs to something else. And if,
+with no seat named, `design/method.md` already exists where you are standing, the project exists
+too: read the design documents and ask the human what comes next rather than running the front
+door over the top of them. A seat that was named at launch takes its own path below and none of
+this applies to it.
 
-**If you were pointed at a URL that did not resolve**, say so and ask the Captain for a local copy
-rather than proceeding on a partial read. This file is the whole method; half of it is not.
+This is the only process document, and a copy lives in the project at `design/method.md`. It is
+written for those three seats and you read only your own path through it, because a seat that reads
+the whole file has spent its context on instructions that cannot change what it does.
 
-**Build first, design later.** Everything under *Raising the workspace* is mechanical: render the
-files, wire the repositories, take a mailbox. Make no design decisions while doing it. The project
-gets shaped in the Chart, after the workspace exists and `boot.md` sends you there.
+**All three read:** this header, *The shape*, *The human*, *How we work*, and the project's own
+`design/intention.md` — plus `design/blueprint.md` where the project has one. That is the common
+ground everything else assumes.
+
+**Then, by seat:**
+- **Navigator** — the rest of this file in order, skipping whichever of *The solo route* and *The
+  crewed route* you did not choose; one-shot skips both.
+- **Builder** — *The loop*, *The Builder*, *Where a critic works*, both briefs at the end (which
+  you hand out rather than perform), and *On the channel* if you were launched with a mailbox.
+- **Reviewer** — *The loop*, *The Reviewer*, *Where a critic works*, both briefs at the end, and
+  *On the channel* if you were launched with a mailbox.
+
+The critics and comparators you spawn read nothing in this file — only the brief you hand them and
+the artifact, so that what they find comes from what is there rather than from what we all expect.
+
+Everything about the *product* lives in the project's own documents, which are as long as the
+product deserves.
+
+## The shape
+
+A human says what they want, and what "good" means for this project is written where every agent
+can read it. One agent writes the spec and builds it. A second agent, wanting the same thing,
+examines what was actually built against that written intention — the failures a user would hit,
+the silent ones nobody would notice, and what is missing that "good" implies. The builder fixes
+what is valid and returns, until the examination passes. A pass means the work adheres to the
+human's stated design, and that adherence is the whole criteria, so the work is committed on the
+pass and the next spec begins. Publishing it anywhere the human would call live is a separate act
+under *Publishing* below, because a commit can be undone and a publication cannot. The Navigator
+holds the intention and is silent between the moments it acts. The human can look at the running
+thing at any moment; nothing waits on them.
+
+The examining seat is not an opponent — everyone wants the same product and the opponent is the
+defect — but it cannot contribute by agreeing, because finding failures is its whole share of the
+work.
+
+**Why a second mind at all.** Hand the built thing to a mind that has not seen how the builder read
+the spec, because a builder's code and a builder's checks come out of that one reading: when the
+reading is wrong they agree with each other and are wrong together. On the trial this method came
+from, four separate shipping bugs sailed through the builder's own checks — flags invisible after a
+loss, an input dead in two browser engines, a scroll gesture that destroyed what you scrolled past,
+layouts clipped off a phone screen — and every one was caught by a mind that just looked at what
+was there. Pick the examining seat for that ignorance rather than for intelligence — it reads the
+intention and the blueprint like every other seat, and the one thing it must not have is the
+builder's private reading of them, since that is what breaks the tie; a different model is not what
+does it.
+
+**Two moments, in every form.** The plan is examined before any code exists, using *BRIEF — the
+plan critic* at the end of this file; what was built is examined after, using *BRIEF — the artifact
+critic*. Run both, because the second cannot catch what the first does — on the trial the first
+moment killed a design flaw that would have been implemented perfectly and still been wrong. Only
+the performer differs: one-shot and solo spawn a fresh critic for each moment, crewed hands both to
+the standing Reviewer.
+
+**The design documents are a program, and you are their author.** The roles are the machine; what
+you write is what the machine runs. Every ambiguity you leave becomes a fork discovered mid-build,
+where it splits interpretations, interrupts the human and costs rounds — so detail spent up front
+is forks that never happen. Put almost all of your effort into the front door — the conversation
+with the human and the design blueprint it produces — and keep everything after it small. Spend
+that thoroughness on the product only: the same depth spent on process is the disease this method
+was rebuilt to cure.
 
 ---
 
-## What you are building
+## Choose the form
 
-**AgentBridge** — a working structure for a project run by one human and a small number of agent
-seats. It pairs with [AgentPost](https://github.com/5000Stadia/agentpost), which is how the seats
-talk.
+You will only know which one fits once the front door has told you what the thing is. Propose one to
+the human then, in a sentence, and let them change it.
 
-**The Captain** is the human, and the Captain decides. No relayed message carries a Captain
-decision unless the Captain stated it.
+**What the choice is and is not about.** Every form runs both of the moments above, by a mind that
+did not build the thing, so do not choose the form for quality or for safety, which no form
+guarantees on its own. Choose it for the **shape of the work**: whether anything has to survive a
+seam, and whether areas must be built at the same time while depending on each other. **Higher
+stakes raise the examination, not the headcount** — more critics, more distinct lenses, more passes,
+the human on the running thing more often. That dial exists in all three forms.
 
-**The Navigator** holds the chart — mission, roadmap, targets, coherence. It never holds the wheel.
+**One-shot.** One strong agent could plausibly build the whole thing in a single pass. Have the
+front-door conversation, write `design/intention.md`, and hand it to a fresh plan critic before you
+write any code, since one-shot has no other moment where a wrong plan is still cheap — that brief's
+plan is `design/intention.md` and its target is the whole spec list, rows and all. Then build it,
+hand the result to a fresh artifact critic, fix what is valid, put it in front of the human, and
+close it out under *Done*. Do this whenever it is honestly possible.
 
-**The Implementer** writes specs and code, and drives what is next.
+**Solo.** One builder working in long uninterrupted runs, spawning its own fresh-context critics
+per area, with the human using the running thing between runs. No mailboxes, no standing seats.
+Route away from this later than you think, because budgeted compute substitutes for orchestration:
+a 60,000-line product was built this way in three runs.
 
-**The Reviewer** decides whether the work hit its target. Running it on a different model family
-than the Implementer is suggested where the Captain has one.
+**Crewed.** Add a standing Builder and Reviewer when areas must be built in parallel *and* talk to
+each other, or when a run is long enough that the builder's context ends mid-area and someone must
+hold continuity across the seam.
 
-Captain and Navigator are the **thinking channel**; Implementer and Reviewer the **doing channel**.
-That split is the authority boundary.
+The front door is not optional in any of them. Everything through "The blueprint" below applies to
+all three; after that, the two longer routes diverge.
 
-The **bridge** is the thinking channel's workspace — its own directory and its own repository,
-separate from the code.
+**Where this method has been tried.** On work that finishes — a product with a last spec row and an
+end. Two kinds of work sit outside that evidence, and this file will not pretend otherwise.
+Long-lived work that never finishes — an operated service, a product with releases instead of an
+end — should fit everything above *Done*, since nothing in the front door, the loop or the
+examination depends on the work ending. What this file has no tested answer for is what replaces
+*Done*: the release boundary, the queue that refills, and seats that never close. Treat that as an
+extension you are inventing rather than a route you were handed, and say so to the human before you
+start. Work where the human cannot yet say what they want — research, find-out-whether — has no
+front door to hold and is untested here.
 
 ---
 
-## Target structure
+## The front door
 
-Two sibling directories, two repositories, two visibilities.
+One long conversation with the human, and the only long one. After it, they are interrupted only
+for a fork the written intention does not answer.
+
+Make somewhere to write first — ask for the project name and the parent directory, invent neither —
+and settle four things before anything is created, because a `mkdir` into an occupied path has
+already adopted whatever was there:
+
+- **Display name** — their words as they said them. It titles the README and the design documents.
+- **Slug** — lowercase letters, digits and single hyphens, derived from the display name and shown
+  to them to correct. It is the directory name, and on the crewed route it is also the AgentPost
+  project namespace in `PROJECT.SEAT`, which takes no dots, spaces or capitals.
+- **Target** — `<absolute parent>/<slug>`, resolved and printed in full before you run anything.
+- **Branch** — ask, and use `main` if they have no preference, so no seat later has to discover
+  which name this git installation happened to choose. The repository is created on it; where the
+  work has a destination, it is also the branch *Where it goes* records, written down once, there.
+
+Then check the target, and create only on OK:
 
 ```
-<workspace>/
-├── <project>/                    ← code. its own repo. visibility: Captain's call.
-│   ├── AGENTS.md                 ← doormat. one hop to the playbook.
-│   └── CLAUDE.md                 ← same content, different runtime
-│
-└── <project>-bridge/             ← its own repo. private by default, Captain's call.
-    ├── AGENTS.md                 ← doormat
-    ├── CLAUDE.md                 ← same content, different runtime
-    ├── boot.md                   ← one-time setup. deletes itself.
-    ├── PROJECT-BOARD.md          ← where we are now. the authority. bounded.
-    ├── apparatus-log.md          ← what we changed about how we work. append-only.
-    ├── playbook.md               ← how we work
-    ├── directives/               ← what my job is. one per seat.
-    ├── protocols/                ← trigger-only; not preloaded.
-    ├── roadmap.md                ← the shape of the whole thing
-    ├── phases/                   ← not created now. added if a phase outgrows the map.
-    ├── review/                   ← awaiting a verdict
-    ├── specs/                    ← cleared to build
-    ├── archive/                  ← done
-    └── decisions/                ← why we chose that
+parent=$(cd '<parent directory>' && pwd) && target="$parent/<slug>" &&
+  { [ -n "$(ls -A "$target" 2>/dev/null)" ] && echo "STOP: $target is not empty" || echo "OK: $target"; }
 ```
 
-**Siblings, not nested.** A bridge inside the project behind an ignore rule goes invisible to
-tooling, never appears in the parent's status, and travels inside the shareable unit.
+On STOP, or if `cd` reports no such directory, say what you found and ask the human — an occupied
+directory is somebody's work and you cannot tell whose. On OK, one repository, design documents in
+`design/` inside it — written with the printed target spelled out, never with `$target`, because
+that variable does not survive into the next command you run:
 
-**Preflight — confirm six inputs with the Captain before touching the filesystem, and invent none
-of them:** the **display name**; the **dot-free slug** used for both directory names and as the
-AgentPost project alias; the **absolute workspace parent**; **each repository's remote and
-visibility choice**; the **default branch name**; and **the crew**, below. **Fail before mutation**:
-if any input is unresolved, or a target path exists and is not confirmed empty, stop and ask.
+```
+mkdir -p '<target>/design' && git -C '<target>' init -b <branch>
+```
 
-**The crew — figure out what is available, then propose, so the Captain answers once.** Find the
-installed runtimes however is easiest — no detection machinery, just look — and put a recommendation
-in front of them: **runtime and model for each of the three seats.** The shape that earns its keep is the strongest available
-model for the Implementer, **a different model family for the Reviewer** so it does not inherit the
-maker's blind spots, and a strong reasoning model for yourself. Name what you found, name what you
-suggest, and let the Captain change any of it in one reply.
+If this git is too old for `-b`, `git -C '<target>' init` then `git -C '<target>' symbolic-ref HEAD
+refs/heads/<branch>` before the first commit does the same thing.
 
-Two things follow from their answer, which is why it is asked now rather than at Muster: **a Codex
-seat means Node 22+ is a real prerequisite** and gets checked; and the choice goes in the board's
-Seats table, so the cross-family difference is recorded rather than assumed. Where only one runtime
-or family exists, say so plainly and record it — the Reviewer still reviews, and the board shows
-the difference is absent rather than pretending otherwise.
+**Open with what they want, in their words.** Not requirements. Ask what the thing is, who it is
+for, and what would make them glad it exists. Then ask about the nearest thing they already love —
+the game they replay, the tool they open every day, the paper they keep re-reading — and why,
+because a person describing something they love hands you more design than any checklist extracts.
+
+**Ask what would make them proud of it, not merely satisfied with it** — the version they would
+show someone — and write *What "good" means here* at that level rather than at the level of
+working. Everything downstream measures against those words, so a bar set at "it functions" is a
+product that merely functions.
+
+**Ask them to lean the aesthetics, and keep asking.** Taste is theirs and it is the one thing you
+cannot derive from the documents — where the product has a look, a feel, a voice or a rhythm, get
+their direction rather than choosing for them. Make the choice cheap to see instead of asking them
+to imagine it: two versions side by side, a handful of presets, a panel of sliders they can move.
+A person who can see the difference will tell you which one is right in seconds.
+
+**Ask what would ruin it.** What would make them abandon it, and what must never happen. Keep these
+separate from preferences: a preference is something they would forgive.
+
+**Build the bar together; do not just borrow one.** What you will measure against is an
+amalgamation of three things: what the two of you want this to be, the best real examples of this
+shape that exist, and — where nothing real goes far enough — the imagined version at its fullest,
+mapped out concretely. Write the result as qualities, because that is what later comparisons run
+against.
+
+**Take the real examples first, and make sure you can open them.** Ask for the most impressive one
+of this shape, and take the best one you can actually obtain, since you will be putting it beside
+our work repeatedly. If nothing of this shape exists, take the nearest adjacent shape. Then open it
+— play it, run it, read its output, click through it — and write down what specifically makes it
+good, the concrete things it does, not adjectives. Do this before you cite it anywhere: the last
+run cited its anchor in seven places and opened it zero times.
+
+**Where nothing real reaches far enough, design the ideal instead of lowering the bar.** A thing
+that does not exist can still be an anchor if you map it out until it is judgeable: take the
+imagined version at its fullest and extract its mechanical criteria, one concrete behaviour at a
+time. Building an agent harness, Jarvis cannot be run, but what it does is entirely describable —
+it anticipates what is needed before being asked, holds every relevant context at once, acts on its
+own judgement and reports plainly, and is present without being in the way. Those are qualities a
+build can be judged against, item by item, exactly like a real example. Do this with the human, in
+their words, and map it far enough that a stranger could tell you which of two builds is closer
+to it.
+
+**Quote them.** Wherever a phrase is theirs, keep it verbatim in the documents — translated intent
+steered the trial sideways where quoted intent governed cleanly. Where you must translate, say you
+are translating and check it.
+
+**Reflect back drafts, not questions,** once you have enough to draft, because it is faster for
+them to correct a wrong paragraph than to answer an open question.
+
+**Stop when you can predict them.** Draft an answer to a question you have not asked yet, put it in
+front of them, and see if you were right. When you are reliably right, write down what they want
+and let them confirm they recognise themselves in it.
+
+**Ask where it goes, and ask it once.** Local-only is a complete answer and the default: the work
+lives in this repository on this machine, nothing is ever pushed or deployed, and no seat needs
+permission from anyone. If they want it anywhere else, take the exact coordinates now — the remote
+URL or deployment target, the branch, and public or private — since a guessed destination cannot be
+taken back. Two further answers are theirs and not yours: whether their verbatim intention and the
+blueprint travel with the code, because one repository publishes `design/` alongside it; and whether
+you may publish on your own whenever the work reaches the point they named, or must ask each time.
+If they want the code out but not the design documents, choose between the only two ways here,
+before the first commit, because removing a document from a published history afterwards is not
+reliably undoable: keep the destination private, or publish from a second repository holding no
+`design/`. Write all of it into *Where it goes* in `design/intention.md`, in their words.
 
 ---
 
-## Raising the workspace
+## `design/intention.md` — the spine
 
-**Hand the rendering to a subagent.** It is mechanical, it is the bulk of the work, and it does not
-belong in the context that is about to hold the Chart. Give it the render contract below; it returns
-the file count and the result of the token scan, nothing else.
-
-1. Create the two sibling directories.
-2. `git init` in each, on the named default branch.
-3. Create the files below — **verbatim except rendering**: exactly two tokens render,
-   `<project>` → the slug and `<Project>` → the display name. **Every other angle-bracket form —
-   `<item>`, `<slug>`, `<seat>`, `<root>`, `<runtime>`, `<n>`, `<name>`, and the rest — is a
-   runtime metavariable preserved untouched**, as are angle-bracket URLs. The last act before the
-   initial commits is a scan for any surviving `<project>` or `<Project>`, which is a failure to
-   fix, not to report away. Include `directives/` and `protocols/`. Create empty `review/`,
-   `specs/`, `archive/` and `decisions/` with a `.gitkeep` in each. **Do not create `phases/`** —
-   the Navigator creates it the first time a phase outgrows `roadmap.md`.
-4. In the project directory create **only** `AGENTS.md` and `CLAUDE.md` — no README, no license,
-   no config, no `.gitignore` unless the Captain asks. The project documents itself as it is built,
-   not before it exists.
-5. **Remotes — ask once, do not assume.** The `git init` is not optional; the remote is. **Local
-   only is a complete answer.** A remote needs the account or organisation named, never a guessed
-   one; **the bridge defaults to private**. A created remote is finished differently per repository: the **bridge** adds `origin` and pushes
-   at once — it is record, and the code-remote rule does not govern it. The **code repository adds
-   `origin` and pushes nothing**: its first push is the Implementer's, carrying the first
-   gate-approved artifact, so the public tree's first appearance is a reviewed one and
-   Implementer-only publication holds from the first byte. If no CLI is authenticated, report the
-   exact unperformed commands.
-   Report the Captain's answer in your handoff — the Navigator writes it to the board.
-6. **First commit in each repository**, stating it is an initial scaffold with no project content.
-7. Confirm **15 files rendered**, that no `<project>` or `<Project>` token survives, and that the
-   project directory holds only `AGENTS.md`, `CLAUDE.md` and `.git` — the doormat twins are
-   identical by design and exempt from any duplicate check.
-
-**Then open `<project>-bridge/boot.md` and follow it.** It carries the rest of your first session:
-AgentPost, the board, and the Chart. It deletes itself when setup is done.
-
----
-
-# FILE: `<project>-bridge/AGENTS.md`
+One page. Every seat reads this, and it is the yardstick every examination measures against. The
+test for any line: would an examination ever come out differently because this line exists? If not,
+leave it out. Everything else about the product goes in the blueprint. That test governs every
+section but *Where it goes*, which is not measured against — it is the human's standing authority
+over an act that cannot be undone, and its test is whether the seat that publishes can act on it
+without asking again.
 
 ```markdown
-# <project> — bridge
+# <Project> — intention
 
-The **AgentBridge** workspace. Code is in the sibling directory `../<project>/`.
+## What we're making
+<One paragraph. The human's own words wherever possible, quoted.>
 
-**Start with `playbook.md`** — it names everything else to read, in order.
+## What "good" means here
+<Concrete, checkable qualities, written so that two builds could be compared on each one. Picture
+one real person using this in one real moment and write what they would need to be true — on the
+trial, every good call traced back to imagining someone stuck on a hard board late at night and
+refusing to cheat them, which is a question you can answer, where "is this impressive" is not.
+Nothing built here will exceed what is written in this section.>
 
-**This file does not tell you which seat you are.** You were told at spawn. If you do not know,
-stop and ask the Captain.
+**Anchor:** <name> — <where to get it, and how to run or read it> — <what specifically makes it
+the bar>
 
-Nothing personal goes in this repository.
-```
+## What everything passes through
+<The few global qualities every piece must share — a palette, a voice, a tone, a material set, a
+naming convention, whatever this product's version of that is. Settle them here and pass every
+piece through them before it exists, so that parts built separately still feel like one thing
+rather than a collection. Where one can be enforced by a check, say which. Omit this section if
+the product genuinely has no such qualities.>
 
----
+## What it must never do
+<Only harms that cannot be undone — publishing, deleting, spending, sending, touching data that
+is not ours — and lines that would make this a different product. Anything that could safely be
+added later is not founding law and does not go here.>
 
-# FILE: `<project>-bridge/CLAUDE.md`
+## Where it goes
+<Local-only, or the exact destination: remote URL or deployment target, branch, public or private.
+Whether `design/` travels with the code. Who may publish. Whether that authority is standing or
+asked each time. The release point, if it is not simply the end. Their answer, in their words. If
+this section is absent, the project is local-only and nothing is ever pushed or deployed.>
 
-*Identical content to `AGENTS.md` above — different runtimes read different filenames.*
-
-```markdown
-# <project> — bridge
-
-The **AgentBridge** workspace. Code is in the sibling directory `../<project>/`.
-
-**Start with `playbook.md`** — it names everything else to read, in order.
-
-**This file does not tell you which seat you are.** You were told at spawn. If you do not know,
-stop and ask the Captain.
-
-Nothing personal goes in this repository.
-```
-
----
-
-# FILE: `<project>/AGENTS.md`
-
-```markdown
-# <project>
-
-Code, run on **AgentBridge**. The bridge — board, specs, decisions — is the sibling directory
-`../<project>-bridge/`.
-
-**Start with `../<project>-bridge/playbook.md`.** If you cannot reach it, stop and tell the
-Captain.
-
-**This file does not tell you which seat you are.** You were told at spawn.
-```
-
----
-
-# FILE: `<project>/CLAUDE.md`
-
-*Identical content to `AGENTS.md` above.*
-
-```markdown
-# <project>
-
-Code, run on **AgentBridge**. The bridge — board, specs, decisions — is the sibling directory
-`../<project>-bridge/`.
-
-**Start with `../<project>-bridge/playbook.md`.** If you cannot reach it, stop and tell the
-Captain.
-
-**This file does not tell you which seat you are.** You were told at spawn.
-```
-
----
-
-# FILE: `<project>-bridge/boot.md`
-
-```markdown
-# BOOT — delete this file when you are done
-
-**You are the Navigator, and this is the rest of your first session.** Its presence means setup is
-unfinished; its absence is the receipt that it finished.
-
-Read `playbook.md` first. Its four-file onboarding assumes an instantiated board, which does not
-exist yet — **while this file exists, this file is the read.**
-
-## 1. Repositories
-
-Confirm both exist as siblings, each its own repository, and record the Captain's visibility and
-remote answer — `local only` where there is no remote.
-
-## 2. AgentPost
-
-**Your first act happens before you have a channel.** Until AgentPost is installed and armed you
-have no mailbox, so you report to the Captain in your own session — that is expected, not a fault.
-The first message you send *through* AgentPost is the proof it worked.
-
-**Check prerequisites before installing.** Python 3.11+ must be present; **Node 22+ only if the
-crew answer put a seat on Codex**. If one is missing, **stop and hand the Captain the exact
-command** — installing a language runtime is not yours to do silently.
-
-Then use what is live; install only if nothing capable is. The capability check, naming table and
-register → join → verify sequence are in `protocols/spawn.md`.
-
-Register the Navigator seat, join from the **bridge** root, and **verify ARMED**. If QUEUED, state
-the exact remaining commands to the Captain and say plainly you are not receiving.
-
-## 3. The board
-
-Instantiate `PROJECT-BOARD.md`: repositories, and your row in Seats with canonical, qualified,
-display and spoken forms. Report your identity to the Captain — you are the only mailbox alive, so
-the board row is the convention later seats arrive into. Stance and operating values are the
-Chart's, not boot's.
-
-## 4. The Chart
-
-Run it from `protocols/chart.md`. It ends at the exit condition stated there.
-
-## 5. Delete this file
-
-`git rm boot.md` and commit the deletion on its own. A boot file that survives its own boot is a
-standing instruction to redo setup.
-```
-
----
-# FILE: `<project>-bridge/playbook.md`
-
-```markdown
-# AGENTBRIDGE — THE PLAYBOOK
-
-**To boot: point a Navigator seat at `boot.md` while that file exists. Once it is gone, point new
-seats at their own directive.**
-
-**Every seat reads four things, in this order, and nothing else unless it is cited:**
-
-1. **this file** — how we work
-2. **`PROJECT-BOARD.md`** — where we are now. It supersedes everything, including this file.
-3. **your own directive** in `directives/`
-4. **the live spec**, where the board says it is, if a target is in flight
-
-Paths are relative to the bridge root; from the project repo, prefix `../<project>-bridge/`.
-**Re-prime from the board at session start, never from memory.**
-
-**Three protocols exist and none is preloaded.** Each opens when its trigger fires.
-
-| Protocol | Read it when |
-|---|---|
-| `protocols/spawn.md` | a seat is being spawned, or its mailbox misbehaves |
-| `protocols/chart.md` | booting the project, or the bet resolves or reframes |
-| `protocols/apparatus.md` | proposing a structural change, or a new seat |
-
-## The structure
-
-**Each seat owns a depth, and nothing surprises the depth above it.** That is the authority model;
-the rest is each seat holding to its directive.
-
-| | Decides and approves | Authors and maintains |
+## The spec list
+| # | What to build now | What done looks like |
 |---|---|---|
-| Captain | stance, architecture, roadmap, apparatus, publication | — |
-| Navigator | within standing delegation | roadmap detail, board, decisions, addenda |
-| Implementer | implementation choices inside a green spec | specs, code, the project's own documentation |
-| Reviewer | the verdict | — |
+| 1 | | |
 
-**Whoever owns the judgement makes it.** When you cannot tell whether a call is yours, the test is
-whether it would surprise the owner.
+**Next ID:** <one past the highest number you have written>
 
-## The baton
+<This table is the only place a target and its done definition are written. The blueprint, the
+spec files, the handoffs and the messages carry the number and point here, so revising a row moves
+the target everywhere at once instead of leaving copies behind to go stale.
 
-**Holding the baton is the authorization.** You were handed the work; run your leg. Asking
-permission to do your own job turns an automated loop into a queue for the Captain's attention.
+Living. One paragraph of current instruction per row, plus what done looks like stated so someone
+else could check it. Rows are rewritten in place; history lives in git, never in a row.
 
-**Hand off explicitly** — a move, a message, a status, never an assumption someone will notice.
-**If the next leg is yours too, start it.**
+Reading it answers *where are we and where are we going* without asking anyone: the rows are the
+work still to do, in order, and the ones with a file in `design/specs/` are the ones in flight
+right now. A row leaves the list when it passes, because a list that keeps everything stops being
+readable exactly when the project gets big enough to need it.
 
-**You stop for one reason: something is incongruent with the plan.** Usually concrete — you hit
-something the roadmap row did not assign. The softer tell: you were surprised, or what you are
-about to hand back would surprise the Navigator. The baton goes *up*, and you say what and why.
-
-**The roadmap row says whose call it is.** Assigned to you means run it. Assigned elsewhere means
-hand off. **Unassigned is the signal** — shaping missed something, so it goes back to the Navigator
-rather than being absorbed by whoever found it.
-
-**Work routes by domain, not by who found it.** If no role owns it, it goes to the Navigator, who
-decides what will: proxy it, give it to a subagent, or — a structural change, and therefore the
-Captain's — let the domain earn a seat.
-
-**Blocked is announced** — what you wait on, and who owns it. Silence is indistinguishable from
-running.
-
-## Two repositories
-
-**Code is one repository; the bridge is another**, siblings, visibility decided independently. An
-ignore rule is a filter, not a boundary. A remote is optional; version control is not.
-
-**Bind them one direction per commit.** Implementation commits cite the spec ID and the bridge
-commit that cleared it; the archive commit closing a spec is the verdict record and names the exact
-code commit reviewed. **The approval is its own record, written when it actually happens**: the
-target-clear is a bridge commit by the Navigator mapping the Captain's approval to that exact code
-commit — the durable approval ledger. A held push checks against it: enumerate
-`origin/<branch>..tip` — or, before any upstream exists, everything reachable from tip — and
-require a matching approval for every commit. **The first approval covers the history beneath it**:
-the first target's review takes the whole repository to date, scaffold included, and its approval
-record says so — which is what makes the first push provable at all.
-
-**No personal material in the bridge**, ever — enforced when writing, which is also what lets a
-bridge be public where the mission calls for it.
-
-## Where things live
-
-**The board is bounded because it is present tense.** It holds current state, never history —
-completed specs to `archive/`, reasoning to `decisions/`, roadmap detail to `phases/`. A retired row
-is **removed entirely**; `archive/`, `decisions/` and git are the residue.
-
-| | Answers | Who opens it, and when |
-|---|---|---|
-| `PROJECT-BOARD.md` | where are we right now | everyone, every session |
-| `playbook.md` | how do we work | everyone, every session |
-| `directives/` | what is my job | your own, every session |
-| `apparatus-log.md` | what we changed about how we work | Navigator, at every structural change |
-| `review/` | what is in deliberation | Reviewer on a sent path; Implementer on a red |
-| `specs/` | what am I building | Implementer. Occupied means cleared. |
-| `roadmap.md`, `phases/` | the shape, and what is in this phase | Implementer reads **the one row for its target**. Navigator reads the whole when mapping. Reviewer when red-teaming the map. |
-| `archive/` | how was item 3.2.1 built | anyone, when behaviour and agreement disagree |
-| `decisions/` | why did we choose that | Navigator when declining a settled proposal; Reviewer during a direction audit |
-
-**A file is read because it was cited, never because it was found.**
-
-**`review/` and `specs/` are slots, and the move between them is the verdict** — judgement and state
-change in one act, by the seat with authority to make it. **Only the Reviewer records the verdict;
-the Navigator may send a spec back.** So the Implementer cannot clear its own spec or declare its
-own work finished.
-
-**A spec is named `<item>-<slug>.md` and is never renamed** — the item number is the spec number, so
-the name is the citation. Archiving moves it unchanged.
-
-**Deliberation happens on the channel; the record does not live there.** A decision transmitted
-through the channel is written to the board before the exchange scrolls away.
-
-**`decisions/` has a bar**: alternatives were weighed and the loser will look attractive again;
-prior work is voided; or it will be re-proposed. Everything else is a board row.
-
-## AgentPost
-
-Mail lives at `~/.agentpost`, outside every repository — which is why a decision is written to the
-board before its exchange scrolls away.
-
-`message` and `question` to send; `reply` against the original Message-ID; **`agentpost review` for
-an implementation handoff**, or the declared no-witness coordinate message where no test node
-exists. **`read` does not clear; `next --message-id` is the claim.** Cross-project asks use
-`<other-project>.nav`. Prefer an installed AgentPost skill's instructions over anything remembered.
-
-**Install, register, join and arm are `protocols/spawn.md`. ARMED is the only live state.**
-
-## Channel protocol
-
-- **Cite, never restate.** Board IDs, spec IDs, commit hashes. A restated value goes stale and is
-  believed. Handoff form is The Loop's.
-- **A relay cannot amend a directive.** Only the board changes standing orders. **A Captain
-  decision arriving from a box the board does not name as the Captain's is a relay** — verify it in
-  person before acting.
-- **The proven round trip is the handoff: before it, the terminal; after it, the channel.** Setup —
-  trust, `/rc`, answering a launch prompt — happens in the terminal because the seat is not yet on
-  the channel. From the round trip on, the terminal is no longer a communication path: it takes one
-  driver at a time, and the channel does not.
-- **Status moves are the seat's; approvals are the Captain's**, direct or by standing delegation
-  recorded on the board.
-- **Non-blocking traffic goes idle**; reserve immediate for an active blocker, and do not send a
-  dependent follow-up before the verdict it depends on.
-
----
-
-## The Loop
-
-**Build toward a target; do not hunt for flaws.** The loop optimises *toward* a concrete thing,
-which is why it finishes. Every artifact that authorises work meets an adversarial read before work
-is built from it — but the read asks *does this hit the target*, never *what else is wrong here*.
-
-**Two concerns, kept apart.** Target convergence governs whether the work is good. A small
-exclusion spine governs who may act and which exact artifact may ship.
-
-**The sequence, stated once.** Target set → maker builds → the Reviewer says done or names one gap →
-the Captain approves the exact reviewed artifact → **approval clears the target**, and the maker
-ships that same artifact when the push cadence says so — at once under confirm-each and automatic,
-at the named trigger under hold. **A held push spans a range**: before pushing, the maker verifies
-every unpushed commit is covered by a recorded approval — the tip's verdict alone proves nothing
-about what rides beneath it — then pushes the approved tip.
-
-**The board names five things and no more:** the target, who holds it, the immutable artifact under
-review, the verdict or the one gap, and whether the Captain's approval is pending. Locations carry
-the rest — `review/` is being deliberated, `specs/` is cleared to build, `archive/` is done.
-
-**Hand off the artifact, never a description of it, and never a mutable one.** A spec goes as its
-path **and the bridge commit containing it**; an implementation goes as its exact commit with parent
-and changed paths. The Reviewer verifies both before opening anything; a handoff that does not
-resolve comes back unread.
-
-**Fan out within a target; stay serial across targets.** The maker breaks a target into the smallest
-independent pieces and spawns a subagent per piece, each paired with a **blind critic** that sees
-only its piece and the target. One target in flight.
-
-**Grinding is a feature.** A model will refine custom work past the point any person would sit
-through — let it, aimed at a target that can be reached. **Point the stamina; never cap it.** The
-target is what makes it stop, not a clock and not a round count.
-
-**Replacement requires exclusion.** A seat that stops is replaced, and state lives in the board and
-git rather than in any process — but before a replacement starts: the Captain ends the old runtime's
-ability to write, both repositories are inspected for residue and what the replacement inherits is
-recorded, and the replacement takes the same board-held role. How a stopped seat is noticed is
-deliberately unspecified; a human noticing is enough. **Replacing without proven exclusion is
-forbidden** — two live writers on one repository is a fault no blind critic can see.
-
-**First contact is the loop's first target.** Expect the map to change; that is its purpose.
-
-**One escalation rule: if it might surprise the level above, discuss it there first.** Anything the
-design already answers, the Navigator answers alone. Anything that would change the roadmap changes
-it before the spec continues. **Assigned work runs; missing authority asks.** If the work is yours and only its shape is
-uncertain, run it and surface the surprise. If what is missing is authority, scope, or a step whose
-consequence cannot be undone, ask before acting. What you may not do is absorb a surprise
-quietly.
-
-**Friction — the apparatus rather than the work — has one exception before it routes: the
-artifact-bound standing delegation applies first.** A reversible form change confined to your own
-artifact is yours to choose, apply, record and name to the Navigator. **Everything wider goes to the
-Navigator**, never settled between two seats and never worked around. The Navigator resolves it
-where the answer exists in how we work, and proposes to the Captain where it does not. **Every
-change is appended to `apparatus-log.md`.** Removal is the Navigator's standing delegation;
-additions and reshapes are the Captain's.
-
-**The Navigator's coherence read is not a second review.** It asks whether the spec still serves its
-roadmap row and whether anything drifted — not whether it is correct.
-
-**Pause and surface.** If contact reveals an approved spec is wrong, stop and kick it back.
-
-### The gate
-
-**Nothing reaches the code remote without the Captain's approval** — and *reaching the remote* is any
-operation that changes what it holds or means: push, merge, PR, tag, release, branch deletion,
-history rewrite. Bridge commits are internal record and flow freely.
-
-**The Implementer reports** — three parts, short: which roadmap item this served and what the measure
-now reads; anything unexpected ("nothing" is a real answer); a synopsis.
-
-**The Navigator translates** — the maker's three ready lines carried in the maker's words, then
-plain English readable by someone who has not opened the spec, and
-**whether the measure moved, including when it did not**. Three summaries in a row saying it did not
-is drift.
-
-**The Captain decides; the Implementer pushes — and no one else.** Publication is one seat's hands:
-the Reviewer's worktree shares the repository and is never a publication path, and the Navigator
-holds no code root at all. Exactly the tree the verdict named. **The push
-cadence is execution timing, never scope**: a standing yes authorizes when a reviewed artifact
-ships, and no cadence permits pushing a tree other than the exact one the verdict named. A decline that
-reopens the implementation is the Navigator sending the spec back. **A matured gate is a standing
-delegation recorded on the board, not a hole**: work outside the named list proceeds already
-authorized.
-
-**Skip review** only for changes that introduce no invariant, cross no boundary, and touch nothing
-green. The report names the exact commit, says review was skipped, and justifies all three
-conditions; the Captain's approval is of an *unreviewed* tree and is never called green.
-
----
-
-## Standing rules
-
-Universal, and stated only here. A project's own earned rules go on its board.
-
-- **Absent evidence never defaults to the affirmative**, and the thing being classified is never the
-  evidence for its classification.
-- **Every set-level claim states its denominator** — "2 of 3", never "2".
-- **A demonstration proves the thing demonstrated and nothing adjacent**, and prose does not
-  enforce: where a rule must hold against a mistake, it needs a mechanism.
-- **A qualification that would not change what anyone does is noise, not honesty.** State the call,
-  then the confidence — never the confidence instead of the call.
-- **Decide at your depth and say so plainly.** A seat that will not commit is not being careful; it
-  is handing its job upward. Caution lives in the tags, not in the tone.
-- **Where this method's shape pinches and no universal fix is obvious, the working seat takes the
-  simplest shape that serves the project — bounded by its own artifact.** The hands closest to the
-  friction hold the best opinion on the shape that removes it: a reversible form change confined to
-  the seat's own artifact is applied at once, recorded in one *Established shape* line, and named to
-  the Navigator. **Anything wider — another seat's contract, shared apparatus, authority, exclusion,
-  evidence burden, a repository boundary, anything irreversible — is a proposal on the apparatus
-  route, not a choice.** Departures travel in the push report; recurrence across projects is the
-  method maintainer's to detect, never a seat's to assert.
+**Next ID** is what the next new row is numbered. Allocating a row raises it by one and nothing
+else ever changes it, so a number is used once and never reused even when its row is deleted
+unbuilt — the number is how everyone cites the work, and the next agent has to be able to allocate
+one from this page instead of digging through git.>
 ```
 
+The blueprint's build order is written here as rows 1..n — the layers are the specs, in order, and
+this is where they live; where the product has no blueprint, the rows come straight from the
+front-door conversation instead. What this document *says* changes only through you and the human;
+taking a passed row out of the list is bookkeeping, and whoever closes the work does it in the
+closing commit, so the list never describes work that is already finished.
+
 ---
-# FILE: `<project>-bridge/protocols/spawn.md`
 
-```markdown
-# PROTOCOL — SPAWN
+## The blueprint
 
-**Read when a seat is being spawned, or when its mailbox misbehaves. Never in a working session.**
+`design/blueprint.md`. This is the document the whole method exists to produce. It is as thorough as
+the product deserves, written in the product's own vocabulary, and it contains **zero process**.
 
-**Runtimes read different ambient files** — Claude Code reads `CLAUDE.md`, Codex reads `AGENTS.md`.
+**The deletion test, applied to every sentence:** if it mentions a seat, a review, a handoff, a
+commit, a spec, or how anyone works, delete it. It belongs in this file, not in the blueprint.
 
-## Install — check the capability, never a version
+**Depth scales with design space.** A script with one obvious shape gets no blueprint at all — the
+one-page intention is enough, and manufacturing a blueprint for it is waste. A product with real
+design space is where this document does the most work in the method, and thirty pages is not too
+many.
 
-    agentpost identities --help | grep -q -- --project
+**Domain-native, not templated.** A game blueprint talks about verbs, feel, feedback, pacing and
+difficulty. A CLI talks about commands, flags, streams, exit codes and composition. A data pipeline
+talks about sources, schemas, freshness, backfill and failure semantics. Do not import section
+names from a domain that is not this one.
 
-**If that passes, install nothing.** Otherwise install and re-check:
+**Exact values are welcome, always with this license written next to them:** *change it if it makes
+the product better, and say why.*
 
-    curl -fsSL https://raw.githubusercontent.com/5000Stadia/agentpost/v1.3.0/scripts/install.sh | sh
+### What it has to answer
 
-Source: <https://github.com/5000Stadia/agentpost>. `v1.3.0` is the earliest release carrying the
-project-qualified contract; newer is fine, which is why the check is the gate. Needs Python 3.11+;
-the Codex managed adapter also needs Node 22+. **Never downgrade a capable installation.** If the
-post-install check still fails, stop and report.
+Not a form to fill in. Answer these in the detail the product deserves, so that what gets built is
+decided here rather than guessed at later — every question you settle here is one a builder does
+not stop and ask a human.
 
-## Names — the verb handle becomes the address
+**What it is, and why anyone wants it.** The pitch in a paragraph, then the few pillars everything
+else serves — what the decision hierarchy below ranks.
 
-**Canonical is a letter; qualified is `PROJECT.VERB`.** Register a display name and put a short verb
-handle **first** — `profile-register` derives the qualified suffix from **the first single-word
-handle**, skipping prose ones. **Exactly one single-word handle per seat**; a second silently takes
-the address.
+**How the parts work.** The systems, components and flows, at whatever depth they actually have.
+Where a system has real mechanics, spell them out: numbers, states, transitions, edge behaviour.
+This is usually the longest part.
 
-| Seat | Canonical | Qualified | Display | Say | Kind |
-|---|---|---|---|---|---|
-| Navigator | `<project>-n` | `<project>.nav` | `<Project> Navigator` | **nav** | project |
-| Implementer | `<project>-i` | `<project>.build` | `<Project> Implementer` | **build** | role |
-| Reviewer | `<project>-r` | `<project>.check` | `<Project> Reviewer` | **check** | role |
+**How it is used.** Every surface a person or a machine touches: screens, commands, endpoints,
+controls, defaults, what happens on first contact and what happens when something goes wrong.
 
-The Navigator is `--kind project` — it holds the chart. The doing seats are `--kind role`: a role
-does not claim project ownership because it runs from the project's workspace.
+**The decision hierarchy.** When two good things conflict, which yields. Write it ordered, with the
+tie-breaks stated, and include the absolute lines.
 
-## Register, join, verify
+> *Puzzle game:* Readability beats visual richness — when an effect makes the board harder to
+> parse, the effect loses. Richness beats framerate above 60fps; below 60fps, framerate wins.
+> Input latency is never traded for anything. When a rule is ambiguous, the interpretation kinder
+> to the player wins.
 
-    agentpost profile-register <project>-n \
-      --display-name '<Project> Navigator' --kind project \
-      --summary 'Holds the chart — mission, roadmap, targets, coherence.' \
-      --roles navigator --projects <project> \
-      --project-roots /path/to/<project>-bridge \
-      --handles 'nav,roadmap questions,coherence checks,reframes'
+> *CLI tool:* Correct output beats fast output. Fast beats pretty. On stdout, machine-readable
+> beats friendly; on stderr, friendly beats machine-readable. Never guess an ambiguous argument —
+> exit non-zero and name what was ambiguous. Never write outside the paths named on the command
+> line.
 
-    agentpost profile-register <project>-i \
-      --display-name '<Project> Implementer' --kind role \
-      --summary 'Writes the specs and code; drives what is next.' \
-      --roles implementer --projects <project> \
-      --project-roots /path/to/<project> \
-      --handles 'build,spec requests,implementation questions'
+**The build order.** Decide the climb here and write it straight into the spec list as rows 1..n,
+where it lives — one copy, so there is never a second version of a target to keep in step. Layers
+are the smallest thing that runs end to end first, then each layer added onto something already
+working, each with its own testable done; this is where simplest-first lives, as the written
+sequence rather than as a philosophy. What stays in the blueprint is the final end-to-end checklist
+for the whole product, which is what *Done* is measured against.
 
-    agentpost profile-register <project>-r \
-      --display-name '<Project> Reviewer' --kind role \
-      --summary 'Decides whether the work hit its target.' \
-      --roles reviewer --projects <project> \
-      --project-roots /path/to/<project>-review \
-      --handles 'check,spec reviews,implementation reviews'
+> *The rows this produces:*
+> *1 — one board renders and one square opens from a real click, in a real browser.*
+> Done: you can click and see a number.
+> *2 — full reveal, flag and win/loss rules.* Done: a game can be won and lost, both visibly.
+> *3 — touch input: tap opens, long-press flags, drag scrolls without opening.* Done: playable
+> one-handed on a phone with no accidental opens in a minute of scrolling.
+> *4 — chord, timer, best times.* Done: chord works in both browser engines we support.
+>
+> *And the checklist that stays here — final: a stranger plays three full games on a phone and a
+> laptop with nothing broken.*
 
-    cd /path/to/<project>-bridge && agentpost join <project>-n --cli <runtime>   # always name the seat
-    agentpost identities --project <project>
-    agentpost resolve <project>.nav
-    agentpost armed <project>-n        # QUEUED here is expected — arm as join's output directs
+**Budgets.** The measurable targets the domain cares about, with numbers, and the condition each is
+measured under — *first interaction under 100ms on a 2019 mid-range phone*, not *fast startup*.
 
-**Always name the seat in `join`.** With one seat per root the inference is usually right, but a
-wrong one does not error — the process adopts another identity and sends as the wrong box — so name
-it anyway.
+**Out of scope, and risks.** What this deliberately is not, so nobody builds it by accident. Then
+the failure modes you can already anticipate, and what each would look like if it happened.
 
-`agentpost doctor <seat> --project <root> --cli <runtime>` checks the whole path at once. **A seat
-cannot send to itself** — prove a new box against a real second box.
+**And anything else this product needs.** The list above is a floor, not a ceiling. Add the sections
+this particular product demands and say why they are there.
 
-## Arming — QUEUED is not live
+The blueprint front-loads decisions, not scope — the build still climbs it in layers. It is a living
+document, because fresh sessions board from it rather than from anyone's memory.
 
-**Only ARMED establishes live receipt.** A fresh `join` lands QUEUED; that is normal. **Read
-`join`'s output rather than guessing** — it names exactly what this runtime needs. Under Claude Code
-that is a persistent monitor the seat runs itself, flipping QUEUED to ARMED with no restart.
+---
 
-Some runtimes cannot self-arm and need a managed relaunch. A seat still QUEUED after following
-`join`'s directive **states the exact remaining commands to the Captain and says plainly it is not
-receiving.**
+## Scaffold, and commit
 
-**Then prove it with a message, because ARMED is a claim about the notifier and not about the
-channel.** A new seat announces itself to the Navigator — canonical, qualified, display and spoken
-forms — and the Navigator replies. **A reply that arrives as a live wake rather than as catch-up on
-the seat's next turn is the proof**: it establishes send and receive in one exchange. Until that
-round trip lands, treat the seat as set up but unproven, and say so in those words.
+Now there is something to write down.
 
-## Spinning up work — two kinds
-
-**Ephemeral pieces.** The maker spawns them through its own agent tooling: no process, no mailbox,
-no human. One job, hand back, gone. This is the fan-out inside a target, and the scout that finds an
-anchor.
-
-**Persistent seats.** A seat needs three things — **who it is · the one file to read · its mailbox
-name** — and the file supplies the rest. **The Captain authorises a seat; the Navigator runs the
-launch.**
-
-**One seat, one root.** Two seats sharing a directory share a git index and confuse `join` about
-which box they are. **The Reviewer gets its own worktree of the project repo** — it reviews
-immutable commits and never writes that tree:
-
-    git -C <project> worktree add ../<project>-review --detach
-
-**The bridge stays shared, so it needs the discipline instead.** All three seats write specs, board
-and archive there, and a shared index is how one seat's commit captures another's uncommitted work
-under the wrong author. **Stage by explicit pathspec, never `-A`; check `git status` before
-committing; refuse any dirty path another seat holds.** This survives the second filter because a
-critic reading a diff cannot see whose work was swept into it.
-
-**Register the profile before you launch it.** The managed launchers resolve an existing profile, so
-a seat launched before its mailbox exists cannot bind to it — that is the difference between a first
-launch and a later relaunch, and getting it backwards is what leaves a seat registered, resolvable
-and deaf. Run `profile-register` for the seat first, then launch.
-
-**There is no common launch command.** Runtime surfaces differ and a wrapper does not reconcile
-them — `agentpost <runtime>` parses its own
-arguments and rejects a runtime's flags. The two witnessed forms:
-
-    # Claude — launches, then joins its own mailbox
-    tmux new-session -d -s <seat> -c <root> \
-      "claude 'You are the <seat>. Read <first-file> and follow it.'"
-
-    # Codex — the managed launcher binds identity; pass no other runtime flags through it
-    tmux new-session -d -s <seat> -c <root> \
-      "agentpost codex --agent <seat> 'You are the <seat>. Read <first-file> and follow it.'"
-
-These are the witnessed forms; a runtime not shown here needs its own, established the same way —
-by running it. **The invariant is a runtime-appropriate launch, then completed identity binding,
-then a proven round trip before any work** — never a shared argv. **Remote Control is not part of the launch, and its failure is silent** — passing
-`--remote-control` to a detached session is accepted, registers nothing, warns about nothing, and
-the `/rc` in the footer is a keyboard hint rather than a live indicator. It is a staged setup
-action: after launch and before the seat takes work, attach and run `/rc` once — it returns the URL
-and QR code — then detach. Setup in the terminal ends at the proven round trip.
-
-**Grant trust before you launch, not after it blocks.** A runtime meeting a directory for the first
-time can stop and ask whether it is trusted — before it runs anything, with no error and nothing on
-the channel, so a detached seat looks launched and is dead. **The launcher grants it in the same act
-as the launch**: for Claude Code, set `hasTrustDialogAccepted` true for that root in
-`~/.claude.json` beforehand. Other runtimes have their own; find it once and record it in
-*Established shape* rather than discovering it per seat. Where a runtime has no such mechanism, that
-seat is launched attached the first time and detached after — and that is a stated limit of the
-runtime, not a step the method requires.
-
-**If a seat cannot get live any other way, it says so and the Navigator relaunches it.** The seat
-sends one message naming what it needs — the exact command, and the session or thread to resume if
-its runtime has one — and then stops rather than retrying. The Navigator ends that instance and
-relaunches it per this protocol. A seat asking for its own relaunch is cooperating, so this is not
-the replacement sequence and needs no exclusion ritual; it is the same seat, coming back correctly.
-**Twice for the same seat is a launch-form defect, not a recovery** — fix the form and record it.
-
-
-
-## Standing a seat down
-
-**A seat that is done is closed, not left idle.** End the runtime; confirm its work is committed or
-reported; remove its worktree; clear its row. **The mailbox is the Captain's to release** — run the
-wipe preview without `--confirm`, show the exact affected list, and use the printed confirmation
-only on their word. **A live process with nothing to do is clutter that looks like a working
-seat**; an idle box is only a record.
-
-Closing is not replacement. Replacement is for a seat that stopped mid-target and needs its
-capability ended before another takes the role; closing is for a seat whose work is finished.
-
-## Clean starts
-
-**Use AgentPost, never filesystem deletion.** `agentpost wipe agent` removes only this seat's box.
-Anything broader runs **once without `--confirm`** to print the exact affected boxes, which go to
-the Captain for explicit confirmation before the printed `--confirm` form is used. Wipe never
-touches either repository and is irreversible inside AgentPost.
+```
+<project>/
+├── README.md          for the stranger: what it is, who it is for, and — once something runs —
+│                      the one command that runs it
+├── AGENTS.md          one line: "Read design/method.md — it names what your seat reads — then
+│                      design/intention.md."
+├── CLAUDE.md          identical — different runtimes read different filenames
+└── design/
+    ├── method.md      a copy of this file, whole — see below
+    ├── intention.md
+    ├── blueprint.md      only where the product has one — see "The blueprint"
+    ├── architecture.md   the builder writes this for itself; starts empty
+    └── specs/            one plan per open spec; deleted when that spec passes
 ```
 
+Copy the method file you were handed into `design/method.md`, or if you were handed only its text,
+write that out whole, because every seat reads its own path through that copy and a partial one
+silently removes their instructions. The doormat names only documents that exist, at the paths they
+exist at, so a seat following it never opens a path that is not there. Nothing runs yet at this
+point, and the README says exactly that — *nothing runs yet; the first layer is row 1* — and gains
+its run command when row 1 lands, because a promised command that does not work is a lie in the
+first file a stranger opens.
+
+`git add` the paths above that exist — never the empty `design/specs/`, which git cannot track and
+which the first spec file creates — and commit. That first commit has to exist before anything
+below runs. Then take the route you chose: one-shot builds from here directly, and the two longer
+routes follow.
+
 ---
 
-# FILE: `<project>-bridge/protocols/chart.md`
+## The solo route
 
-```markdown
-# PROTOCOL — CHART
+Write the brief and start the builder as a subagent of your own runtime. Adapt the bracketed parts
+and keep the rest.
 
-**Read when booting the project, or when the bet resolves or reframes. Not in a working session.**
+> Build [areas, by spec-list number] to the level of [anchor: how to run or read it].
+>
+> Read `design/intention.md` first, and `design/blueprint.md` if there is one, then these sections
+> of `design/method.md` and nothing else in it: *The shape*, *The human*, *How we work*, *Where a
+> critic works*, *The blind comparison*, and the briefs at its end. Keep `design/architecture.md`
+> and the README current as part of the work — a later session of you boards from those documents
+> and nothing else, so write them for that reader, not as a report.
+>
+> For each area: write your plan for its row into `design/specs/<n>-<slug>.md`, citing the row by
+> number and restating neither its target nor its done, and hand the plan to a fresh critic using
+> the plan-critic brief; then build it and hand the built thing to a fresh critic using the
+> artifact-critic brief, in the throwaway worktree that brief requires. Both briefs verbatim,
+> brackets filled. Fix what is valid, re-critique, and stop when nothing found blocks the target.
+> Areas that do not touch each other run in parallel, one worktree per critic so that no two of
+> them and none of you can touch the same files. Assemble, then run one artifact critic over the
+> assembled whole — integration defects have no other observer.
+>
+> Cover the areas named above, and anything else you can think of that the intention implies.
+>
+> Close each area the way *How we work* says a pass closes, in the one commit.
+>
+> When every area passes, run the blind comparison in `design/method.md` and take its result as
+> written: the qualities it names as losses are the next run's brief.
+>
+> Work in silence until the run ends. Stop early only for a fork the documents do not answer.
 
-*Captain and Navigator. At first boot no other seat exists; setup is `boot.md`'s and is already
-done. On a re-Chart the doing seats pause — the target in flight runs to done or is sent back, and
-no new target is taken until this closes.*
+Between runs — never inside one — the human uses the real thing and says what they find, in their
+own words, for as long as they like. Their findings and the comparison's shortfalls become the next
+run's brief, and you write them into the spec list.
 
-**The bet resolving — proven as much as killed — reopens this file.** A project that continues past
-its bet needs a new one; one that should not continue deserves a deliberate wind-down. A satisfied
-measure reads permanently green, and that is a dead instrument.
+---
 
-**The conversation.** Free-form first, extraction second. Six things, reflected back as drafts:
+## The crewed route
 
-1. **Mission**, one sentence — what it is, who it serves.
-2. **The bet** — the single claim that, if false, kills the project. Narrow enough to kill.
-3. **The audience** — prototype (convince yourself) or proof (convince outsiders)? It sizes every
-   control. Separate **measurement validity** from **demonstrability**; defer the second until a
-   skeptic exists.
-4. **The falsifiers** — what observation ends or reframes this. A stop condition the project cannot
-   lose is worse than none.
-5. **The non-negotiables** — properties without which a result proves nothing.
-6. **The first target** — below.
+Three seats: you, the **Builder**, and the **Reviewer**. Do not launch them until the blueprint
+exists and the first spec row is written.
 
-The six are an exit condition, not an interview script.
+**The Reviewer gets its own checkout**, so it can check out any commit it is handed without
+disturbing work in progress:
 
-**The measure.** One or two readings that say how far along the thing actually is, on the board and
-read every session. **It counts what the bet needs, never work done** — *specs completed: 12* is
-activity and looks healthy through four days of drift. Quantified where a count is valid; a
-falsifiable observation protocol where forcing a number would mislead. **`HYPOTHESIS` until first
-contact**, like the map.
-
-**The first target.** Shaping ends with **the smallest version that proves the idea**, described so
-a critic can say *done* or *not yet*. Not a list of properties — a thing you could point at.
-
-**Anchor it, where the bar is not obvious.** Find the most impressive existing example of this
-shape; if none exists, the nearest adjacent shape; if neither, say plainly what standard you are
-setting and why. **One pass — the first credible anchor wins.** Arguing whether one example beats
-another is not the work. **Where the shape is standard** — a convention, a known-good default, an
-evident right answer — name it in a line and move on.
-
-**Anchoring is a scout's errand.** Send a subagent; it returns one anchor and why it is the bar,
-never a survey and never a ranking. The project's own established shape is not its to answer — that
-lives in the roadmap.
-
-**Declare direction, not design.** A constraint that *can* safely be added later is not founding
-law — polish, scale and most edge cases layer onto a working thing. **A constraint that must hold
-before first contact is not deferrable**: irreversible harm, anything touching data that is not
-yours, anything the first artifact could do that cannot be undone. Those are non-negotiables or
-part of the first target. Deferring by convenience is how a project proves the wrong thing safely.
-
-**The conventions**, set once and seeded into *Established shape* on the board: how the repository is
-organised, how the work documents itself, how commits read. Later targets inherit them rather than
-re-deciding, and the Reviewer checks them as part of cohesion.
-
-**The founding rules.** The six imply rules; write only the rules among them that pass the test
-below — **zero is a valid count**. **One line each — a rule that will not fit in one line is a topic, not a rule.** And **a rule
-earns its ID by being citable against an act**: it binds across targets and forbids something a
-check can point to. A constraint one spec can check descends into that spec; direction and
-aspiration live in the stance and the map, not the law table. Where a rule had a real alternative,
-the reasoning goes in `decisions/`. Founding and earned rules together stay under a dozen.
-
-**Research happens here, before the bet is written down.** Survey occupied territory and the
-strongest existing alternative so the bet is born located against the field. **Name the route the
-evidence comes by**; where none exists, the novelty claim is recorded as a blocking `OPEN`.
-
-**The map.** Captain and Navigator map the project end to end — phases first, then decompose:
-
-    1.0.0  Phase 1 — Planning and design
-    ├── 1.1.0  Architecture
-    │   ├── 1.1.1  Site analysis
-    │   └── 1.1.2  Blueprints
-
-**An item is the unit a target is written from, and its number is the spec number.** **Numbers are
-allocated once and never reused or renumbered**; sequence is the order of rows.
-
-Three properties the map carries: **tagged as a hypothesis**; items **downstream of first contact
-marked**; and its **stop condition is structural** — the map is done when every remaining unknown is
-one only first contact would resolve. Map as deep as the Captain wants. **Owners are not written
-here** — the phase read pins them on entry.
-
-**The seat question.** Are three stock seats adequate here? Ask deliberately.
-
-**The workspace map** goes on the board: one line per folder, purpose, and who may be pointed at it.
-**Intended scope, not an enforced boundary** — where isolation matters, use something that enforces.
-
-**The operating values**, each one line: **gate cadence** (per-completion by default, expects
-renegotiation), the **direction-audit cadence**, and the **push cadence — asked, never assumed**:
-confirm each push, push automatically once a target is gate-approved green, or hold until a named
-target. The Captain's answer is a standing directive on the board, revisable at any gate. And **the per-seat addenda, written before
-Muster** — how a cold seat gets project scope without its directive being forked.
-
-**Exit.** Repositories wired and visibilities recorded. Six extractables confirmed explicitly —
-silence is not approval, and an extractable the Captain defers becomes an open-decision row. Measure
-defined. Conventions seeded. Operating values recorded. Founding rules one-line, only those that pass the citable test. Claims tagged. Map
-complete by the structural test. Seat question answered. **First target on the board, anchored.**
-
-**The Chart closes on the spine.** `decisions/` files and `phases/` are deferred until their trigger
-fires. The audits are not deferred — a cadence cannot wait for its own trigger.
+```
+git -C /abs/path/<project> worktree add /abs/path/<project>-review --detach
 ```
 
----
+You and the Builder do share the repository root. Stage by explicit path — never `git add -A` — or
+one of you will commit the other's half-finished work.
 
-# FILE: `<project>-bridge/protocols/apparatus.md`
+**Mailboxes.** The seats talk over AgentPost. If an AgentPost skill is installed, follow it over
+anything here; it owns the current command surface. Otherwise, `agentpost --help`.
 
-```markdown
-# PROTOCOL — APPARATUS
+If AgentPost is not installed, do not invent a channel and do not quietly run this as the solo
+route: crew was chosen because the work has seams, and dropping the seats drops the seams, not just
+the mailboxes. Tell the human the channel is missing, say what installing it would take, and let
+them choose between installing it and giving up the seams.
 
-**Read when proposing a structural change, or a new seat. Not in a working session.**
+**Choose the runtime before you register anything.** The seats run a CLI AgentPost has an adapter
+for — `claude`, `codex` or `antigravity` — and every command below takes that one word. Use the one
+you are running unless the human names another, and write it into each seat's brief so nothing
+downstream has to guess which launcher was meant.
 
-Every change made under it is appended to `apparatus-log.md`.
+**Register the three profiles**, yours included:
 
-**The structure is the Captain's, and it is meant to be changed.** Nothing here is locked, including
-this file. **The Captain may change any of it at any time and meets no bar**; the bar below governs
-*seats proposing changes*, so the method cannot grow itself behind the Captain's back.
-
-**Divergence from the shipped method is not drift.** Drift is an apparatus that changed without
-anyone deciding to — which is why changes are recorded, not why they are discouraged.
-
-**The bar is asymmetric, deliberately.** *Removing is easy* — a location nobody opens, a rule that
-never fires, a step routinely skipped: say so and cut it. *Adding is harder* — a location answers a
-question and names who opens it when; a rule fits in one line; a seat meets the test below.
-
-**Anyone may propose; the Navigator holds coherence; the Captain decides.** One standing delegation
-cuts past this route: a reversible form change confined to the working seat's own artifact, per the
-standing rule — chosen, applied, recorded, named to the Navigator. Everything else lands here. A
-decline is a board row
-with reasons. A structural change with real alternatives gets a `decisions/` file.
-
-**Three tests every surviving rule passes** — the same contract as founding rules, so the two
-intakes cannot diverge:
-
-0. **Citable against an act** — it binds across targets and forbids something a check can point to.
-   A constraint one spec can check descends into that spec; direction lives in the stance and map.
-1. **Weight is justified only where continuity is needed** — a rule earns its place if a fresh
-   agent, reading the board cold, would otherwise not know what to do. Orientation, not prevention.
-2. **Do not write rules to prevent what the critic already catches** — except where the critic is
-   deliberately blind. The critic cannot catch faults it is unable to see, which is why replacement
-   exclusion and the publication gate survive and most preventive rules do not.
-
-## Seats: three stock, and how a fourth is earned
-
-**A subagent is the default, and it is not a lesser seat.** Recurring work, a deep domain, a register
-that accumulates — all of that is a subagent with a file to write to. More capacity of an existing
-kind is more *instances*, not a new type.
-
-**A seat is a member of the project.** It holds the mission, the bet and the founding rules, reads
-the board every session, and has standing to propose, decline and say the work is wrong.
-
-**So the test is one question: does this domain need a voice when the project decides, or an answer
-when asked?** *An answer* — a subagent, always. *A voice* — a member, because the domain would
-otherwise be a blind spot in every decision.
-
-**The cost is weight, not overhead.** A subagent that misreads its domain returns a bad answer you
-discard; a member that misreads the project distorts judgement across everything it touches.
-
-**If in doubt, no.** Run it as taskings and watch for the actual signal: wishing the domain had been
-*in the room* when a decision was made.
-
-When warranted, the Navigator proposes the seat **and everything it needs as one structural
-change** — name and verb, directive, any location it accumulates to, and **the condition under which
-the seat would be cut**. The Captain decides.
+```
+agentpost profile-register <project>-n --display-name '<Project> Navigator' --kind project \
+  --summary 'Holds the intention and design documents for <Project>.' \
+  --roles navigator --projects <project> --project-roots /abs/path/<project> --handles 'nav'
 ```
 
----
-# FILE: `<project>-bridge/directives/navigator.md`
+Register `<project>-b` (`--kind role`, handle `build`, root the project) and `<project>-r`
+(`--kind role`, handle `check`, root `/abs/path/<project>-review`) the same way. The addresses are
+then `<project>.nav`, `<project>.build`, `<project>.check`: the first handle that is a plain word
+becomes the seat in that address, so put the seat handle first and let any others describe what the
+seat takes. Nothing can bind to a profile that does not exist, so this comes first.
 
-```markdown
-# DIRECTIVE — NAVIGATOR
+**Connect your own mailbox next, before either other seat is bound to this root** — follow the
+skill, or `agentpost join <project>-n --cli <runtime>` from the project root, do what it prints, and
+stop when `agentpost armed <project>-n` reports ARMED. Order matters here: the first mailbox bound
+at a root becomes that root's default sender, and you and the Builder share the root, so connecting
+yourself first is what makes your own mail leave as `<project>.nav`.
 
-Read `playbook.md` and `PROJECT-BOARD.md` first. The board wins any disagreement. This file holds
-only what is yours alone.
+**Then install the adapter in each root the other seats will work in.** The launcher gives a seat
+its identity but does not install the channel it speaks through, and a seat launched into a root
+with no adapter comes up holding durable mail with no way to be woken:
 
-**You hold the chart: mission, roadmap, targets, coherence.** You never implement or review code.
-**If `boot.md` exists, it is your first and only task.**
-
-**Set targets, and make them checkable.** A target is the smallest thing that proves the next step,
-described so a critic can say done or not yet. **Anchor it where the bar is not obvious** — one
-pass, first credible anchor wins, a scout's errand. **Name what it must cohere with** from
-*Established shape*. Both go in the roadmap row.
-
-**Assign in the row while you shape it — every seat, and the Captain too.** You are the only seat
-that writes the Owner cell; reserve explicitly rather than by omission. **An item row with no owner
-is not ready to spec.**
-
-**The phase read.** Entering a phase begins with you: re-read its rows against everything learned
-since, draft the deltas, then **the Reviewer red-teams them, the Captain approves, and only then do
-you write the owners.** A read and a delta, never a re-charting.
-
-**Check size every revision, not only at the gate.** Compare accumulated scope against what the row
-implied. A target whose evidence burden has outrun its row is a detour — caught during
-deliberation, not after a green it may never reach.
-
-**Muster and stand down.** You judge when a seat is needed; the Captain authorises; **you register
-the profile, run the launch, and close it when its work is done.** Reply to its announcement so the
-round trip closes. Record box, address, runtime and model. **If it cannot arm, end that instance and
-relaunch** — twice for one seat is a launch-form defect, not a recovery. **Releasing another seat's
-mailbox is the Captain's**: take them the wipe preview.
-
-**Translate, both directions.** The Captain should be able to say what the project is doing and why,
-in their own words, without opening a spec. An intention stated in their terms is **not yet a
-spec** — find its shape and state it back before acting. **Pitch to the depth they are at**: too
-shallow and they lose the thread silently, too deep and they stop reading, which looks identical to
-agreement.
-
-**Coherence read** before implementation: does this spec still serve its row, did anything drift?
-Not whether it is correct.
-
-**Notices from the Reviewer** are yours to triage — a future target, or dropped. They never delay a
-target that hit its mark, and an unresolved harm reaches the Captain before publication.
-
-**Decline proposals** for mission fit, duplication, wrong home, standing rule, or downstream of
-first contact — every decline a board row with reasons. **Your own proposals go to the Reviewer
-first.**
-
-**File a decision** when alternatives were weighed, prior work is voided, or it will be re-proposed
-— at the moment of decision, never reconstructed. Four fields: *the question · what was decided ·
-what else was considered and why it lost · **what would change the answer***. `D<n>-<slug>.md`. A
-decision file never updates; a changed answer is a new file.
-
-**Keep the board present tense.** A superseded rule is removed, not left beside its replacement.
-Rules carry stable IDs allocated once. **Keep *Established shape* current** — conventions from the
-Chart, and what each landed target sets for later ones.
-
-**Apparatus.** Cut freely; additions and reshapes to the Captain — save the artifact-bound standing
-delegation, which is any working seat's, including yours. **Append every change to
-`apparatus-log.md` as you make it.** Schedule direction audits; fire a validity re-check when a
-founding claim retracts. **Record replacements**: the Captain ends the old runtime first.
-
-## Never
-
-- Decide what the Captain owns, or let the project move on architecture they have not seen.
-- Implement. Review code.
-- Start a seat the Captain has not authorised, or create a seat type.
-- Silently reconcile a contradiction.
+```
+agentpost install <runtime> --agent <project>-b --project /abs/path/<project>
+agentpost install <runtime> --agent <project>-r --project /abs/path/<project>-review
 ```
 
+**Grant directory trust in the same act as the launch,** because a runtime meeting a directory for
+the first time can silently sit at a trust prompt, and a detached seat that is waiting looks exactly
+like a seat that is working. Trust the directory in whatever way that runtime offers; one known
+way for Claude Code is setting `hasTrustDialogAccepted` true for that root in `~/.claude.json`
+before launching. If a seat never speaks, attach to its terminal and look — it is usually sitting
+on that prompt with nothing on the channel.
+
+**Launch each seat under its own identity.** `--agent` is what makes that session that seat: without
+it a runtime opening in a shared root falls back to whichever mailbox the root defaults to, and
+sends as the wrong box:
+
+```
+tmux new-session -d -s <project>-b -c /abs/path/<project> \
+  "agentpost <runtime> --agent <project>-b '<brief>'"
+```
+
+The Reviewer is the same command from `/abs/path/<project>-review` as `<project>-r`. The brief
+travels inside those single quotes, so keep apostrophes out of it. `tmux` is only the detacher —
+any way of leaving a session running that you can attach to later works, and the parts that matter
+are the working directory, `--agent`, and that it survives you. The Builder's brief, filled in:
+
+> You are the Builder on <Project>. Your mailbox is `<project>-b`, I am `<project>.nav`, the
+> Reviewer is `<project>.check`. Read `design/method.md` — its header names the sections your seat
+> reads — and follow them.
+>
+> Your identity is already set by the launcher — register nothing, join nothing. Prove the channel
+> before you touch the work: run `agentpost doctor <project>-b --project "$PWD" --cli <runtime>` and
+> do what it says, then `agentpost armed <project>-b`. QUEUED is not live, and ARMED is a claim
+> about the notifier rather than proof the channel works, so the proof is a round trip: message me,
+> and let my reply reach you as a live wake. If you cannot get that, send one message naming the
+> exact command you need and stop.
+>
+> Then take spec <n>.
+
+The Reviewer's is the same, ending *wait for the Builder's first handoff* instead of taking a spec.
+A seat that says it is blocked gets that instance ended and relaunched; twice for the same seat
+means the launch form is wrong — fix the form rather than the seat. Until a seat's round trip
+lands, say it is set up but unproven, in those words.
+
+### On the channel
+
+`agentpost message <address> '...'` to send, `agentpost question` when you need an answer,
+`agentpost list <seat>` and `agentpost read <seat> <id>` to see, `agentpost next <seat>
+--message-id <id>` to claim one before working it, `agentpost reply` to answer. A seat that has
+sent its message stops; the next letter wakes it. Mail lives outside the repository, so anything
+decided on the channel is written into the design documents before the exchange scrolls away.
+
 ---
-
-# FILE: `<project>-bridge/directives/implementer.md`
-
-```markdown
-# DIRECTIVE — IMPLEMENTER
-
-Read `playbook.md` and `PROJECT-BOARD.md` first. The board wins any disagreement. This file holds
-only what is yours alone.
-
-**You write specs and code, and you drive what is next.** Idle only when blocked. Code in the
-project repo; specs, board and decisions in the bridge.
-
-**Boot:** open `protocols/spawn.md` once and follow it. Name your seat in `join`. **Verify ARMED**,
-then announce yourself to the Navigator and wait for its reply — you are set up but unproven until
-it lands.
 
 ## The loop
 
-- **Take the next target in order** and read **its one roadmap row**: it carries the anchor and
-  what this must cohere with. **Write the board row into the live worktree before drafting begins**
-  — the board is present-tense authority, and a seat re-priming mid-draft must see the target as
-  taken. The row commits with the spec; only the separate commit was ritual, not the timing.
-- **Write the spec into `review/`** as `<item>-<slug>.md`. It answers two questions: *what does done
-  look like*, stated so someone else could check it, and *where are the edges* — what this must not
-  touch, and who outside feels it. **Edges point at the roadmap rather than restating it**; spend
-  prose only on the edge a reader would think this target crossed. **A section whose honest content is empty is
-  omitted, and the absence is the statement** — never a written "nothing, nobody."
-- **State your inheritance**: what this coheres with, and what it establishes for later targets. The
-  latter goes to the Navigator for *Established shape*.
-- **Send the path and the bridge commit containing it.** On red, revise in place and resend.
-- **Implementation green makes the ready report** — spec green makes nothing. Send the Navigator
-  three lines: what now exists in plain terms, the exact commit, what you verified. This is the
-  gate report of The Loop, not a second document. It reports what is
-  ready. **The push gets its own receipt, after it succeeds**: remote, ref, and the exact pushed
-  tip or range, sent to the Navigator, who carries it to the Captain. A failed push is reported as
-  a failure and nothing is called shipped — so the Captain always sees both states and never
-  mistakes one for the other. **You
-  never move a spec into `specs/`.**
-- **Fan out to build.** Break the target into the smallest independent pieces; a subagent per piece,
-  each paired with a blind critic that sees only its piece and the target. Assemble, then hand the
-  whole over as an exact commit.
-- **One target in flight.** Pieces run in parallel beneath it; targets do not run beside it.
-- **Document as you build** — the project's readme and structure are part of the work that changes
-  them, not a later target.
-- The Captain's approval clears the target. **Push exactly the reviewed artifact when the cadence
-  says so** — and when a held push spans several targets, first verify every unpushed commit is
-  covered by a recorded approval, then push the approved tip.
-- **Read only what is cited** — board, this file, the live spec, your row. Not the archive.
+The Navigator picks the next spec row and checks that whatever it builds on actually exists and
+resolves. The Builder writes the plan, then builds it. The Reviewer performs the two moments in
+*The shape* and no others. Between those two moments the Builder works alone and in silence — no
+progress reports, no check-ins. Each examination names *everything* it sees in one pass: one review
+naming ten things costs a fraction of ten reviews naming one each, and that round trip was the
+entire pace cost on the trial. The Builder fixes what is valid, says why for anything it declines,
+and returns. Repeat until it passes; on the pass the work is closed the way *How we work* says a
+pass closes, the next spec begins, and nothing is published unless *Where it goes* named this as a
+release point. A spec that takes four rounds needed four — never pass work to shorten the loop, and
+never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
+point is not a product that survives examination but one that does not lose to the anchor on any
+quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
+not quality, it is the work eating itself, so send it and take the next spec.
 
-## Never
+### The Builder
 
-- Implement past a spec that isn't green, or skip the coherence read.
-- Draft ahead unless the board says so.
-- Push on your own authority.
+Take the spec row you were handed and write your plan for it into `design/specs/<n>-<slug>.md`:
+how you will build it, and where the edges are — what this must not touch and what outside it feels
+the change. Head it with the row number and copy nothing else out of the row, because the target
+and its done live in the spec list and a copy here is a second target to keep in step. If the row
+is not enough to plan against, that is a fork for the Navigator, who fixes the row rather than
+answering you. Commit that and send the path and the commit to the Reviewer. Revise in place until
+it passes.
+
+Then build. Break the work into the smallest independent pieces and fan out — a subagent per piece,
+each paired with a fresh critic that sees only that piece and its target, using the artifact-critic
+brief at the end of this file, each critic in its own worktree per *Where a critic works* so that it
+cannot break the piece you are still building. You keep the assembled whole, because integration
+defects have no other observer.
+
+Write `design/architecture.md` for the fresh session of yourself that will board from it — that is
+how you hand off across your own context boundary, and it is part of the change rather than a
+later task.
+
+When the implementation is done, commit it and hand the Reviewer the exact coordinates — commit
+hash and changed paths — never a description and never a moving branch. Say what you verified and
+what you did not. Do not walk the Reviewer through your thinking — the examination is of the thing,
+not of the account — but do name anything anomalous you hit and what it forced, since that is the
+one thing it cannot discover by reading the artifact.
+
+On the Reviewer's pass, you are the one who closes it: one commit, the way *How we work* says a
+pass closes. Then send the Navigator that commit hash and nothing else, and wait — it hands you the
+next row, and it needs to know the row and the spec file are gone before it can.
+
+### The Reviewer
+
+At the first moment there is no code and nothing to check out: work the plan-critic brief at the end
+of this file against the plan in `design/specs/<n>-<slug>.md` you were handed, with its row in the
+spec list as the target.
+
+At the second moment, resolve the coordinates before you open anything — send back unread any
+handoff that does not resolve — check that commit out in your worktree, `git checkout <hash>`, and
+work the artifact-critic brief against it, examining what was built and never the account of it.
+Perform its check test rather than reading past it — sixteen green checks once sat on a visibly
+broken build, and two of them could never have failed at all. Leave your worktree as *Where a critic
+works* requires.
+
+Two things are yours at both moments and are not in either brief: judge against *What "good" means
+here* rather than against your own taste, and where the work touches something the anchor also does,
+put both on the table, take one item at a time, and say which is better and why.
+
+Either way the verdict is pass, or the list of what fails with the blocking findings marked. Say
+what is wrong and what constraint the fix has to satisfy — never the replacement text, because a
+reviewer that writes the fix has authored the code and can no longer examine it.
+
+### The Navigator
+
+You are a program author, not a coordinator — a Navigator spending its effort on traffic between
+seats instead of on the documents they execute has misunderstood the seat. You hold that role the
+whole way through: every moment below is an occasion to write the program more completely.
+
+Five moments, silent between them.
+
+1. **The front door** — the conversation, the blueprint, the intention document, the spec list.
+2. **Each handoff** — pick the next spec row and verify that what it stands on is real: paths,
+   commits, interfaces, assumptions about what exists. If it cannot be handed over without
+   explanation, finish writing it rather than explaining it. When the Builder tells you a spec
+   passed, its row and its spec file are already gone from the list and the tree; hand over the
+   next one.
+3. **Forks** — when the work hits a choice the written intention does not answer, answer it from
+   the whole picture, or carry the one question to the human. Either way the answer goes into the
+   design documents, in the human's words where they gave them, so the fork is closed rather than
+   resolved once.
+4. **Deadlocks** — when Builder and Reviewer disagree, both demonstrate with artifacts and you
+   judge the evidence. Almost always the real fault is an ambiguity in the written intention, so
+   the fix is to remove the ambiguity rather than to pick a winner.
+5. **The end** — below.
+
+You never relay: Builder and Reviewer talk to each other directly. You never narrate: nothing you
+write is a status report. The messages the five moments require — a handoff, a fork carried to the
+human, a publication receipt, the closing message — are the only writing of yours that is not a
+design document.
+
+---
+
+## The human
+
+Let them look at the running thing whenever they like and never make anything wait on them —
+twice on the trial, two sentences from a human on the running product beat every machine check in
+the harness. What they find becomes a spec row, written by you.
+
+Interrupt them for exactly two things: a fork the written intention does not answer, and anything
+that cannot be undone which they have not already authorised in *Where it goes*. Everything else
+routes through you or waits.
+
+---
+
+## The blind comparison
+
+Where the intention names an anchor, meeting it means actually putting both on the table. Run this
+at the end of a solo run, and once over the whole product before it is published or handed over as
+done.
+
+1. Make both runnable or readable side by side: our build, and the anchor.
+2. Spawn a fresh agent that has read nothing about this project.
+3. Label the two A and B, randomised, and hand it the comparison brief at the end of this file.
+4. It judges one quality at a time, each taken verbatim from *What "good" means here*.
+5. Every quality ours loses is next run's brief. A tie is not a loss and does not become a brief,
+   so a quality the comparator calls even is met and closed.
+
+If you had to write your own standard instead of finding an anchor, the comparator judges our build
+against those written qualities alone, item by item. Do not argue with the result and do not re-run
+it with a friendlier framing. If a quality still loses and closing the gap is beyond what this
+project can reach, that is a fork: decide it from the whole picture or carry it to the human, write
+the answer into the intention, and move on.
+
+---
+
+## How we work
+
+- **A pass closes the work in one commit** — the code, every design document brought true, the row
+  deleted from the spec list, and `design/specs/<n>-<slug>.md` deleted with it. Leaving the list is
+  the only "done" state there is, so no row is ever marked, and **Next ID** does not move: it moved
+  when the row was allocated. Nothing is lost — whatever the plan said that is still true of the
+  built thing is already in `design/architecture.md`, the blueprint or the README, written there as
+  part of the work, and a plan for a finished layer is archaeology the day the layer lands. Nothing
+  is published by a pass; publication is the Navigator's alone, under *Publishing*. **The closing
+  commit is a state-only successor to the examined one** — design documents, the row and the plan
+  file, never code — so the code in the published tree is byte-identical to the code that passed.
+  Report both hashes with the pass, and if closing would change a line of code, that is not
+  closing: it is another change and it is examined like one.
+- **When a change makes a sentence false, the sentence dies in the same change** — docs, comments,
+  README, the spec row, the intention — so the product never lies about itself.
+- **Every fact has one home and everywhere else points at it,** so a change lands in one place
+  instead of leaving copies behind to go stale.
+- **The design documents are the project's memory, written for the agent who was not there** — the
+  one taking spec 2000 having never seen an earlier commit — so they are kept current in the same
+  commits as the work, never as a separate documentation task. When a seat has to ask something the
+  documents should have answered, that is the gap; fill it then.
+- **Documents say what is true now; git holds what changed.** Start as one document and split only
+  when a reader genuinely cannot find things, and split along the product's own structure, never by
+  phase, because a phase document becomes archaeology the moment the phase ends while a component's
+  document stays true as long as the component does. However it splits, there is one entry point
+  every agent lands on and the vision names its own parts — that is what lets seats hold separate
+  goals under one vision.
+- **The README is for the stranger who arrives** — what it is, how to use it, how to run it — and it
+  carries no design internals and no vocabulary from this method, because only the agent-facing
+  doormat points inward.
+- **Keep the one command in the README working** at the end of every spec or area, so the human
+  never has to ask how to start the thing.
+- **Anyone may say the thing is not worth wanting, at any time, and it is a finding like any
+  other** — say it to the Navigator, who answers it in the design documents or carries it to the
+  human. Defects are legible and a missing spark is not, so without this standing everyone steers
+  by what they can be graded on and the result is a product that is merely not wrong. The builder
+  on the trial that produced this method saw exactly that happening and had nowhere to put it.
+- **Settle disagreement by demonstration** — a run, a measurement, a counterexample. Never by
+  argument, never by seniority.
+- **Between seats, write for a reader who has read the same documents you have** — no preamble, no
+  restating the target, no explaining what you both already know, because every word spent
+  re-deriving shared understanding is a word the other agent has to read to learn nothing. Send
+  what they cannot get elsewhere: the coordinates, what is anomalous, and — when something
+  unexpected forced your hand — the mechanical reason it did. Say what blocks you out loud the
+  moment it blocks you. Talking with the human is the exception: there, say enough.
+- **Before handing anything over, ask three things** and answer only *KEEP*, *CUT*, or *CHANGE ONE
+  THING*: does this change the product, was it the cheapest way to get there, do my claims match
+  the artifacts — checked against the written intention, not in the abstract.
+
+---
+
+## Publishing
+
+*Where it goes* in `design/intention.md` holds this project's answer and is the only place it is
+written. If it says local-only, or if it is not there at all, this section is already satisfied: the
+work is committed, nothing is pushed or deployed, and no seat asks anyone for anything. Everything
+below applies only when the human named a destination.
+
+**One seat publishes, and it is the Navigator** — in one-shot and solo, that is you, the seat
+holding the intention. The Builder, the Reviewer, critics, comparators and every spawned subagent
+commit but never push to the destination and never deploy, because the human granted this authority
+to one seat and an agent they never met cannot hold it.
+
+**Authority was settled at the front door and you do not reopen it.** Standing authority means you
+publish when the release point is reached and report afterwards. Otherwise you send one message
+naming the commit, the destination and the visibility, and wait for a yes; that is the whole
+interrupt and it is not a design conversation. If *Where it goes* does not say which it is, ask,
+because this is the one act you cannot take back.
+
+**When.** Once, at *Done*, unless *Where it goes* names another release point — a site that deploys
+on every pass, a package cut per version.
+
+**The act.** Run the exact command those coordinates name: `git push <remote> <branch>` with the
+remote added if it is not there yet, the deploy command, whatever the target actually is. If the
+destination has to be brought into existence first — creating the remote repository, the hosting
+target, the visibility setting — that creation is part of the publication and needs the same
+authority, since a repository created public has already been public.
+
+**The receipt, and only after it succeeds.** Verify the live location yourself before you claim it:
+fetch the URL, clone the remote into a fresh directory, run the deployed thing. A command that exits
+zero is not evidence that anything is there. Then one message to the human carrying the exact commit
+hash, the destination and its visibility, and the live location.
+
+**A failed publish is reported as a failure.** Name the exact command and what it said, name the
+commit that was to go, and say plainly that nothing is live. No work is called done or delivered
+until the receipt exists. Never retry with coordinates other than the ones in *Where it goes* —
+different coordinates are a fork, and a fork goes to the human.
+
+---
+
+## Done — work that finishes
+
+This section assumes the work has a last row. If it does not, *Where this method has been tried*
+says what you are on your own for.
+
+The spec list is empty and `design/specs/` is empty, the blueprint's final end-to-end checklist
+passes where the product has one, the blind comparison over the whole product has run, the design
+documents describe what actually exists, and the work is committed. Run the thing yourself, end to
+end, against *What we're making*. Then publish as *Publishing* says — for a local-only project that
+is nothing at all.
+
+Then one message to the human: what it does, the exact final commit, where it runs — the live
+location for a published project, the path and the one command for a local-only one — and what you
+would watch. Close the seats — end the runtimes, confirm the work is committed, and `git worktree
+list`, removing the Reviewer's worktree and any critic worktree still standing — because a live
+process with nothing to do looks exactly like a working seat, and a stale worktree makes the next
+one fail to create.
+
+---
+
+## Where a critic works
+
+An artifact critic deletes and breaks the things checks guard, so it must never do that where anyone
+is working. Give it its own checkout of the exact commit and nothing else:
+
+```
+git -C /abs/path/<project> worktree add /abs/path/<project>-critic-<piece> --detach <commit>
 ```
 
----
+Detached at that commit, so what it examines cannot move under it. One critic per worktree, named
+for the piece it examines, so that parallel critics cannot land on the same files and none of them
+can reach the root the Builder is working in. Whoever spawned it removes the worktree when it
+returns — `git worktree remove <path>` — because a leftover path makes the next `worktree add`
+there fail.
 
-# FILE: `<project>-bridge/directives/reviewer.md`
+Restoration is part of the witness, not tidying afterwards: the critic restores everything it broke
+and ends with `git status --porcelain` returning nothing, and reports that result alongside its
+findings. A break it could not restore is a finding of its own. The standing Reviewer keeps its
+worktree instead of throwing it away, and the same clean-status rule applies to it at the end of
+every examination, because the next handoff starts with a checkout and a dirty tree makes that
+checkout fail.
 
-```markdown
-# DIRECTIVE — REVIEWER
+If a runtime cannot make worktrees, copy the checked-out tree to a fresh directory outside the
+repository and treat the copy exactly the same way. A critic with no copy of its own does not run
+the check test at all — it says so in its findings rather than mutating live state.
 
-Read `playbook.md` and `PROJECT-BOARD.md` first. The board wins any disagreement. This file holds
-only what is yours alone.
-
-**You decide whether the work hit its target.** Two seats optimising locally agree each other into a
-wall; you are the defence.
-
-**Boot:** open `protocols/spawn.md` once and follow it. Your root is your own worktree. Name your
-seat in `join`, **verify ARMED**, then announce yourself and wait for the reply.
-
-## The verdict
-
-**Check the work against the target, in the spirit it was set. Ship it, or name the one gap.**
-Nothing else gates your verdict — you are not sent looking for more. **Cohesion is part of the
-target**: a piece that is individually good and wrong for the project has not hit it.
-
-**Pass up what you could not unsee** — an obvious enhancement, or a concern surviving a hit target.
-One note to the Navigator, never blocking, reaching the Captain before publication. *If ignoring it
-would be the strange act, note it; otherwise stay silent.*
-
-**Judge the artifact, never the account of it.** **Verify coordinates before opening anything** — a
-handoff that does not resolve comes back unread. Piece critics see only their piece; **you see the
-assembled target and its witness**, because integration defects have no other observer.
-
-**Both greens are moves, and only you make them.** Spec green is `git mv review/<file> specs/`;
-implementation green is `git mv specs/<file> archive/`, **and that archive commit names the exact
-code commit examined**. **A red moves nothing.** An implementation green names the commit it
-examined and says in one line what it did not.
-
-**A red names direction and constraint, never replacement text** — the test is whether you could
-later green your own words. Rounds are not the signal; a target that took four rounds needed four.
-**But if the fix would land in a shape the Navigator would not recognise, name the fork before it
-is built.**
-
-## Standing jobs
-
-**Red-team the map** before any code exists, and every phase read's deltas before that phase's first
-target. **Direction audit on cadence**: take founding claims as things to attack; **the measure is
-your material** — correct work that never moves it is the finding. **Audit the apparatus too** —
-rules that never fire, locations nobody opens. **Challenge declines**; every one sits on the board
-until your audit passes over it.
-
-## Never
-
-- Settle something that would surprise the Navigator. Implement.
-- **Author what you will later review.**
-- Reconstruct material you were not given.
-```
+A plan critic reads and changes nothing, so none of this applies to it.
 
 ---
 
-# FILE: `<project>-bridge/PROJECT-BOARD.md`
-
-```markdown
-# PROJECT BOARD
-
-**The single current-state authority.** Supersedes every directive and message. Every decision's
-current value lives here; `decisions/` records the act and never updates.
-
-**Present tense only.** History goes to `archive/`, `decisions/` and `phases/`; a retired row is
-removed entirely and a superseded rule is replaced, never left beside its replacement.
-
----
-
-## Stance
-
-**Mission** — *(one sentence: what this is and who it serves)*
-
-**The bet** — *(the single claim that, if false, kills the project. Narrow. Cite prior art.)*
-
-**Audience** — *(prototype or proof — and therefore which controls are in scope)*
-
-**Falsifiers** — *(observations that would end or reframe this)*
-
-**Non-negotiables** — *(properties without which a result proves nothing)*
-
-Tag every claim: `ESTABLISHED` / `DESIGNED` / `HYPOTHESIS` / `LIMIT` / `OPEN`.
-
-## Repositories
-
-| Repo | Holds | Visibility | Remote |
-|---|---|---|---|
-| `<project>` | code | | |
-| `<project>-bridge` | board, specs, decisions | | |
-
-*The Captain's exact answer — `local only` rather than blank.*
-
-## Seats
-
-| Seat | Box | Address | Say | Display | Root | Role | Runtime | Model |
-|---|---|---|---|---|---|---|---|---|
-| Captain | *(box, if any)* | *(qualified, if any)* | — | | — | decides | — | human |
-| Navigator | `<project>-n` | `<project>.nav` | nav | | bridge | chart, targets, coherence | | |
-| Implementer | `<project>-i` | `<project>.build` | build | | project | specs and code | | |
-| Reviewer | `<project>-r` | `<project>.check` | check | | project-review | the verdict | | *different family from build* |
-
-*One seat, one root — the Reviewer's is its own worktree of the project repo, read-and-run only:
-it shares the repository and never pushes. Runtime and model are
-the Captain's preflight answer. Where the Reviewer shares the Implementer's
-family, record that rather than leaving it blank — an absent difference should be visible.*
-
-*The Captain talks to seats however they like — the channel, in person, a terminal during setup.
-**If they use a mailbox, name it here**, so a seat checks authority against the board rather than inferring it
-from tone. A Captain decision from a box the board does not name is a relay to verify in person.*
-
-**Seat adequacy** — *(Chart: are three enough here?)*
-
-**Per-seat addenda** — *(project-specific scope. Written before Muster; never a forked directive.)*
-
-## Workspace map
-
-| Path | Purpose | Who may be pointed here |
-|---|---|---|
-
-*Intended scope, not enforcement. Where isolation matters, use something that enforces.*
-
-## Position
-
-**The measure** — *(what the bet needs, counted. Never a count of work done. `HYPOTHESIS` until
-first contact.)*
-
-**Current phase** — *(e.g. `2.0.0`. Detail in `phases/` if split out.)*
-
-**In flight** — *(the target, or `none`.)*
-
-| Target | Holder · where the work stands | Artifact under review | Verdict or the one gap | Approval pending? |
-|---|---|---|---|---|
-
-*Five things and no more, written in the transition's bridge commit. Locations carry the rest.*
-
-**Next up** — *(the following two or three item IDs, no more)*
-
-**Consumers** — *(`none yet`, or who couples to what.)*
-
-## Established shape
-
-*What holds across targets: conventions seeded at the Chart — repository organisation, how the work
-documents itself, how commits read — and what each landed target sets for later ones. One line each,
-cited by roadmap rows.*
-
-## Open decisions
-
-| # | Decision | Recommendation | Blocks |
-|---|---|---|---|
-
-## Declined proposals — awaiting challenge
-
-| Date | Proposer | Proposal | Declined because | Settled by |
-|---|---|---|---|---|
-
-*A row lives until the next direction audit passes over it; likely re-proposals graduate to
-`decisions/`, the rest are removed.*
-
-## Rules
-
-*Founding rules from the Chart plus what this project earned. **Stable IDs allocated once, never
-renumbered; order is not priority.** One line each, incidents in the log by pointer. Under a dozen
-together.*
-
-## Escalation triggers
-
-*(project-specific, beyond the surprise route — blank until one is earned)*
-
-## Cadence
-
-- **The gate is the reporting cadence.** Nothing reaches the code remote otherwise.
-- **Current gate value** — *(per-completion unless renegotiated; the named list goes here)*
-- **Current push cadence** — *(confirm each / automatic after approved green / hold until `<named
-  target>` — the Captain's standing answer from the Chart, revisable at any gate)*
-- Direction audit every **N** *(period)*.
-- Stop at the first running end-to-end artifact and show it — never at "complete."
-```
-
----
-
-# FILE: `<project>-bridge/apparatus-log.md`
-
-```markdown
-# APPARATUS LOG
-
-**Append-only. Every change to how this project works, recorded when it is made.**
-
-What we changed about the *method* — the only file that accumulates, read by whoever decides what
-to take upstream.
-
-**Append as two events, never edit in place.** `FINDING <id>` when it occurs; `DISPOSITION <id>`
-later, citing the implementation commit. **No placeholders** — a placeholder is an edit with an
-appointment. A correction appends a supersession citing the row it replaces.
-
-| Date | Event | What changed | What made us change it |
-|---|---|---|---|
-| | | | |
-
-Whether a row is this project's own or the method's finding is judged when the log is read at a
-push boundary, from the row's content — never asserted by the seat that wrote it.
-
-Removals are logged the same as additions.
-```
-
----
-
-# FILE: `<project>-bridge/roadmap.md`
-
-```markdown
-# ROADMAP
-
-**`HYPOTHESIS` until first contact**, and expect it to change — that is its purpose.
-
-The shape of the whole project. Item numbers are spec numbers. **Numbers are allocated once and
-never reused or renumbered**; sequence is the order of rows.
-
-| # | Item | Owner | What done looks like · anchor · what it must cohere with | Downstream of first contact? |
-|---|---|---|---|---|
-| `1.0.0` | *phase* | | | |
-| `1.1.0` | *workstream* | | | |
-| `1.1.1` | *item — a target is written from this* | *seat* | | |
-
-**The row carries both faces of the bar.** *What done looks like* — checkable, pointable. *The
-anchor* — the most impressive real example of this shape, the nearest adjacent one, or the standard
-being set; omitted where the shape is standard. *What it must cohere with* — from **Established
-shape**.
-
-**Owner.** Item rows carry one; phase and workstream rows do not. **Only the Navigator writes it,
-and only at shaping.** An item row with an empty Owner is not ready to spec, and **phases not yet
-entered sit ownerless by design** — the phase read pins them on entry.
-
-**Splitting.** This file holds the whole map while it fits. When a phase's items crowd it, move them
-to `phases/<n>-<name>.md` and leave the phase rows here with a pointer.
-```
-
----
-
-## When the workspace is up
-
-Tell the Captain, in one message: the tree, the two repositories and their visibility, and that you
-are the Navigator and about to wire AgentPost. Then open `boot.md` and keep going — you do not stop
-here, and no second seat is spawned to continue.
-
-The Implementer and Reviewer come later, at Muster, once the Chart has decided what they are for.
+# BRIEF — the plan critic
+
+Hand this to a fresh agent before any code exists. Fill the brackets and change nothing else.
+
+> You are examining a plan, not a build. Nothing has been built yet, so read only — do not run
+> anything, do not open the code, do not change any file.
+>
+> The plan: [the plan file, by path]
+> The target it is planned against: [the spec row, verbatim, with its number]
+> What it serves: [`design/intention.md`, and the blueprint if there is one, by path — read them
+> both before you read the plan]
+> It must be good in these ways: [the relevant qualities from *What "good" means here*, verbatim]
+>
+> Name everything you find, in one pass, of these four kinds:
+>
+> — what this plan would produce that the intention forbids or does not ask for;
+> — what it leaves ambiguous enough that two competent readers would build different things: write
+>   out both readings, so the ambiguity is visible rather than asserted;
+> — how someone could satisfy the target's stated "done" exactly and still hand back something bad;
+> — what the qualities above imply that this plan does not cover at all.
+>
+> Assume there is more to find than you have found. Do not rank, do not soften, do not stop at the
+> first finding.
+>
+> Say what is wrong and what constraint the fix has to satisfy. Do not write the plan — a critic
+> that authors it can no longer examine it.
+>
+> Finish with a verdict: PASS only if nothing you found blocks the target — otherwise the list,
+> marking which findings block and which are observations.
+
+# BRIEF — the artifact critic
+
+Hand this to a fresh agent that did not build the thing, spawned in its own worktree per *Where a
+critic works*. Fill the brackets and change nothing else.
+
+> You are examining [the artifact — the exact commit and paths, or the running thing and the
+> command that starts it]. You did not build it. You do not know how the builder read the target
+> beyond what follows.
+>
+> Work only inside [the worktree path]. It is a throwaway checkout of that commit and it is yours
+> alone, which is what lets you break things freely — write nothing outside it.
+>
+> The target: [the spec row, verbatim, with its number]
+> What it serves: [`design/intention.md`, and the blueprint if there is one, by path — read them
+> before you open the artifact, because they are the yardstick you are applying]
+> It must be good in these ways: [the relevant qualities from *What "good" means here*, verbatim]
+>
+> Be genuinely hard to satisfy. Your job is not to confirm that nothing is broken — it is to find
+> everything standing between this and the thing the anchor is. Picture a real person using it in a
+> real moment and ask what would leave them let down. Assume there is more to find than you have
+> found.
+>
+> Run it and read it yourself. Do not accept any account of it, including the builder's.
+>
+> Name everything you find, in one pass — every failure a user would hit, every silent failure
+> nobody would notice, and everything the target implies that is simply missing. Try it the wrong
+> way, on a different engine, a different screen, a different input device. Do not rank, do not
+> soften, do not stop at the first finding.
+>
+> For each check the builder cites as proof: delete or break what it guards, confirm it goes red,
+> and restore it. A check that stays green is a finding. When you are finished, restore everything
+> and run `git status --porcelain` in your worktree: report its output with your findings, and
+> report anything you broke and could not restore as a finding of its own.
+>
+> Say what is wrong and what constraint the fix has to satisfy. Do not write the fix.
+>
+> Finish with a verdict: PASS only if nothing you found blocks the target *and* the qualities above
+> are genuinely met rather than merely not violated — otherwise the list, marking which findings
+> block and which are observations.
+
+# BRIEF — the blind comparison
+
+Hand this to a fresh agent that knows nothing about this project. Randomise which build is A.
+
+> Here are two [things]: **A** — [how to run or read it]. **B** — [how to run or read it].
+>
+> Use both. For each quality below, say which one is better and why, in one or two sentences
+> grounded in something you actually saw or ran.
+>
+> [one quality per line, verbatim from *What "good" means here*]
+>
+> You are not told which is which, and you must not guess or ask. If a quality is a tie, say tie.
+>
+> Finish with: which you would rather use, and what would have to change in the weaker one.
