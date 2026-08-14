@@ -753,9 +753,11 @@ one fail to create.
 ---
 
 **If the method itself — not the product — failed in your hands during this project** and you did
-something else that worked, or it stalled you and you had to guess, record the raw event at close:
-what happened, what you did instead — as an issue on the method's repository if it is reachable,
-otherwise in your final message to the human. Do not generalize it and do not propose the fix; one
+something else that worked, or it stalled you and you had to guess, record the raw event at close
+as a ticket — an issue on the method's repository, titled with what failed and labelled
+`felt-deviation`, holding what happened and what you did instead — so the maintainer can process
+the queue across projects. Only if the repository is unreachable does it go in your final message
+to the human instead. Do not generalize it and do not propose the fix; one
 project cannot see whether its workaround is universal, and the method adopts a change only when it
 improves the workflow everywhere, obviously, and degrades nothing. A better way to build this
 product is not method evidence — it belongs in this project's own documents.
