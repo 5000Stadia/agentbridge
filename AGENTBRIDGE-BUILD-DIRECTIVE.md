@@ -476,78 +476,25 @@ route: crew was chosen because the work has seams, and dropping the seats drops 
 the mailboxes. Tell the human the channel is missing, say what installing it would take, and let
 them choose between installing it and giving up the seams.
 
-**Choose the runtime before you register anything.** The seats run a CLI AgentPost has an adapter
-for — `claude`, `codex` or `antigravity` — and every command below takes that one word. Use the one
-you are running unless the human names another, and write it into each seat's brief so nothing
-downstream has to guess which launcher was meant.
+**Standing the seats up is the AgentPost skill's job — follow it rather than a transcript of it.**
+Register three profiles (you, the Builder, the Reviewer), connect your own mailbox first — the
+first mailbox bound at a root becomes that root's default sender, and you share the root with the
+Builder — then launch each seat detached in its own root under its own identity, on the runtime you
+are running unless the human names another. Whatever does the launching, the parts that matter are
+the working directory, the identity, and that the session survives you.
 
-**Register the three profiles**, yours included:
+**A fresh directory can sit silently at a trust prompt, and a waiting seat looks exactly like a
+working seat.** Grant the runtime's trust in the same act as the launch; if a seat never speaks,
+attach to its terminal and look — it is usually sitting on that prompt with nothing on the channel.
 
-```
-agentpost profile-register <project>-n --display-name '<Project> Navigator' --kind project \
-  --summary 'Holds the intention and design documents for <Project>.' \
-  --roles navigator --projects <project> --project-roots /abs/path/<project> --handles 'nav'
-```
-
-Register `<project>-b` (`--kind role`, handle `build`, root the project) and `<project>-r`
-(`--kind role`, handle `check`, root `/abs/path/<project>-review`) the same way. The addresses are
-then `<project>.nav`, `<project>.build`, `<project>.check`: the first handle that is a plain word
-becomes the seat in that address, so put the seat handle first and let any others describe what the
-seat takes. Nothing can bind to a profile that does not exist, so this comes first.
-
-**Connect your own mailbox next, before either other seat is bound to this root** — follow the
-skill, or `agentpost join <project>-n --cli <runtime>` from the project root, do what it prints, and
-stop when `agentpost armed <project>-n` reports ARMED. Order matters here: the first mailbox bound
-at a root becomes that root's default sender, and you and the Builder share the root, so connecting
-yourself first is what makes your own mail leave as `<project>.nav`.
-
-**Then install the adapter in each root the other seats will work in.** The launcher gives a seat
-its identity but does not install the channel it speaks through, and a seat launched into a root
-with no adapter comes up holding durable mail with no way to be woken:
-
-```
-agentpost install <runtime> --agent <project>-b --project /abs/path/<project>
-agentpost install <runtime> --agent <project>-r --project /abs/path/<project>-review
-```
-
-**Grant directory trust in the same act as the launch,** because a runtime meeting a directory for
-the first time can silently sit at a trust prompt, and a detached seat that is waiting looks exactly
-like a seat that is working. Trust the directory in whatever way that runtime offers; one known
-way for Claude Code is setting `hasTrustDialogAccepted` true for that root in `~/.claude.json`
-before launching. If a seat never speaks, attach to its terminal and look — it is usually sitting
-on that prompt with nothing on the channel.
-
-**Launch each seat under its own identity.** `--agent` is what makes that session that seat: without
-it a runtime opening in a shared root falls back to whichever mailbox the root defaults to, and
-sends as the wrong box:
-
-```
-tmux new-session -d -s <project>-b -c /abs/path/<project> \
-  "agentpost <runtime> --agent <project>-b '<brief>'"
-```
-
-The Reviewer is the same command from `/abs/path/<project>-review` as `<project>-r`. The brief
-travels inside those single quotes, so keep apostrophes out of it. `tmux` is only the detacher —
-any way of leaving a session running that you can attach to later works, and the parts that matter
-are the working directory, `--agent`, and that it survives you. The Builder's brief, filled in:
-
-> You are the Builder on <Project>. Your mailbox is `<project>-b`, I am `<project>.nav`, the
-> Reviewer is `<project>.check`. Read `design/method.md` — its header names the sections your seat
-> reads — and follow them.
->
-> Your identity is already set by the launcher — register nothing, join nothing. Prove the channel
-> before you touch the work: run `agentpost doctor <project>-b --project "$PWD" --cli <runtime>` and
-> do what it says, then `agentpost armed <project>-b`. QUEUED is not live, and ARMED is a claim
-> about the notifier rather than proof the channel works, so the proof is a round trip: message me,
-> and let my reply reach you as a live wake. If you cannot get that, send one message naming the
-> exact command you need and stop.
->
-> Then take spec <n>.
-
-The Reviewer's is the same, ending *wait for the Builder's first handoff* instead of taking a spec.
-A seat that says it is blocked gets that instance ended and relaunched; twice for the same seat
-means the launch form is wrong — fix the form rather than the seat. Until a seat's round trip
-lands, say it is set up but unproven, in those words.
+**The brief each seat is launched with** names its own mailbox, yours, and its counterpart; points
+it at `design/method.md`, whose header names the sections its seat reads; says its identity is
+already set by the launcher — register nothing, join nothing; and has it prove the channel before
+touching work: a round trip, its message answered by your reply arriving as a live wake. QUEUED is
+not live, and no seat is ready until its round trip lands — until then it is set up but unproven,
+in those words. The Builder's brief ends with the spec row to take; the Reviewer's ends with
+waiting for the Builder's first handoff. A seat that reports blocked gets its instance ended and
+relaunched; twice for the same seat means the launch form is wrong — fix the form, not the seat.
 
 ### On the channel
 
@@ -602,8 +549,9 @@ not of the account — but do name anything anomalous you hit and what it forced
 one thing it cannot discover by reading the artifact.
 
 On the Reviewer's pass, you are the one who closes it: one commit, the way *How we work* says a
-pass closes. Then send the Navigator that commit hash and nothing else, and wait — it hands you the
-next row, and it needs to know the row and the spec file are gone before it can.
+pass closes. Then send the Navigator both hashes — the commit the Reviewer examined and the closing
+commit — and nothing else, and wait: it hands you the next row, and it needs to know the row and
+the spec file are gone before it can.
 
 ### The Reviewer
 
