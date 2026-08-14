@@ -105,6 +105,11 @@ a 60,000-line product was built this way in three runs.
 each other, or when a run is long enough that the builder's context ends mid-area and someone must
 hold continuity across the seam.
 
+**The form is the coarsest choice; the finer one is which of this file's instruments this project
+actually summons.** Name at the front door what this project will not use — no anchor worth
+comparing against, nothing to publish, no qualities everything passes through — and drop those
+sections from everyone's reading. An instrument nobody named is not carried.
+
 The front door is not optional in any of them. Everything through "The blueprint" below applies to
 all three; after that, the two longer routes diverge.
 
@@ -746,6 +751,14 @@ process with nothing to do looks exactly like a working seat, and a stale worktr
 one fail to create.
 
 ---
+
+**If the method itself — not the product — failed in your hands during this project** and you did
+something else that worked, or it stalled you and you had to guess, record the raw event at close:
+what happened, what you did instead — as an issue on the method's repository if it is reachable,
+otherwise in your final message to the human. Do not generalize it and do not propose the fix; one
+project cannot see whether its workaround is universal, and the method adopts a change only when it
+improves the workflow everywhere, obviously, and degrades nothing. A better way to build this
+product is not method evidence — it belongs in this project's own documents.
 
 ## Where a critic works
 
