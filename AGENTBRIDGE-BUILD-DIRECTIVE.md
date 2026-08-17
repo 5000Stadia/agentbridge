@@ -805,7 +805,8 @@ Hand this to a fresh agent before any code exists. Fill the brackets and change 
 > both before you read the plan]
 > It must be good in these ways: [the relevant qualities from *What "good" means here*, verbatim]
 >
-> Name everything you find, in one pass, of these four kinds:
+> Name everything you find, in one pass, numbered (F1, F2…) so answers can cite it, of these four
+> kinds:
 >
 > — what this plan would produce that the intention forbids or does not ask for;
 > — what it leaves ambiguous enough that two competent readers would build different things: write
