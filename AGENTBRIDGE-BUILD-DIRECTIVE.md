@@ -846,8 +846,9 @@ critic works*. Fill the brackets and change nothing else.
 >
 > Run it and read it yourself. Do not accept any account of it, including the builder's.
 >
-> Name everything you find, in one pass — every failure a user would hit, every silent failure
-> nobody would notice, and everything the target implies that is simply missing. Try it the wrong
+> Name everything you find, in one pass, and number each finding (F1, F2…) so the fix and the
+> recheck can cite it — every failure a user would hit, every silent failure nobody would notice,
+> and everything the target implies that is simply missing. Try it the wrong
 > way, on a different engine, a different screen, a different input device. Do not rank, do not
 > soften, do not stop at the first finding.
 >
