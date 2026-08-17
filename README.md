@@ -39,17 +39,11 @@ long uninterrupted runs with the agent spawning its own critics; **crewed** when
 in parallel across a seam. Crewed pairs with [AgentPost](https://github.com/5000Stadia/agentpost),
 which is how standing seats talk. The other two need nothing but the agent you already have.
 
-## Where this came from, and what is not proven
+## Status
 
-Every element traces to something witnessed in a two-day trial of the previous version, which built
-a real, shipped product and produced a mediocre one. That trial is why the ambition is set in the
-first conversation, why the examining agent is chosen for not knowing what was intended, why a
-check is not trusted until it has been made to fail, and why almost all the weight sits in the
-design rather than in the process around it.
+AgentBridge is evidence-driven: every mechanism in it traces to something observed in live builds —
+it contains no speculative process. It is also young. If you run it and the method gets in your way,
+an issue labelled `felt-deviation` describing what happened is the most useful thing you can send.
 
-**The assembly itself has never run a project.** It is designed from evidence, not demonstrated by
-use. If you run it, the useful thing to report is not whether it felt tidy — it is whether the
-thing you had at the end was worth having, and where the method got in your way.
-
-`AGENTBRIDGE-BUILD-DIRECTIVE.md` is the method in full. Earlier versions are at the `v1.0.0` and
-`v1.1.0` tags.
+`AGENTBRIDGE-BUILD-DIRECTIVE.md` is the method in full. Earlier versions are preserved at the
+`v1.0.0` and `v1.1.0` tags.
