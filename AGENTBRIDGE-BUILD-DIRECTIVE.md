@@ -189,7 +189,9 @@ shape that exist, and — where nothing real goes far enough — the imagined ve
 mapped out concretely. Write the result as qualities, because that is what later comparisons run
 against.
 
-**Take the real examples first, and make sure you can open them.** Ask for the most impressive one
+**Take the real examples first, and make sure you can open them.** An anchor may be plural — one
+per family of qualities, each with its own openability and its own judge — and an anchor openable
+only through a forbidden act is not obtained. Ask for the most impressive one
 of this shape, and take the best one you can actually obtain, since you will be putting it beside
 our work repeatedly. If nothing of this shape exists, take the nearest adjacent shape. Then open it
 — play it, run it, read its output, click through it — and write down what specifically makes it
@@ -273,6 +275,11 @@ added later is not founding law and does not go here.>
 Whether `design/` travels with the code. Who may publish. Whether that authority is standing or
 asked each time. The release point, if it is not simply the end. Their answer, in their words. If
 this section is absent, the project is local-only and nothing is ever pushed or deployed.>
+
+<Anything that cannot be undone — a spend above a named limit, contact with outsiders under the
+human's name, use of data that is not ours, actuation of anything physical — is listed here with
+its authority, standing or asked. An unlisted irreversible act is asked. Publication is one entry
+in this registry, not the whole of it.>
 
 ## The spec list
 | # | What to build now | What done looks like |
@@ -401,7 +408,10 @@ instrument like any other, named or not carried. A summoned playbook is copied i
 `design/playbook.md`, the doormat names it, and every seat reads it after `design/intention.md` —
 a playbook only the Navigator has read reaches no hands. Where a playbook places the human
 differently in the loop than *The loop* or *The human* does, **the playbook governs for the rows
-it covers** — the domain knew something the armchair did not.
+it covers** — the domain knew something the armchair did not. A project may summon more than one:
+the Navigator merges them into the single `design/playbook.md`, writes the precedence rule for
+where they collide — which examination is authoritative, ordered like the blueprint's decision
+hierarchy — and hands the merge to the plan critic exactly as a drafted playbook is handed.
 
 **If none exists, spend a research pass before the blueprint — a domain that feels familiar is
 the trap, since stale priors are exactly what the pass corrects**: find how the best real
@@ -811,6 +821,11 @@ product is not method evidence — it belongs in this project's own documents.
 
 An artifact critic deletes and breaks the things checks guard, so it must never do that where anyone
 is working. Give it its own checkout of the exact commit and nothing else:
+
+**The worktree fence covers only files.** Anything singular or consequential outside it — a
+device, a live database, an account, money, a production system — is named in the playbook as
+leased to one seat at a time or off-limits to critics, and an examination that cannot reach it
+says so as residue rather than passing silently.
 
 ```
 git -C /abs/path/<project> worktree add /abs/path/<project>-critic-<piece> --detach <commit>
