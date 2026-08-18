@@ -10,12 +10,14 @@ too: read the design documents and ask the human what comes next rather than run
 door over the top of them. A seat that was named at launch takes its own path below and none of
 this applies to it.
 
-This is the only process document, and a copy lives in the project at `design/method.md`. It is
+This is the only universal process document — a summoned playbook carries its domain's residue —
+and a copy lives in the project at `design/method.md`. It is
 written for those three seats and you read only your own path through it, because a seat that reads
 the whole file has spent its context on instructions that cannot change what it does.
 
 **All three read:** this header, *The shape*, *The human*, *How we work*, and the project's own
-`design/intention.md` — plus `design/blueprint.md` where the project has one. That is the common
+`design/intention.md` — plus `design/blueprint.md` and `design/playbook.md` where the project has
+them. That is the common
 ground everything else assumes.
 
 **Then, by seat:**
@@ -387,6 +389,39 @@ document, because fresh sessions board from it rather than from anyone's memory.
 
 ---
 
+## Domain playbooks
+
+Some of what a domain demands is not designable from the armchair — the tools that act as hands,
+where references come from, what the consumption viewpoint is, the scars practitioners already
+paid for. That residue lives in **playbooks**, thin domain sheets in the method repository's
+`playbooks/` directory.
+
+**If one exists for this domain, read it at the front door and summon what fits** — it is an
+instrument like any other, named or not carried. A summoned playbook is copied into the project as
+`design/playbook.md`, the doormat names it, and every seat reads it after `design/intention.md` —
+a playbook only the Navigator has read reaches no hands. Where a playbook places the human
+differently in the loop than *The loop* or *The human* does, **the playbook governs for the rows
+it covers** — the domain knew something the armchair did not.
+
+**If none exists, spend a research pass before the blueprint — a domain that feels familiar is
+the trap, since stale priors are exactly what the pass corrects**: find how the best real
+practitioners build this thing *with AI* — the tools that act as their hands, where their
+references come from, what the consumption viewpoint concretely is, and the scars they have
+named, from what they have actually published — and write `design/playbook.md` as this project's
+draft, **every rule tagged `researched` or `felt`** so nobody mistakes homework for scar tissue.
+The quality bar for that draft is a document another practitioner would recognise as their craft,
+not a survey — and before the blueprint is written, hand it to a fresh plan critic with that
+sentence and the four categories above as the target, because every later examination leans on
+this document and it is otherwise the only one nobody examines.
+
+**Playbooks mature the way the method does: by what runs feel.** At close, a correction this
+project actually felt — a researched rule that failed in your hands, a scar you earned that the
+playbook lacked — travels back to the method repository as an issue labelled `playbook`, raw and
+ungeneralized, exactly like a deviation. Each playbook change lands as its own commit naming the
+run that earned it, so its evolution is legible commit by commit.
+
+---
+
 ## Scaffold, and commit
 
 Now there is something to write down.
@@ -402,6 +437,7 @@ Now there is something to write down.
     ├── method.md      a copy of this file, whole — see below
     ├── intention.md
     ├── blueprint.md      only where the product has one — see "The blueprint"
+    ├── playbook.md       the summoned or drafted domain sheet — only where one exists
     ├── architecture.md   the builder writes this for itself; starts empty
     └── specs/            one plan per open spec; deleted when that spec passes
 ```
@@ -428,7 +464,8 @@ and keep the rest.
 
 > Build [areas, by spec-list number] to the level of [anchor: how to run or read it].
 >
-> Read `design/intention.md` first, and `design/blueprint.md` if there is one, then these sections
+> Read `design/intention.md` first, then `design/blueprint.md` and `design/playbook.md` where they
+> exist, then these sections
 > of `design/method.md` and nothing else in it: *The shape*, *The human*, *How we work*, *Where a
 > critic works*, *The blind comparison*, and the briefs at its end. Keep `design/architecture.md`
 > and the README current as part of the work — a later session of you boards from those documents
@@ -613,7 +650,13 @@ design document.
 
 Let them look at the running thing whenever they like and never make anything wait on them —
 twice on the trial, two sentences from a human on the running product beat every machine check in
-the harness. What they find becomes a spec row, written by you.
+the harness. What they find becomes a spec row, **written by you the way a chief of staff writes
+it**: research what it touches before it becomes work and package it with the context its builder
+needs — but the row carries their sentence verbatim, quoted and marked as theirs, with your
+precision built around it rather than in place of it, because a reworded intent once came back to
+a human as an idea he never had. Making direction executable is authorship of the packaging, never
+of the intent. Translating for the human is the one relay that adds value; between agents it never
+does.
 
 Interrupt them for exactly two things: a fork the written intention does not answer, and anything
 that cannot be undone which they have not already authorised in *Where it goes*. Everything else
@@ -634,8 +677,10 @@ done.
 5. Every quality ours loses is next run's brief. A tie is not a loss and does not become a brief,
    so a quality the comparator calls even is met and closed.
 
-If you had to write your own standard instead of finding an anchor, the comparator judges our build
-against those written qualities alone, item by item. Do not argue with the result and do not re-run
+If you had to write your own standard instead of finding an anchor — or the anchor is real but no
+agent can open it, a commercial game only the human can play — the comparator judges our build
+against the written qualities alone, item by item, and the human runs the anchor side of the
+comparison themselves. Do not argue with the result and do not re-run
 it with a friendlier framing. If a quality still loses and closing the gap is beyond what this
 project can reach, that is a fork: decide it from the whole picture or carry it to the human, write
 the answer into the intention, and move on.
@@ -845,7 +890,11 @@ critic works*. Fill the brackets and change nothing else.
 > real moment and ask what would leave them let down. Assume there is more to find than you have
 > found.
 >
-> Run it and read it yourself. Do not accept any account of it, including the builder's.
+> Run it and read it yourself, **from where its user actually stands** — the real device and
+> viewport, the cold shell, the reader's seat — because a check from a convenient viewpoint is
+> void: two separate projects shipped broken exactly this way, boards clipped off real phones and
+> islands that were pancakes from every camera but the top one. Do not accept any account of it,
+> including the builder's.
 >
 > Name everything you find, in one pass, and number each finding (F1, F2…) so the fix and the
 > recheck can cite it — every failure a user would hit, every silent failure nobody would notice,
