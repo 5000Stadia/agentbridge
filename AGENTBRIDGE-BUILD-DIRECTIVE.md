@@ -822,14 +822,14 @@ product is not method evidence — it belongs in this project's own documents.
 An artifact critic deletes and breaks the things checks guard, so it must never do that where anyone
 is working. Give it its own checkout of the exact commit and nothing else:
 
+```
+git -C /abs/path/<project> worktree add /abs/path/<project>-critic-<piece> --detach <commit>
+```
+
 **The worktree fence covers only files.** Anything singular or consequential outside it — a
 device, a live database, an account, money, a production system — is named in the playbook as
 leased to one seat at a time or off-limits to critics, and an examination that cannot reach it
 says so as residue rather than passing silently.
-
-```
-git -C /abs/path/<project> worktree add /abs/path/<project>-critic-<piece> --detach <commit>
-```
 
 Detached at that commit, so what it examines cannot move under it. One critic per worktree, named
 for the piece it examines, so that parallel critics cannot land on the same files and none of them
