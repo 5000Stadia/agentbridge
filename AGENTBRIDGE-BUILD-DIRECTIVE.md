@@ -404,17 +404,27 @@ document, because fresh sessions board from it rather than from anyone's memory.
 Some of what a domain demands is not designable from the armchair — the tools that act as hands,
 where references come from, what the consumption viewpoint is, the scars practitioners already
 paid for. That residue lives in **playbooks**, thin domain sheets in the method repository's
-`playbooks/` directory.
+`playbooks/` directory. Beside each sits its **sources companion**, `playbooks/<domain>.sources.md`
+— where the rules' evidence came from and the retrieval routes that actually work. Tag semantics,
+the companion's entry shape and the provenance line live in `playbooks/README.md`.
 
 **If one exists for this domain, read it at the front door and summon what fits** — it is an
-instrument like any other, named or not carried. A summoned playbook is copied into the project as
-`design/playbook.md`, the doormat names it, and every seat reads it after `design/intention.md` —
-a playbook only the Navigator has read reaches no hands. Where a playbook places the human
-differently in the loop than *The loop* or *The human* does, **the playbook governs for the rows
-it covers** — the domain knew something the armchair did not. A project may summon more than one:
-the Navigator merges them into the single `design/playbook.md`, writes the precedence rule for
-where they collide — which examination is authoritative, ordered like the blueprint's decision
-hierarchy — and hands the merge to the plan critic exactly as a drafted playbook is handed.
+instrument like any other, named or not carried. Summoning includes the freshness check, and the
+check is the only refresh there is: walk the companion routes of the sources feeding the rules
+you are summoning — only those — and confirm each still resolves and still teaches what its rule
+claims. Domains move monthly, but a playbook nobody is deploying costs nothing stale; the moment
+it is about to govern a project is the moment staleness bites, so that moment carries the check
+and no schedule does. A rule whose ground has moved is summoned as the world now is — the project
+copy carries the correction, and the correction travels home at close like any other. A summoned
+playbook is copied into the project as `design/playbook.md`; the companion never is — the rules
+carry their own evidence, and a second copy is a second thing to keep true. The doormat names the
+playbook, and every seat reads it after `design/intention.md` — a playbook only the Navigator has
+read reaches no hands. Where a playbook places the human differently in the loop than *The loop*
+or *The human* does, **the playbook governs for the rows it covers** — the domain knew something
+the armchair did not. A project may summon more than one: the Navigator merges them into the
+single `design/playbook.md`, writes the precedence rule for where they collide — which
+examination is authoritative, ordered like the blueprint's decision hierarchy — and hands the
+merge to the plan critic exactly as a drafted playbook is handed.
 
 **If none exists, spend a research pass before the blueprint — a domain that feels familiar is
 the trap, since stale priors are exactly what the pass corrects**: find how the best real
@@ -422,16 +432,28 @@ practitioners build this thing *with AI* — the tools that act as their hands, 
 references come from, what the consumption viewpoint concretely is, and the scars they have
 named, from what they have actually published — and write `design/playbook.md` as this project's
 draft, **every rule tagged `researched` or `felt`** so nobody mistakes homework for scar tissue.
-The quality bar for that draft is a document another practitioner would recognise as their craft,
-not a survey — and before the blueprint is written, hand it to a fresh plan critic with that
-sentence and the four categories above as the target, because every later examination leans on
-this document and it is otherwise the only one nobody examines.
+Write the companion in the same pass, as `design/playbook.sources.md` beside the draft, while the
+routes are still open in front of you — the route is as hard-won as the finding, and an address
+whose route is lost is a source lost. A source that fed no rule is not recorded, and when a rule
+dies its orphaned entries die in the same commit: that pruning, not any format, is what keeps a
+companion present-tense instead of a link graveyard. The quality bar for the draft is a document
+another practitioner would recognise as their craft, not a survey — and before the blueprint is
+written, hand it to a fresh plan critic with that sentence and the four categories above as the
+target, because every later examination leans on this document and it is otherwise the only one
+nobody examines. The draft and its companion travel home together if the maintainer adopts the
+domain.
 
-**Playbooks mature the way the method does: by what runs feel.** At close, a correction this
-project actually felt — a researched rule that failed in your hands, a scar you earned that the
-playbook lacked — travels back to the method repository as an issue labelled `playbook`, raw and
-ungeneralized, exactly like a deviation. Each playbook change lands as its own commit naming the
-run that earned it, so its evolution is legible commit by commit.
+**Playbooks mature the way the method does: by what runs feel — and the filter for what travels
+back is executed-or-failed.** Travels: a `researched` rule a row actually ran, confirmed or
+corrected; a scar this run earned that the playbook lacked; a route that died and the route that
+worked instead. Does not travel: anything the run drafted, researched or discovered that no row
+ever executed — the project's live copy may diverge as far as the run needs, and unexecuted
+divergence dies with the project, held by its git alone, because a playbook line that never
+changed what a seat did is exactly the speculative mass a playbook exists to refuse. At close,
+one issue per summoned or drafted playbook, labelled `playbook`, raw and ungeneralized —
+corrections, confirmations naming the rows that ran them, route deaths. The maintainer lands each
+change as its own commit naming the run that earned it; those commits are also what move a rule's
+tag and, when the facts allow, the provenance line, both as `playbooks/README.md` defines.
 
 ---
 
