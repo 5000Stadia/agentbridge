@@ -87,7 +87,14 @@ the human then, in a sentence, and let them change it.
 **What the choice is and is not about.** Every form runs both of the moments above, by a mind that
 did not build the thing, so do not choose the form for quality or for safety, which no form
 guarantees on its own. Choose it for the **shape of the work**: whether anything has to survive a
-seam, and whether areas must be built at the same time while depending on each other. **Higher
+seam, and whether areas must be built at the same time while depending on each other. Underneath
+every such call is one spectrum: **spawn a subagent when the task is specialized and runs
+beginning to end** — a brief can carry everything it needs, and fresh context is free; **stand a
+seat up when decision quality depends on context that accumulates across tasks faster than it can
+be written down** — when the write-down would be the work itself. Default to spawning plus written
+context, because a standing context compacts and drifts while a document does not; accumulation
+must earn its seat. At the far end of the spectrum sits the human, whose taste is the context that
+never writes down. **Higher
 stakes raise the examination, not the headcount** — more critics, more distinct lenses, more passes,
 the human on the running thing more often. That dial exists in all three forms.
 
