@@ -384,6 +384,9 @@ for the whole product, which is what *Done* is measured against.
 
 **Budgets.** The measurable targets the domain cares about, with numbers, and the condition each is
 measured under — *first interaction under 100ms on a 2019 mid-range phone*, not *fast startup*.
+Where compute is metered, the meter is a budget like the others: ask at the front door what the
+window is, and write which passes are heavy against it, so maximum-effort work lands where the
+limit allows and light work where it does not.
 
 **Out of scope, and risks.** What this deliberately is not, so nobody builds it by accident. Then
 the failure modes you can already anticipate, and what each would look like if it happened.
