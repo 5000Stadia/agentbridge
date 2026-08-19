@@ -23,9 +23,9 @@ ground everything else assumes.
 **Then, by seat:**
 - **Navigator** — the rest of this file in order, skipping whichever of *The solo route* and *The
   crewed route* you did not choose; one-shot skips both.
-- **Builder** — *The loop*, *The Builder*, *Where a critic works*, both briefs at the end (which
+- **Builder** — *The loop*, *The Builder*, *Where a critic works*, the plan-critic and artifact-critic briefs at the end (which
   you hand out rather than perform), and *On the channel* if you were launched with a mailbox.
-- **Reviewer** — *The loop*, *The Reviewer*, *Where a critic works*, both briefs at the end, and
+- **Reviewer** — *The loop*, *The Reviewer*, *Where a critic works*, the plan-critic and artifact-critic briefs at the end, and
   *On the channel* if you were launched with a mailbox.
 
 The critics and comparators you spawn read nothing in this file — only the brief you hand them and
@@ -430,7 +430,8 @@ merge to the plan critic exactly as a drafted playbook is handed.
 the trap, since stale priors are exactly what the pass corrects**: find how the best real
 practitioners build this thing *with AI* — the tools that act as their hands, where their
 references come from, what the consumption viewpoint concretely is, and the scars they have
-named, from what they have actually published — and write `design/playbook.md` as this project's
+named, from what they have actually published, hunting with the researcher's brief at the end of
+this file — and write `design/playbook.md` as this project's
 draft, **every rule tagged `researched` or `felt`** so nobody mistakes homework for scar tissue.
 Write the companion in the same pass, as `design/playbook.sources.md` beside the draft, while the
 routes are still open in front of you — the route is as hard-won as the finding, and an address
@@ -967,3 +968,48 @@ Hand this to a fresh agent that knows nothing about this project. Randomise whic
 > You are not told which is which, and you must not guess or ask. If a quality is a tie, say tie.
 >
 > Finish with: which you would rather use, and what would have to change in the weaker one.
+
+# BRIEF — the researcher
+
+Hand this to a fresh agent researching a domain or craft — for a playbook draft, an anchor, or a
+decision that needs grounding. Fill the brackets and change nothing else.
+
+> You are researching [the domain or craft], to ground [the playbook draft / the anchor / the
+> decision]. The goal is not a best-practices summary: it is knowledge from practitioners who paid
+> for it, at a resolution beyond what you could infer alone.
+>
+> Before any search, write what you already believe — your own best-practices list from inference —
+> and tag each claim: *directional* (points the right way), *specified* (carries a mechanism), or
+> *calibrated* (carries numbers or boundaries). This baseline is the floor: research only counts
+> where it raises resolution above it. Then judge how craft-heavy the topic is. On a settled topic
+> the baseline may be most of the answer — verify it lightly and report "the consensus is correct"
+> as a complete, successful result. Do not manufacture obscurity.
+>
+> Hunt people, not summaries. Guess the terrain first — who does this professionally, what public
+> artifacts their work leaves (postmortems, talks, teardowns, repos, credits), where they gather —
+> then search for that: named practitioners, named projects, "how we made", "what went wrong".
+> Harvest insider vocabulary as you go and search in it: jargon is the fingerprint of expertise,
+> and the content-farm layer cannot use words it does not know. From every good source, chase the
+> cluster — their other work, who they cite, who cites them — and record the citation links,
+> because experts who cite each other are one lineage and one data point. Uncoordinated agreement
+> across separate lineages is the strongest evidence this work produces; three practitioners
+> "converging" on one technique has turned out to be a single citation chain before. If a handful
+> of hunting queries surfaces no practitioners at all, that is a finding, not a failed search —
+> the craft is tacit or too new — so pivot to the nearest field that solved a structurally similar
+> problem, and mark everything taken from it as *transferred*.
+>
+> Weigh what you find by what it cost to produce. A byline is cheap; the durable signal is
+> evidence expensive to fake — a rejected alternative, a constraint designed around, a number only
+> measurement yields, an account of a failure. Advice is cheap to fabricate; a decision someone
+> lost is not. A claim earns weight only by adding mechanism, magnitude, or boundary beyond your
+> baseline — and a plausible mechanism from an unverified source stays second-tier, because fluent
+> fabrication is exactly what machine-written craft content is good at. Volume of agreement never
+> outweighs one paid-for claim. Rank by resolution gained times credibility, never by surprise.
+>
+> Deliver: the craft verdict — how settled, and how far the baseline can be trusted; the named
+> practitioners and venues, with lineage noted; the claims that beat the baseline, each attributed,
+> marked *transferred* where they are; what the experts confirmed of the baseline; where they
+> contradict each other, and whether the disagreeing camps are independent; and the vocabulary,
+> defined. Record every route while it is still open in front of you — the source, the exact way
+> in that worked, what it taught — because the route is as hard-won as the finding, and it is what
+> the sources companion keeps.
