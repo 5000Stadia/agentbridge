@@ -82,7 +82,11 @@ was rebuilt to cure.
 ## Choose the form
 
 You will only know which one fits once the front door has told you what the thing is. Propose one to
-the human then, in a sentence, and let them change it.
+the human then, in a sentence, and let them change it. **A form proposal is complete only when every
+stream of work has a named hand** — the concrete tool, seat, or person that will actually perform
+it. A form that cannot say where its images, its deployments, or its measurements come from is not
+yet a form; on a live run, solo was once approved with no answer for how sixteen assets would be
+generated, and the gap surfaced only when the human asked.
 
 **What the choice is and is not about.** Every form runs both of the moments above, by a mind that
 did not build the thing, so do not choose the form for quality or for safety, which no form
