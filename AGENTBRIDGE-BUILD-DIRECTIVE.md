@@ -618,7 +618,12 @@ every milestone that reaches the human: a batch, a row close, a phase exit arriv
 Navigator's own verdict on whether the result was worth its cost in passes and hours — said
 plainly, not left for the human to excavate, since on both runs the human had to ask what things
 cost. Their take on that verdict is direction, and the next stretch runs with it — gear, scoping,
-where the effort goes. This rides presentations that already happen and creates none. And
+where the effort goes. This rides presentations that already happen and creates none — and **a
+checkpoint is "how does this look," never "may I continue": work keeps moving while the human's
+answer is pending.** Only two kinds of moment hold for them: **visual or cosmetic direction** —
+the taste gates, where their eye is the instrument — and **the named milestones**, a phase exit or
+a first public appearance, where the human confirms before the next phase opens. Those are planned
+meeting points, not interruptions; the interrupt rule stays at two. Everything else flows. And
 never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
 point is not a product that survives examination but one that does not lose to the anchor on any
 quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
