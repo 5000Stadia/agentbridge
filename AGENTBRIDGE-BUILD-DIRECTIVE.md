@@ -613,7 +613,12 @@ stand-back is the Navigator's, and its trigger is a tripwire, never a calendar**
 third pass — or when one row is eating the run, or the human sounds a pace concern — it steps
 outside the flow, reads the passes as a set (families, scoping, pace), and says what it sees
 before the next pass begins. Inside the loop every pass looks locally justified; on both runs the
-diagnosis had to come from outside, because no seat owned standing back. And
+diagnosis had to come from outside, because no seat owned standing back. The same read frames
+every milestone that reaches the human: a batch, a row close, a phase exit arrives carrying the
+Navigator's own verdict on whether the result was worth its cost in passes and hours — said
+plainly, not left for the human to excavate, since on both runs the human had to ask what things
+cost. Their take on that verdict is direction, and the next stretch runs with it — gear, scoping,
+where the effort goes. This rides presentations that already happen and creates none. And
 never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
 point is not a product that survives examination but one that does not lose to the anchor on any
 quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
