@@ -608,7 +608,12 @@ pass closes, the next spec begins, and nothing is published unless *Where it goe
 release point. A spec that takes four rounds needed four — never pass work to shorten the loop; but
 when passes keep finding the same family — a fourth doorway fix, a fourth shadow fix — stop patching
 instances: name the family and put its architecture on the table before the next pass, because on
-two separate runs instance-fixing left the family alive for seven and for eleven rounds. And
+two separate runs instance-fixing left the family alive for seven and for eleven rounds. **That
+stand-back is the Navigator's, and its trigger is a tripwire, never a calendar**: from a row's
+third pass — or when one row is eating the run, or the human sounds a pace concern — it steps
+outside the flow, reads the passes as a set (families, scoping, pace), and says what it sees
+before the next pass begins. Inside the loop every pass looks locally justified; on both runs the
+diagnosis had to come from outside, because no seat owned standing back. And
 never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
 point is not a product that survives examination but one that does not lose to the anchor on any
 quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
