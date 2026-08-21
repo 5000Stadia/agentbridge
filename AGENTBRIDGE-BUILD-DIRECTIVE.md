@@ -605,7 +605,10 @@ naming ten things costs a fraction of ten reviews naming one each, and that roun
 entire pace cost on the trial. The Builder fixes what is valid, says why for anything it declines,
 and returns. Repeat until it passes; on the pass the work is closed the way *How we work* says a
 pass closes, the next spec begins, and nothing is published unless *Where it goes* named this as a
-release point. A spec that takes four rounds needed four — never pass work to shorten the loop, and
+release point. A spec that takes four rounds needed four — never pass work to shorten the loop; but
+when passes keep finding the same family — a fourth doorway fix, a fourth shadow fix — stop patching
+instances: name the family and put its architecture on the table before the next pass, because on
+two separate runs instance-fixing left the family alive for seven and for eleven rounds. And
 never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
 point is not a product that survives examination but one that does not lose to the anchor on any
 quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
