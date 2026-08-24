@@ -597,15 +597,32 @@ decided on the channel is written into the design documents before the exchange 
 them — a wedged prompt, an unread letter, a seat that is running but not producing — and a
 waiting pipeline looks exactly like a working one until the human asks, which is the failure this
 method exists to prevent. So keep one question answerable at all times: *who owes the pipeline
-its next action, and are they moving?* Derive the owing seat from durable state — artifacts owed,
-letters unconsumed, work unpublished — never from a seat's claim to be busy; and let *moving*
-mean recent output, not a live process. A stalled seat is re-issued its standing order — safe
-exactly because orders are self-contained and seats derive their worklists from the stores rather
-than from memory — and the stall is recorded with its numbers, so dead air becomes evidence
-instead of anecdote. The watching itself can be as dumb as a clock; the judgment lives in the
-standing orders. On one crewed run, fifty-six owed images sat three and a half hours while every
-watcher watched a stage and no one watched the baton; deriving "who has it" cut catch time to
-minutes.
+its next action, and are they moving?*
+
+The instrument is one clock and three states, and the seats already operate it without adding a
+word: **claiming a letter is *active*** — the claim is a lease, stamped when it happens, its
+expectation the size the handoff declared; **sending the handoff is *pending*** — the baton in
+the air, named to its recipient; **the closing reply is *done***. Where the runtime offers
+start-and-stop hooks, wire them at launch so a seat's own turns stamp its liveness; where it
+does not, the mail store and the artifact timestamps already hold the truth. Never trust a
+seat's claim to be busy — *moving* means recent output, not a live process, because a wedged
+seat holds its "active" forever and lies precisely when things break.
+
+The clock nudges the Navigator on exactly three silences: **no one active while work is owed**
+(the dropped baton); **a lease past its expectation with no fresh output since** (the wedged
+holder); **a handoff pending past the grace a healthy wake needs** (the lost letter). Pending is
+not done — a baton in the air is a normal state, and the grace window exists so the clock never
+mistakes a healthy handoff for a stall. The nudge carries no judgment; judgment stays with the
+Navigator, who reads the durable state, decides wedged or earning, and re-issues the standing
+order — safe exactly because orders are self-contained and seats derive their worklists from the
+stores rather than from memory. Every stall lands in the record with its numbers, so dead air
+becomes evidence instead of anecdote.
+
+Pay this setup only when the front door answers yes to one question: **will work ever wait on
+another seat or a machine while nobody is watching?** Crew, or any detached hand, says yes;
+one-shot and solo say no, because spawned critics return to their caller and nothing detaches.
+On one crewed run, fifty-six owed images sat three and a half hours while every watcher watched
+a stage and no one watched the baton; a clock this dumb cuts that catch to minutes.
 
 ---
 
