@@ -593,6 +593,20 @@ relaunched; twice for the same seat means the launch form is wrong — fix the f
 sent its message stops; the next letter wakes it. Mail lives outside the repository, so anything
 decided on the channel is written into the design documents before the exchange scrolls away.
 
+**Dead air at the seams is the Navigator's to own.** A crew stalls between seats, not inside
+them — a wedged prompt, an unread letter, a seat that is running but not producing — and a
+waiting pipeline looks exactly like a working one until the human asks, which is the failure this
+method exists to prevent. So keep one question answerable at all times: *who owes the pipeline
+its next action, and are they moving?* Derive the owing seat from durable state — artifacts owed,
+letters unconsumed, work unpublished — never from a seat's claim to be busy; and let *moving*
+mean recent output, not a live process. A stalled seat is re-issued its standing order — safe
+exactly because orders are self-contained and seats derive their worklists from the stores rather
+than from memory — and the stall is recorded with its numbers, so dead air becomes evidence
+instead of anecdote. The watching itself can be as dumb as a clock; the judgment lives in the
+standing orders. On one crewed run, fifty-six owed images sat three and a half hours while every
+watcher watched a stage and no one watched the baton; deriving "who has it" cut catch time to
+minutes.
+
 ---
 
 ## The loop
