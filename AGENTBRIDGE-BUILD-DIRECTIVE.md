@@ -601,22 +601,23 @@ its next action, and are they moving?*
 
 The instrument is one clock and three states, and the seats already operate it without adding a
 word: **claiming a letter is *active*** — the claim is a lease, stamped when it happens, its
-expectation the size the handoff declared; **sending the handoff is *pending*** — the baton in
-the air, named to its recipient; **the closing reply is *done***. Where the runtime offers
-start-and-stop hooks, wire them at launch so a seat's own turns stamp its liveness; where it
-does not, the mail store and the artifact timestamps already hold the truth. Never trust a
+expectation how long the handoff said the row would take; **sending the handoff is *pending*** —
+the baton in the air, named to its recipient; **the closing reply is *done***. Where the runtime
+offers start-and-stop hooks, wire them at launch so a seat's own turns stamp its liveness; where
+it does not, the mail store and the artifact timestamps already hold the truth. Never trust a
 seat's claim to be busy — *moving* means recent output, not a live process, because a wedged
-seat holds its "active" forever and lies precisely when things break.
+seat holds its "active" forever and lies precisely when things break — and recent output is
+proof of life, not of progress.
 
 The clock nudges the Navigator on exactly three silences: **no one active while work is owed**
-(the dropped baton); **a lease past its expectation with no fresh output since** (the wedged
-holder); **a handoff pending past the grace a healthy wake needs** (the lost letter). Pending is
-not done — a baton in the air is a normal state, and the grace window exists so the clock never
+(the dropped baton); **a lease past its expectation, fresh output or not** (the overrun holder);
+**a handoff pending past the grace a healthy wake needs** (the lost letter). Pending is not done —
+a baton in the air is a normal state, and the grace window exists so the clock never
 mistakes a healthy handoff for a stall. The nudge carries no judgment; judgment stays with the
-Navigator, who reads the durable state, decides wedged or earning, and re-issues the standing
-order — safe exactly because orders are self-contained and seats derive their worklists from the
-stores rather than from memory. Every stall lands in the record with its numbers, so dead air
-becomes evidence instead of anecdote.
+Navigator, who reads the durable state, decides wedged, churning or earning, and re-issues the
+standing order — safe exactly because orders are self-contained and seats derive their worklists
+from the stores rather than from memory. Every stall lands in the record with its numbers, so dead
+air becomes evidence instead of anecdote.
 
 Pay this setup only when the front door answers yes to one question: **will work ever wait on
 another seat or a machine while nobody is watching?** Crew, or any detached hand, says yes;
@@ -646,7 +647,12 @@ outside the flow, reads the passes as a set (families, scoping, pace), and says 
 before the next pass begins. **And the tripwire is pulled by the flow, not by vigilance**: a
 handoff may name how many examination rounds a row is expected to buy, and a builder opening a
 round past that count — past the third, where none was named — says so in one line, the round
-number and the finding families so far. **A flag surfaces a long loop to its owner; it never
+number and the finding families so far. The same flag covers the build itself: every handoff says
+how long it expects the row to take, and a builder past that says so in one line to the Navigator
+— what has landed, what it is still on — because a builder producing but not advancing looks
+exactly like one earning, and on the early runs that churn was the stall nobody saw. In solo,
+where nothing can hear a line mid-run, it arrives with the run's report and the next brief sizes
+its rows from it. **A flag surfaces a long loop to its owner; it never
 truncates one that is earning** — important elements take as long as they take, and gears govern
 the mechanical work, not the load-bearing. And when a loop runs on past its flag, the Navigator
 sends the human a status note — what row, what round, what family, still earning or not —
