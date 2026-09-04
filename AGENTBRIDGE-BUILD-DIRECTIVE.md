@@ -648,13 +648,14 @@ before the next pass begins. **And the tripwire is pulled by the flow, not by vi
 handoff may name how many examination rounds a row is expected to buy, and a builder opening a
 round past that count — past the third, where none was named — says so in one line, the round
 number and the finding families so far. The same flag covers the build itself: every handoff says
-how long it expects the row to take, and a builder past that says so in one line to the Navigator
-— what has landed, what it is still on — because a builder producing but not advancing looks
-exactly like one earning, and on the early runs that churn was the stall nobody saw. In solo,
-where nothing can hear a line mid-run, it arrives with the run's report and the next brief sizes
-its rows from it. **A flag surfaces a long loop to its owner; it never
-truncates one that is earning** — important elements take as long as they take, and gears govern
-the mechanical work, not the load-bearing. And when a loop runs on past its flag, the Navigator
+how long it expects the row to take — wall-clock from the claim, of the builder's own work, so a
+wait on a test or another seat is the pending state and not the lease — and a builder past that
+says so in one line to the Navigator, what has landed and what it is still on, because a builder
+producing but not advancing looks exactly like one earning, and on the early runs that churn was
+the stall nobody saw. In solo, where nothing can hear a line mid-run, it arrives with the run's
+report and the next brief sizes its rows from it. **A flag surfaces a long loop to its owner; it
+never truncates one that is earning** — important elements take as long as they take, and gears
+govern the mechanical work, not the load-bearing. And when a loop runs on past its flag, the Navigator
 sends the human a status note — what row, what round, what family, still earning or not —
 informing, never asking whether to continue. Inside the loop every pass looks locally justified;
 on both runs the diagnosis had to come from outside, because no seat owned standing back — and
