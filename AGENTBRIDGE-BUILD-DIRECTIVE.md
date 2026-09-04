@@ -655,8 +655,8 @@ producing but not advancing looks exactly like one earning, and on the early run
 the stall nobody saw. In solo, where nothing can hear a line mid-run, it arrives with the run's
 report and the next brief sizes its rows from it. **A flag surfaces a long loop to its owner; it
 never truncates one that is earning** — important elements take as long as they take, and gears
-govern the mechanical work, not the load-bearing. And when a loop runs on past its flag, the Navigator
-sends the human a status note — what row, what round, what family, still earning or not —
+govern the mechanical work, not the load-bearing. And when a loop runs on past its flag, the
+Navigator sends the human a status note — what row, what round, what family, still earning or not —
 informing, never asking whether to continue. Inside the loop every pass looks locally justified;
 on both runs the diagnosis had to come from outside, because no seat owned standing back — and
 even an owned watch fires only when someone happens to look: on the run that priced this, the
