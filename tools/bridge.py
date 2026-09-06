@@ -26,6 +26,7 @@ import json
 import os
 import re
 import secrets
+import subprocess
 import sys
 import urllib.parse
 import webbrowser
@@ -36,6 +37,44 @@ from pathlib import Path
 DEFAULT_PORT = 8787
 DEFAULT_COMMENTS = "design/comments.jsonl"
 PROJECT_TARGET = "project"
+
+
+def _git(root: Path, *args: str, timeout: float = 15.0) -> str:
+    """Run one git command. Any failure is an empty string, never an exception."""
+    try:
+        done = subprocess.run(
+            ["git", "-C", str(root), *args],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    return done.stdout if done.returncode == 0 else ""
+
+
+def _rows_from_text(text: str) -> list[tuple[str, str, str]]:
+    """The spec list as (number, target, done), from any version of intention.md."""
+    m = re.search(
+        r"^##\s+The spec list\s*$\n(.*?)(?=^##\s|\Z)",
+        text,
+        re.MULTILINE | re.DOTALL,
+    )
+    if not m:
+        return []
+    out = []
+    for line in m.group(1).splitlines():
+        line = line.strip()
+        if not line.startswith("|"):
+            continue
+        cells = _split_table_row(line)
+        if len(cells) < 3:
+            continue
+        number = cells[0].strip()
+        if not number or number == "#" or set(number) <= set("-: "):
+            continue
+        out.append((number, cells[1].strip(), cells[2].strip()))
+    return out
 
 
 class Row:
@@ -63,7 +102,87 @@ class Project:
         self.rows: list[Row] = []
         self.next_id = ""
         self.problems: list[str] = []
+        self._closed: dict[str, dict] = {}
+        self._closed_at_head = None
         self.load()
+
+    # -- what has already passed -----------------------------------------
+
+    def closed_rows(self) -> dict[str, dict]:
+        """Rows that have left the spec list, read out of git.
+
+        The method closes a row in one commit that deletes the row from
+        `design/intention.md` and its plan from `design/specs/` together, so
+        git already knows what passed, when, and in which commit. Nothing here
+        is written down a second time, which is why it cannot go stale.
+        """
+        head = _git(self.root, "rev-parse", "HEAD").strip()
+        if not head:
+            return {}
+        if self._closed_at_head == head:
+            return self._closed
+
+        log = _git(
+            self.root,
+            "log",
+            "--reverse",
+            "--format=%H\x1f%aI\x1f%s",
+            "--",
+            "design/intention.md",
+        )
+        # Every row that ever had a plan written for it. A row is built when a
+        # plan for it existed; a row that leaves the list having never had one
+        # was dropped before anyone started, and that is the honest difference
+        # between finished and abandoned. Asking whether the plan file ever
+        # existed survives however it later left — deleted, renamed, or moved.
+        planned = set()
+        for path in _git(
+            self.root,
+            "log",
+            "--all",
+            "--diff-filter=A",
+            "--name-only",
+            "--format=",
+            "--",
+            "design/specs/",
+        ).splitlines():
+            name = path.strip().split("/")[-1]
+            if name:
+                planned.add(name.split("-", 1)[0])
+
+        closed: dict[str, dict] = {}
+        previous: dict[str, tuple[str, str]] = {}
+        for line in log.splitlines():
+            parts = line.split("\x1f")
+            if len(parts) != 3:
+                continue
+            sha, when, subject = parts
+            text = _git(self.root, "show", f"{sha}:design/intention.md")
+            if not text.strip():
+                # The file did not exist or could not be read at this commit.
+                # Absence here is not evidence that anything closed.
+                continue
+            current = {n: (t, d) for n, t, d in _rows_from_text(text)}
+            for number in [n for n in previous if n not in current]:
+                target, done = previous[number]
+                closed[number] = {
+                    "number": number,
+                    "target": target,
+                    "done": done,
+                    "commit": sha,
+                    "at": when,
+                    "subject": subject,
+                    "built": number in planned,
+                }
+            previous = current
+
+        # A number is never reused, but a row can be re-opened by hand; what is
+        # in the list now is the truth, so it is not also closed.
+        for row in self.rows:
+            closed.pop(row.number, None)
+        self._closed = closed
+        self._closed_at_head = head
+        return closed
 
     def load(self) -> None:
         self.problems = []
@@ -107,28 +226,10 @@ class Project:
         return m.group(1).strip() if m else ""
 
     def _read_rows(self, text: str) -> list[Row]:
-        m = re.search(
-            r"^##\s+The spec list\s*$\n(.*?)(?=^##\s|\Z)",
-            text,
-            re.MULTILINE | re.DOTALL,
-        )
-        if not m:
+        if "## The spec list" not in text:
             self.problems.append("design/intention.md has no '## The spec list'.")
             return []
-
-        rows: list[Row] = []
-        for line in m.group(1).splitlines():
-            line = line.strip()
-            if not line.startswith("|"):
-                continue
-            cells = _split_table_row(line)
-            if len(cells) < 3:
-                continue
-            number = cells[0].strip()
-            if not number or number == "#" or set(number) <= set("-: "):
-                continue
-            rows.append(Row(number, cells[1].strip(), cells[2].strip()))
-
+        rows = [Row(n, t, d) for n, t, d in _rows_from_text(text)]
         if not rows:
             self.problems.append(
                 "The spec list is empty: every row has passed, or none is written yet."
@@ -241,12 +342,14 @@ CSS = """
   --bg: #fbfaf8; --card: #fff; --ink: #1a1a19; --muted: #6b6a66;
   --line: #e4e1db; --accent: #2f5d50; --accent-ink: #fff;
   --flag: #8a5a1e; --flag-bg: #fdf3e3; --sunk: #f4f3f0;
+  --good: #2d6a3f; --good-bg: #e9f4ec;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #16171a; --card: #1e2024; --ink: #e8e6e2; --muted: #9a9791;
     --line: #2f3238; --accent: #7fb5a2; --accent-ink: #14231e;
     --flag: #d8a55f; --flag-bg: #2b2317; --sunk: #24262b;
+    --good: #7fc79a; --good-bg: #1b2a20;
   }
 }
 * { box-sizing: border-box; }
@@ -300,6 +403,16 @@ form.add button { font: inherit; font-weight: 600; padding: 7px 16px;
 form.add .spacer { grid-column: 1; }
 .note .where { font-weight: 600; color: var(--accent); text-decoration: none; }
 .card.queue { border-color: var(--accent); }
+.badge.completed { background: var(--good-bg); color: var(--good);
+  border-color: transparent; font-weight: 600; }
+.badge.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+details.passed { margin-top: 34px; }
+details.passed > summary { cursor: pointer; font-weight: 600; padding: 10px 0 16px;
+  color: var(--muted); list-style: none; }
+details.passed > summary::-webkit-details-marker { display: none; }
+details.passed > summary::before { content: "▸ "; }
+details.passed[open] > summary::before { content: "▾ "; }
+details.passed > summary:hover { color: var(--ink); }
 .card.gone .num { color: var(--muted); }
 .empty { color: var(--muted); font-size: 13.5px; padding: 12px 0; }
 .problem { background: var(--flag-bg); color: var(--flag); padding: 12px 16px;
@@ -321,6 +434,18 @@ def _inline(text: str) -> str:
     out = re.sub(r"`([^`]+)`", r"<code>\1</code>", out)
     out = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", out)
     return out
+
+
+def _numeric(number: str) -> tuple:
+    return (0, int(number)) if number.isdigit() else (1, number)
+
+
+def _day(stamp: str) -> str:
+    try:
+        dt = datetime.fromisoformat(str(stamp))
+    except ValueError:
+        return html.escape(str(stamp)[:10])
+    return dt.astimezone().strftime("%b %d")
 
 
 def _when(stamp: str) -> str:
@@ -356,12 +481,15 @@ def _note_html(entry: dict, target_label: str = "") -> str:
     )
 
 
-def _form_html(target: str, author: str) -> str:
+def _form_html(target: str, author: str, placeholder: str = "") -> str:
+    placeholder = placeholder or (
+        "A detail for whoever builds this. It reaches them before they start."
+    )
     return (
         '<form class="add" method="post" action="/note">'
         f'<input type="hidden" name="row" value="{html.escape(target)}">'
-        '<textarea name="text" required placeholder="A detail for whoever builds this. '
-        'It reaches them before they start."></textarea>'
+        f'<textarea name="text" required placeholder="{html.escape(placeholder)}">'
+        "</textarea>"
         '<span class="spacer"></span>'
         f'<input name="author" value="{html.escape(author)}" placeholder="your name" '
         'aria-label="your name">'
@@ -379,6 +507,7 @@ def render(project: Project, author: str) -> str:
         1 for group in by_target.values() for n in group if not n.get("consumed")
     )
     in_flight = [r for r in project.rows if r.in_flight]
+    closed = project.closed_rows()
 
     out = [
         "<!doctype html><html><head><meta charset='utf-8'>",
@@ -394,6 +523,9 @@ def render(project: Project, author: str) -> str:
         f"<span><b>{len(project.rows)}</b> rows open</span>"
         f"<span><b>{len(in_flight)}</b> in flight</span>"
         f"<span><b>{waiting_total}</b> notes waiting</span>"
+        + (
+            f"<span><b>{len(closed)}</b> completed</span>" if closed else ""
+        )
         + (
             f"<span>next id <b>{html.escape(project.next_id)}</b></span>"
             if project.next_id
@@ -414,6 +546,8 @@ def render(project: Project, author: str) -> str:
     def label_for(target: str) -> str:
         if target == PROJECT_TARGET:
             return "the project"
+        if target in closed:
+            return f"row {target}, completed"
         return f"row {target}"
 
     # Everything nobody has reviewed, oldest first, whatever row it sits on —
@@ -489,9 +623,18 @@ def render(project: Project, author: str) -> str:
     out.append(_form_html(PROJECT_TARGET, author))
     out.append("</section>")
 
-    for target in gone:
-        notes = by_target[target]
-        waiting = sum(1 for n in notes if not n.get("consumed"))
+    def note_block(target: str, placeholder: str = "") -> str:
+        notes = by_target.get(target, [])
+        block = ""
+        if notes:
+            block += "<div class='notes'>"
+            block += "".join(_note_html(n) for n in notes)
+            block += "</div>"
+        return block + _form_html(target, author, placeholder)
+
+    # Targets with notes that are not rows and that git has never seen close.
+    for target in [t for t in gone if t not in closed]:
+        waiting = sum(1 for n in by_target[target] if not n.get("consumed"))
         badges = ["<span class='badge'>not in the spec list</span>"]
         if waiting:
             badges.append(
@@ -503,16 +646,68 @@ def render(project: Project, author: str) -> str:
             "<div class='head'>"
             f"<div class='num'>{html.escape(target)}</div><div class='body'>"
             f"<p class='target'><b>Row {html.escape(target)}</b></p>"
-            "<p class='done'>This row is not in the spec list. It has passed and "
-            "left it, or it was never written. Its notes stay here and stay "
-            "readable, and a new one still reaches whoever reads the queue.</p>"
+            "<p class='done'>This row is not in the spec list and git has no "
+            "record of it closing. Its notes stay here and stay readable, and a "
+            "new one still reaches whoever reads the queue.</p>"
             f"<div class='badges'>{''.join(badges)}</div></div></div>"
-            "<div class='notes'>"
+            + note_block(target)
+            + "</section>"
         )
-        out.extend(_note_html(n) for n in notes)
-        out.append("</div>")
-        out.append(_form_html(target, author))
-        out.append("</section>")
+
+    # What has already passed, read out of git rather than written down again.
+    if closed:
+        order = sorted(
+            closed.values(),
+            key=lambda e: (e.get("at", ""), _numeric(e["number"])),
+            reverse=True,
+        )
+        pending = sum(
+            1
+            for e in order
+            for n in by_target.get(e["number"], [])
+            if not n.get("consumed")
+        )
+        head = f"Completed &mdash; {len(order)} row{'s' if len(order) > 1 else ''}"
+        if pending:
+            head += (
+                f", {pending} note{'s' if pending > 1 else ''} waiting on finished work"
+            )
+        out.append(
+            f"<details class='passed'{' open' if pending else ''}>"
+            f"<summary>{head}</summary>"
+        )
+        for entry in order:
+            number = entry["number"]
+            waiting = sum(
+                1 for n in by_target.get(number, []) if not n.get("consumed")
+            )
+            badges = [
+                "<span class='badge completed'>"
+                + ("completed" if entry["built"] else "dropped unbuilt")
+                + f" &middot; {_day(entry['at'])}</span>",
+                f"<span class='badge mono'>{html.escape(entry['commit'][:7])}</span>",
+            ]
+            if waiting:
+                badges.append(
+                    f"<span class='badge has'>{waiting} note"
+                    f"{'s' if waiting > 1 else ''} waiting</span>"
+                )
+            out.append(
+                f"<section class='card' id='row-{html.escape(number)}'>"
+                "<div class='head'>"
+                f"<div class='num'>{html.escape(number)}</div><div class='body'>"
+                f"<p class='target'>{_inline(entry['target'])}</p>"
+                f"<p class='done'><b>Done:</b> {_inline(entry['done'])}</p>"
+                f"<div class='badges'>{''.join(badges)}</div></div></div>"
+                + note_block(
+                    number,
+                    "A second thought on work that is already done. It waits in the "
+                    "queue like any other note, and is read before the next row "
+                    "opens.",
+                )
+                + "</section>"
+            )
+        out.append("</details>")
 
     out.append("</main>")
 
@@ -542,12 +737,28 @@ def brief(project: Project, number: str) -> int:
     row = next((r for r in project.rows if r.number == number), None)
     notes = [c for c in project.comments() if str(c.get("row")) == number]
 
-    if row is None:
+    closed = project.closed_rows().get(number)
+    if row is None and closed is not None:
+        state = "completed" if closed["built"] else "dropped unbuilt"
+        print(
+            f"Row {number} — {state} {_day(closed['at'])}, commit "
+            f"{closed['commit'][:7]} ({closed['subject']})"
+        )
+        print()
+        print("  What it was")
+        for line in _wrap(closed["target"]):
+            print(f"    {line}")
+        print()
+        print("  Done")
+        for line in _wrap(closed["done"]):
+            print(f"    {line}")
+        print()
+    elif row is None:
         if number == PROJECT_TARGET:
             print("The project as a whole")
         else:
-            print(f"Row {number} is not in the spec list.")
-            print("It has passed and left the list, or it was never written.")
+            print(f"Row {number} is not in the spec list, and git has no record")
+            print("of it closing. It was never written, or it predates this history.")
             if not notes:
                 return 1
             print()
@@ -783,11 +994,16 @@ def main(argv: list[str]) -> int:
         print(f"{len(queue)} note{'s' if len(queue) > 1 else ''} waiting, oldest first")
         print()
         live = {r.number for r in project.rows}
+        closed = project.closed_rows()
         for e in queue:
             target = str(e.get("row", ""))
             where = "the project" if target == PROJECT_TARGET else f"row {target}"
-            if target not in live and target != PROJECT_TARGET:
-                where += " (not in the spec list — passed, or never written)"
+            if target in closed:
+                entry = closed[target]
+                state = "completed" if entry["built"] else "dropped unbuilt"
+                where += f" ({state} {_day(entry['at'])}, {entry['commit'][:7]})"
+            elif target not in live and target != PROJECT_TARGET:
+                where += " (not in the spec list)"
             print(
                 f"  [{e.get('id')}] {where} · {e.get('author')} "
                 f"({e.get('kind')}) · {e.get('at')}"

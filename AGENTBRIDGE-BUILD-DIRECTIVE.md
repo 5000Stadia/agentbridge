@@ -502,9 +502,10 @@ first file a stranger opens.
 **The bridge.** Fetch `tools/bridge.py` from the method repository into `design/bridge.py`,
 start it, and give the human the link in the same breath as the first commit — `python3
 design/bridge.py`, then the address it prints. It serves the spec list as a page on this machine:
-every open row, what it is for, what done looks like, which are in flight, and a box on each one
-for a note. That is where the human puts a detail on a row nobody has started, weeks before
-anyone opens it, without interrupting anything and without a conversation. Agents write there
+every open row, what it is for, what done looks like, which are in flight, what has already
+passed, and a box on each one for a note. That is where the human puts a detail on a row nobody
+has started, weeks before anyone opens it, without interrupting anything and without a
+conversation. Agents write there
 too, on whichever row the thing they found belongs to rather than the one they are building. A
 note is input and never an instruction: it becomes work when it is folded into its row, and the
 row stays the one home for what to build. Notes live in `design/comments.jsonl`, which every seat
@@ -693,14 +694,19 @@ not quality, it is the work eating itself, so send it and take the next spec.
 
 ### The Builder
 
-**Read the bridge before you take the work.** `python3 design/bridge.py --waiting` is every note
-nobody has reviewed yet, oldest first, whatever it is attached to; `--row <n>` is that row and
-everything left on it, where a detail meant for this row may have been waiting since before the
-project had code. **A row leaving the spec list settles the work, not the thinking** — a note
-arriving on something that already passed waits in that queue exactly like a note on a row nobody
-has started, because the human noticing it later is the whole point of the thing being usable.
-Fold what is right into the plan and say why for anything you decline or defer; either way mark
-exactly the ids you read, since reviewing a note is not agreeing with it. And when you find
+**Read the bridge before you take the work, every time, and read all of it.** `python3
+design/bridge.py --waiting` is every note nobody has reviewed yet, oldest first, whatever it is
+attached to; `--row <n>` is that row and everything left on it, where a detail meant for this row
+may have been waiting since before the project had code. **A row leaving the spec list settles the
+work, not the thinking** — a note arriving on something that already passed waits in that queue
+exactly like a note on a row nobody has started, and the queue never filters by state, because a
+human who used the thing for a week and came back with a second thought is the most valuable
+reader the project has. The board shows what has passed for exactly that reason, read out of git
+rather than written down again: a row closes in one commit that removes it from the list and
+retires its plan, so git already knows what finished and when, and a second document saying so
+would be a second home going stale. Fold what is right into the plan and say why for anything you
+decline or defer; either way mark exactly the ids you read, since reviewing a note is not agreeing
+with it. And when you find
 something that belongs to a row you are not building — a seam the later row should reuse, a trap
 it will hit — leave it on that row rather than carrying it: `--add --row <n>`. It costs you one
 line and it reaches that builder at the moment they can act on it.
