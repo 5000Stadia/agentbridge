@@ -486,6 +486,8 @@ Now there is something to write down.
     ├── blueprint.md      only where the product has one — see "The blueprint"
     ├── playbook.md       the summoned or drafted domain sheet — only where one exists
     ├── architecture.md   the builder writes this for itself; starts empty
+    ├── bridge.py         the plan as a page on this machine, open for notes — see below
+    ├── comments.jsonl    the notes; created by the first one, never edited by hand
     └── specs/            one plan per open spec; deleted when that spec passes
 ```
 
@@ -496,6 +498,17 @@ exist at, so a seat following it never opens a path that is not there. Nothing r
 point, and the README says exactly that — *nothing runs yet; the first layer is row 1* — and gains
 its run command when row 1 lands, because a promised command that does not work is a lie in the
 first file a stranger opens.
+
+**The bridge.** Fetch `tools/bridge.py` from the method repository into `design/bridge.py`,
+start it, and give the human the link in the same breath as the first commit — `python3
+design/bridge.py`, then the address it prints. It serves the spec list as a page on this machine:
+every open row, what it is for, what done looks like, which are in flight, and a box on each one
+for a note. That is where the human puts a detail on a row nobody has started, weeks before
+anyone opens it, without interrupting anything and without a conversation. Agents write there
+too, on whichever row the thing they found belongs to rather than the one they are building. A
+note is input and never an instruction: it becomes work when it is folded into its row, and the
+row stays the one home for what to build. Notes live in `design/comments.jsonl`, which every seat
+reads without the page running, so the page is for the human and the file is for everyone.
 
 `git add` the paths above that exist — never the empty `design/specs/`, which git cannot track and
 which the first spec file creates — and commit. That first commit has to exist before anything
@@ -680,6 +693,14 @@ not quality, it is the work eating itself, so send it and take the next spec.
 
 ### The Builder
 
+**Open the row on the bridge before you plan it** — `python3 design/bridge.py --row <n>` prints
+the row and every note left on it, which is where a detail meant for this row has been waiting,
+possibly since before the project had code. Fold what is right into the plan, say why for anything
+you decline, and mark it folded in. And when you find something that belongs to a row you are not
+building — a seam the later row should reuse, a trap it will hit — leave it on that row rather
+than carrying it: `--add --row <n>`. It costs you one line and it reaches that builder at the
+moment they can act on it.
+
 Take the spec row you were handed and write your plan for it into `design/specs/<n>-<slug>.md`:
 how you will build it, and where the edges are — what this must not touch and what outside it feels
 the change. Head it with the row number and copy nothing else out of the row, because the target
@@ -739,7 +760,8 @@ whole way through: every moment below is an occasion to write the program more c
 Five moments, silent between them.
 
 1. **The front door** — the conversation, the blueprint, the intention document, the spec list.
-2. **Each handoff** — pick the next spec row and verify that what it stands on is real: paths,
+2. **Each handoff** — pick the next spec row, fold its waiting notes into it the way moment 3
+   folds a fork, and verify that what it stands on is real: paths,
    commits, interfaces, assumptions about what exists. If it cannot be handed over without
    explanation, finish writing it rather than explaining it. When the Builder tells you a spec
    passed, its row and its spec file are already gone from the list and the tree; hand over the

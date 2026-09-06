@@ -33,6 +33,14 @@ Open a CLI agent (Claude Code, Codex, or similar) in an empty folder and say:
 
 Have the design conversation. Everything after it runs.
 
+## The bridge
+
+Every project gets `design/bridge.py`, a page on your own machine showing the plan the agents are
+working from: each row still to build, what done looks like, which are in flight, and a box on
+each one for a note. Leave a detail on a row nobody has started and it reaches that builder when
+they open it, weeks later, without interrupting anyone. Agents write there too, on whichever row
+the thing they found belongs to.
+
 ## Status
 
 Evidence-driven: every mechanism traces to something observed in live builds — no speculative
