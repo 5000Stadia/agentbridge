@@ -693,13 +693,17 @@ not quality, it is the work eating itself, so send it and take the next spec.
 
 ### The Builder
 
-**Open the row on the bridge before you plan it** — `python3 design/bridge.py --row <n>` prints
-the row and every note left on it, which is where a detail meant for this row has been waiting,
-possibly since before the project had code. Fold what is right into the plan, say why for anything
-you decline, and mark it folded in. And when you find something that belongs to a row you are not
-building — a seam the later row should reuse, a trap it will hit — leave it on that row rather
-than carrying it: `--add --row <n>`. It costs you one line and it reaches that builder at the
-moment they can act on it.
+**Read the bridge before you take the work.** `python3 design/bridge.py --waiting` is every note
+nobody has reviewed yet, oldest first, whatever it is attached to; `--row <n>` is that row and
+everything left on it, where a detail meant for this row may have been waiting since before the
+project had code. **A row leaving the spec list settles the work, not the thinking** — a note
+arriving on something that already passed waits in that queue exactly like a note on a row nobody
+has started, because the human noticing it later is the whole point of the thing being usable.
+Fold what is right into the plan and say why for anything you decline or defer; either way mark
+exactly the ids you read, since reviewing a note is not agreeing with it. And when you find
+something that belongs to a row you are not building — a seam the later row should reuse, a trap
+it will hit — leave it on that row rather than carrying it: `--add --row <n>`. It costs you one
+line and it reaches that builder at the moment they can act on it.
 
 Take the spec row you were handed and write your plan for it into `design/specs/<n>-<slug>.md`:
 how you will build it, and where the edges are — what this must not touch and what outside it feels

@@ -298,6 +298,9 @@ form.add button { font: inherit; font-weight: 600; padding: 7px 16px;
   border-radius: 7px; border: 0; background: var(--accent); color: var(--accent-ink);
   cursor: pointer; }
 form.add .spacer { grid-column: 1; }
+.note .where { font-weight: 600; color: var(--accent); text-decoration: none; }
+.card.queue { border-color: var(--accent); }
+.card.gone .num { color: var(--muted); }
 .empty { color: var(--muted); font-size: 13.5px; padding: 12px 0; }
 .problem { background: var(--flag-bg); color: var(--flag); padding: 12px 16px;
   border-radius: 8px; margin-bottom: 18px; }
@@ -330,16 +333,24 @@ def _when(stamp: str) -> str:
     return dt.astimezone().strftime("%b %d, %H:%M")
 
 
-def _note_html(entry: dict) -> str:
+def _note_html(entry: dict, target_label: str = "") -> str:
     folded = bool(entry.get("consumed"))
     kind = str(entry.get("kind", "note"))
     tag = "" if kind == "human" else f'<span class="tag">{html.escape(kind)}</span>'
     if folded:
         by = html.escape(str(entry.get("consumed_by", "the Navigator")))
-        tag += f'<span class="tag">folded in by {by}</span>'
+        tag += f'<span class="tag">reviewed by {by}</span>'
+    where = ""
+    if target_label:
+        anchor = html.escape(str(entry.get("row", "")))
+        where = (
+            f'<a class="where" href="#row-{anchor}">{html.escape(target_label)}</a>'
+            " &middot; "
+        )
     return (
         f'<div class="note{" folded" if folded else ""}">'
-        f'<div class="who"><b>{html.escape(str(entry.get("author", "unnamed")))}</b>'
+        f'<div class="who">{where}'
+        f'<b>{html.escape(str(entry.get("author", "unnamed")))}</b>'
         f" &middot; {_when(entry.get('at', ''))}{tag}</div>"
         f'<div class="text">{_inline(str(entry.get("text", "")))}</div></div>'
     )
@@ -394,6 +405,42 @@ def render(project: Project, author: str) -> str:
     for problem in project.problems:
         out.append(f"<div class='problem'>{html.escape(problem)}</div>")
 
+    known = {r.number for r in project.rows} | {PROJECT_TARGET}
+    gone = sorted(
+        (t for t in by_target if t not in known),
+        key=lambda t: (0, int(t)) if t.isdigit() else (1, t),
+    )
+
+    def label_for(target: str) -> str:
+        if target == PROJECT_TARGET:
+            return "the project"
+        return f"row {target}"
+
+    # Everything nobody has reviewed, oldest first, whatever row it sits on —
+    # including rows that have already passed and left the list. This is the
+    # queue a seat reads before it takes new work.
+    queue = [
+        n
+        for group in by_target.values()
+        for n in group
+        if not n.get("consumed")
+    ]
+    queue.sort(key=lambda n: str(n.get("at", "")))
+    if queue:
+        out.append(
+            "<section class='card queue'><div class='head'>"
+            "<div class='num'>&bull;</div><div class='body'>"
+            f"<p class='target'><b>Notes to read</b> &mdash; {len(queue)} waiting</p>"
+            "<p class='done'>Every note nobody has reviewed yet, oldest first, "
+            "whatever it is attached to &mdash; including rows that have already "
+            "passed. A seat reads these before it takes new work.</p>"
+            "</div></div><div class='notes'>"
+        )
+        out.extend(
+            _note_html(n, label_for(str(n.get("row", "")))) for n in queue
+        )
+        out.append("</div></section>")
+
     for row in project.rows:
         notes = by_target.get(row.number, [])
         waiting = sum(1 for n in notes if not n.get("consumed"))
@@ -412,7 +459,8 @@ def render(project: Project, author: str) -> str:
                 f"{'s' if waiting > 1 else ''} waiting</span>"
             )
         out.append(
-            "<section class='card'><div class='head'>"
+            f"<section class='card' id='row-{html.escape(row.number)}'>"
+            "<div class='head'>"
             f"<div class='num'>{html.escape(row.number)}</div><div class='body'>"
             f"<p class='target'>{_inline(row.target)}</p>"
             f"<p class='done'><b>Done:</b> {_inline(row.done)}</p>"
@@ -427,7 +475,8 @@ def render(project: Project, author: str) -> str:
 
     general = by_target.get(PROJECT_TARGET, [])
     out.append(
-        "<section class='card'><div class='head'><div class='num'>&middot;</div>"
+        f"<section class='card' id='row-{PROJECT_TARGET}'><div class='head'>"
+        "<div class='num'>&middot;</div>"
         "<div class='body'><p class='target'><b>The project as a whole</b></p>"
         "<p class='done'>For anything with no row yet: a shape you want later, a "
         "worry, something you would rather we did differently. The Navigator turns "
@@ -438,7 +487,34 @@ def render(project: Project, author: str) -> str:
         out.extend(_note_html(n) for n in general)
         out.append("</div>")
     out.append(_form_html(PROJECT_TARGET, author))
-    out.append("</section></main>")
+    out.append("</section>")
+
+    for target in gone:
+        notes = by_target[target]
+        waiting = sum(1 for n in notes if not n.get("consumed"))
+        badges = ["<span class='badge'>not in the spec list</span>"]
+        if waiting:
+            badges.append(
+                f"<span class='badge has'>{waiting} note"
+                f"{'s' if waiting > 1 else ''} waiting</span>"
+            )
+        out.append(
+            f"<section class='card gone' id='row-{html.escape(target)}'>"
+            "<div class='head'>"
+            f"<div class='num'>{html.escape(target)}</div><div class='body'>"
+            f"<p class='target'><b>Row {html.escape(target)}</b></p>"
+            "<p class='done'>This row is not in the spec list. It has passed and "
+            "left it, or it was never written. Its notes stay here and stay "
+            "readable, and a new one still reaches whoever reads the queue.</p>"
+            f"<div class='badges'>{''.join(badges)}</div></div></div>"
+            "<div class='notes'>"
+        )
+        out.extend(_note_html(n) for n in notes)
+        out.append("</div>")
+        out.append(_form_html(target, author))
+        out.append("</section>")
+
+    out.append("</main>")
 
     rel = os.path.relpath(project.comments_path, project.root)
     out.append(
@@ -447,8 +523,12 @@ def render(project: Project, author: str) -> str:
         "the Navigator folds it into its row. A note on a row nobody has started "
         "reaches its builder before it begins, because the seat opening a row reads "
         "that row and everything left on it first. Agents leave notes here too, on "
-        "whichever row the thing they found belongs to. Notes live in "
-        f"<code>{html.escape(rel)}</code> and are read without this page running."
+        "whichever row the thing they found belongs to. A note on work that has "
+        "already passed is not lost and not filtered out: it waits in the queue like "
+        "any other, because finished is not the same as settled. Reviewing a note "
+        "may accept it, decline it with a reason, or defer it. Notes live in "
+        f"<code>{html.escape(rel)}</code> and are read without this page running; "
+        "opening this page reviews nothing."
         "</footer></body></html>"
     )
     return "".join(out)
@@ -498,11 +578,11 @@ def brief(project: Project, number: str) -> int:
 
     tally = f"{len(waiting)} waiting"
     if folded:
-        tally += f", {folded} already folded in"
+        tally += f", {folded} already reviewed"
     print(f"  Notes on this row ({tally})")
     print()
     for entry in notes:
-        state = "folded in" if entry.get("consumed") else "waiting"
+        state = "reviewed" if entry.get("consumed") else "waiting"
         print(
             f"  [{entry.get('id')}] {entry.get('author')} "
             f"({entry.get('kind')}) · {entry.get('at')} · {state}"
@@ -513,7 +593,8 @@ def brief(project: Project, number: str) -> int:
         print()
     if waiting:
         print("  Waiting notes are input, not instructions. Fold what is right into")
-        print("  the plan, say why for anything you decline, and mark it folded in:")
+        print("  the plan; say why for anything you decline or defer. Either way,")
+        print("  mark exactly the ids you actually read:")
         print(f"    python3 {os.path.basename(__file__)} --consume <id>")
     return 0
 
@@ -626,7 +707,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--open", action="store_true", help="open a browser too")
     ap.add_argument("--add", action="store_true", help="append one note and exit")
     ap.add_argument("--list", action="store_true", help="print notes and exit")
-    ap.add_argument("--consume", metavar="ID", help="mark one note folded in")
+    ap.add_argument("--consume", metavar="ID", help="mark one note reviewed")
     ap.add_argument("--row", default=None, help=f"row number, or '{PROJECT_TARGET}'")
     ap.add_argument("--text", default=None)
     ap.add_argument(
@@ -634,7 +715,12 @@ def main(argv: list[str]) -> int:
         default="agent",
         help="who is writing, shown as a tag on the page (default: agent)",
     )
-    ap.add_argument("--waiting", action="store_true", help="only notes not folded in")
+    ap.add_argument(
+        "--waiting",
+        action="store_true",
+        help="the queue: every note nobody has reviewed, oldest first, whatever row "
+        "it is on. Alone, it is the read a seat does before taking new work.",
+    )
     ap.add_argument("--json", action="store_true", help="machine-readable --list")
     args = ap.parse_args(argv)
 
@@ -658,7 +744,7 @@ def main(argv: list[str]) -> int:
         if not project.consume(args.consume, args.author):
             print(f"bridge: no note {args.consume}", file=sys.stderr)
             return 1
-        print(f"folded in: {args.consume}")
+        print(f"reviewed: {args.consume}")
         return 0
 
     if args.list:
@@ -674,13 +760,44 @@ def main(argv: list[str]) -> int:
             print("no notes")
             return 0
         for e in entries:
-            state = "folded in" if e.get("consumed") else "waiting"
+            state = "reviewed" if e.get("consumed") else "waiting"
             print(
                 f"[{e.get('id')}] row {e.get('row')} · {e.get('author')} "
                 f"({e.get('kind')}) · {e.get('at')} · {state}"
             )
             for line in str(e.get("text", "")).splitlines():
                 print(f"    {line}")
+        return 0
+
+    if args.waiting and not (args.list or args.row):
+        # --waiting alone is the read a seat does before it takes new work:
+        # everything unreviewed, oldest first, whatever row it sits on —
+        # including rows that have passed and left the spec list.
+        queue = [e for e in project.comments() if not e.get("consumed")]
+        if args.json:
+            print(json.dumps(queue, ensure_ascii=False, indent=2))
+            return 0
+        if not queue:
+            print("no notes waiting")
+            return 0
+        print(f"{len(queue)} note{'s' if len(queue) > 1 else ''} waiting, oldest first")
+        print()
+        live = {r.number for r in project.rows}
+        for e in queue:
+            target = str(e.get("row", ""))
+            where = "the project" if target == PROJECT_TARGET else f"row {target}"
+            if target not in live and target != PROJECT_TARGET:
+                where += " (not in the spec list — passed, or never written)"
+            print(
+                f"  [{e.get('id')}] {where} · {e.get('author')} "
+                f"({e.get('kind')}) · {e.get('at')}"
+            )
+            for line in str(e.get("text", "")).splitlines():
+                for part in _wrap(line):
+                    print(f"      {part}")
+            print()
+        print("  Mark exactly the ids you read:")
+        print(f"    python3 {os.path.basename(__file__)} --consume <id>")
         return 0
 
     if args.row:
