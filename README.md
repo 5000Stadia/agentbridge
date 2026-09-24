@@ -47,5 +47,4 @@ Evidence-driven: every mechanism traces to something observed in live builds —
 process. If the method gets in your way on a real run, an issue labelled `felt-deviation` is the
 most useful thing you can send.
 
-`AGENTBRIDGE-BUILD-DIRECTIVE.md` is the method in full. Earlier versions are at the `v1.0.0` and
-`v1.1.0` tags.
+`AGENTBRIDGE-BUILD-DIRECTIVE.md` is the method in full. Every earlier version is a tag.
