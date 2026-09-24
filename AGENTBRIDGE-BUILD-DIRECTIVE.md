@@ -413,11 +413,12 @@ document, because fresh sessions board from it rather than from anyone's memory.
 ## Domain playbooks
 
 Some of what a domain demands is not designable from the armchair — the tools that act as hands,
-where references come from, what the consumption viewpoint is, the scars practitioners already
-paid for. That residue lives in **playbooks**, thin domain sheets in the method repository's
-`playbooks/` directory. Beside each sits its **sources companion**, `playbooks/<domain>.sources.md`
-— where the rules' evidence came from and the retrieval routes that actually work. Tag semantics,
-the companion's entry shape and the provenance line live in `playbooks/README.md`.
+where references come from, what the consumption viewpoint is, the scars practitioners already paid
+for. That residue lives in **playbooks**, thin domain sheets in the `playbooks/` directory of the
+method repository, `https://github.com/5000Stadia/agentbridge`. Beside each sits its **sources
+companion**, `playbooks/<domain>.sources.md` — where the rules' evidence came from and the retrieval
+routes that actually work. Tag semantics, the companion's entry shape and the provenance line live
+in `playbooks/README.md`.
 
 **If one exists for this domain, read it at the front door and summon what fits** — it is an
 instrument like any other, named or not carried. Summoning includes the freshness check, and the
@@ -614,14 +615,15 @@ method exists to prevent. So keep one question answerable at all times: *who owe
 its next action, and are they moving?*
 
 The instrument is one clock and three states, and the seats already operate it without adding a
-word: **claiming a letter is *active*** — the claim is a lease, stamped when it happens, its
-expectation how long the handoff said the row would take; **sending the handoff is *pending*** —
-the baton in the air, named to its recipient; **the closing reply is *done***. Where the runtime
-offers start-and-stop hooks, wire them at launch so a seat's own turns stamp its liveness; where
-it does not, the mail store and the artifact timestamps already hold the truth. Never trust a
-seat's claim to be busy — *moving* means recent output, not a live process, because a wedged
-seat holds its "active" forever and lies precisely when things break — and recent output is
-proof of life, not of progress.
+word: **claiming a letter is *active*** — the claim is a lease, its expectation how long the handoff
+said the row would take; **sending the handoff is *pending*** — the baton in the air, named to its
+recipient; **the closing reply is *done***. Where the runtime offers start-and-stop hooks, wire them
+at launch so a seat's own turns stamp its liveness; where it does not, the artifact timestamps hold
+the output and the mail store holds the letters. A store may move a claimed letter without dating
+the move, and then the clock dates the claim the first time it sees it, because a lease with no
+start can never run past its expectation. Never trust a seat's claim to be busy — *moving* means
+recent output, not a live process, because a wedged seat holds its "active" forever and lies
+precisely when things break — and recent output is proof of life, not of progress.
 
 The clock nudges the Navigator on exactly three silences: **no one active while work is owed**
 (the dropped baton); **a lease past its expectation, fresh output or not** (the overrun holder);
