@@ -10,23 +10,23 @@ too: read the design documents and ask the human what comes next rather than run
 door over the top of them. A seat that was named at launch takes its own path below and none of
 this applies to it.
 
-This is the only universal process document — a summoned playbook carries its domain's residue —
-and a copy lives in the project at `design/method.md`. It is
-written for those three seats and you read only your own path through it, because a seat that reads
-the whole file has spent its context on instructions that cannot change what it does.
+This is the only universal process document — a summoned playbook carries its domain's residue — and
+a copy lives in the project at `design/method.md`. It is written for those three seats and you read
+only your own path through it, because a seat that reads the whole file has spent its context on
+instructions that cannot change what it does.
 
 **All three read:** this header, *The shape*, *The human*, *How we work*, and the project's own
 `design/intention.md` — plus `design/blueprint.md` and `design/playbook.md` where the project has
-them. That is the common
-ground everything else assumes.
+them. That is the common ground everything else assumes.
 
 **Then, by seat:**
 - **Navigator** — the rest of this file in order, skipping whichever of *The solo route* and *The
   crewed route* you did not choose; one-shot skips both.
-- **Builder** — *The loop*, *The Builder*, *Where a critic works*, the plan-critic and artifact-critic briefs at the end (which
-  you hand out rather than perform), and *On the channel* if you were launched with a mailbox.
-- **Reviewer** — *The loop*, *The Reviewer*, *Where a critic works*, the plan-critic and artifact-critic briefs at the end, and
-  *On the channel* if you were launched with a mailbox.
+- **Builder** — *The loop*, *The Builder*, *Where a critic works*, the plan-critic and
+  artifact-critic briefs at the end (which you hand out rather than perform), and *On the channel*
+  if you were launched with a mailbox.
+- **Reviewer** — *The loop*, *The Reviewer*, *Where a critic works*, the plan-critic and
+  artifact-critic briefs at the end, and *On the channel* if you were launched with a mailbox.
 
 The critics and comparators you spawn read nothing in this file — only the brief you hand them and
 the artifact, so that what they find comes from what is there rather than from what we all expect.
@@ -92,15 +92,14 @@ generated, and the gap surfaced only when the human asked.
 did not build the thing, so do not choose the form for quality or for safety, which no form
 guarantees on its own. Choose it for the **shape of the work**: whether anything has to survive a
 seam, and whether areas must be built at the same time while depending on each other. Underneath
-every such call is one spectrum: **spawn a subagent when the task is specialized and runs
-beginning to end** — a brief can carry everything it needs, and fresh context is free; **stand a
-seat up when decision quality depends on context that accumulates across tasks faster than it can
-be written down** — when the write-down would be the work itself. Default to spawning plus written
-context, because a standing context compacts and drifts while a document does not; accumulation
-must earn its seat. At the far end of the spectrum sits the human, whose taste is the context that
-never writes down. **Higher
-stakes raise the examination, not the headcount** — more critics, more distinct lenses, more passes,
-the human on the running thing more often. That dial exists in all three forms.
+every such call is one spectrum: **spawn a subagent when the task is specialized and runs beginning
+to end** — a brief can carry everything it needs, and fresh context is free; **stand a seat up when
+decision quality depends on context that accumulates across tasks faster than it can be written
+down** — when the write-down would be the work itself. Default to spawning plus written context,
+because a standing context compacts and drifts while a document does not; accumulation must earn its
+seat. At the far end of the spectrum sits the human, whose taste is the context that never writes
+down. **Higher stakes raise the examination, not the headcount** — more critics, more distinct
+lenses, more passes, the human on the running thing more often. That dial exists in all three forms.
 
 **One-shot.** One strong agent could plausibly build the whole thing in a single pass. Have the
 front-door conversation, write `design/intention.md`, and hand it to a fresh plan critic before you
@@ -200,14 +199,14 @@ shape that exist, and — where nothing real goes far enough — the imagined ve
 mapped out concretely. Write the result as qualities, because that is what later comparisons run
 against.
 
-**Take the real examples first, and make sure you can open them.** An anchor may be plural — one
-per family of qualities, each with its own openability and its own judge — and an anchor openable
-only through a forbidden act is not obtained. Ask for the most impressive one
-of this shape, and take the best one you can actually obtain, since you will be putting it beside
-our work repeatedly. If nothing of this shape exists, take the nearest adjacent shape. Then open it
-— play it, run it, read its output, click through it — and write down what specifically makes it
-good, the concrete things it does, not adjectives. Do this before you cite it anywhere: the last
-run cited its anchor in seven places and opened it zero times.
+**Take the real examples first, and make sure you can open them.** An anchor may be plural — one per
+family of qualities, each with its own openability and its own judge — and an anchor openable only
+through a forbidden act is not obtained. Ask for the most impressive one of this shape, and take the
+best one you can actually obtain, since you will be putting it beside our work repeatedly. If
+nothing of this shape exists, take the nearest adjacent shape. Then open it — play it, run it, read
+its output, click through it — and write down what specifically makes it good, the concrete things
+it does, not adjectives. Do this before you cite it anywhere: the last run cited its anchor in seven
+places and opened it zero times.
 
 **Where nothing real reaches far enough, design the ideal instead of lowering the bar.** A thing
 that does not exist can still be an anchor if you map it out until it is judgeable: take the
@@ -438,23 +437,22 @@ single `design/playbook.md`, writes the precedence rule for where they collide �
 examination is authoritative, ordered like the blueprint's decision hierarchy — and hands the
 merge to the plan critic exactly as a drafted playbook is handed.
 
-**If none exists, spend a research pass before the blueprint — a domain that feels familiar is
-the trap, since stale priors are exactly what the pass corrects**: find how the best real
-practitioners build this thing *with AI* — the tools that act as their hands, where their
-references come from, what the consumption viewpoint concretely is, and the scars they have
-named, from what they have actually published, hunting with the researcher's brief at the end of
-this file — and write `design/playbook.md` as this project's
-draft, **every rule tagged `researched` or `felt`** so nobody mistakes homework for scar tissue.
-Write the companion in the same pass, as `design/playbook.sources.md` beside the draft, while the
-routes are still open in front of you — the route is as hard-won as the finding, and an address
-whose route is lost is a source lost. A source that fed no rule is not recorded, and when a rule
-dies its orphaned entries die in the same commit: that pruning, not any format, is what keeps a
-companion present-tense instead of a link graveyard. The quality bar for the draft is a document
-another practitioner would recognise as their craft, not a survey — and before the blueprint is
-written, hand it to a fresh plan critic with that sentence and the four categories above as the
-target, because every later examination leans on this document and it is otherwise the only one
-nobody examines. The draft and its companion travel home together if the maintainer adopts the
-domain.
+**If none exists, spend a research pass before the blueprint — a domain that feels familiar is the
+trap, since stale priors are exactly what the pass corrects**: find how the best real practitioners
+build this thing *with AI* — the tools that act as their hands, where their references come from,
+what the consumption viewpoint concretely is, and the scars they have named, from what they have
+actually published, hunting with the researcher's brief at the end of this file — and write
+`design/playbook.md` as this project's draft, **every rule tagged `researched` or `felt`** so nobody
+mistakes homework for scar tissue. Write the companion in the same pass, as
+`design/playbook.sources.md` beside the draft, while the routes are still open in front of you — the
+route is as hard-won as the finding, and an address whose route is lost is a source lost. A source
+that fed no rule is not recorded, and when a rule dies its orphaned entries die in the same commit:
+that pruning, not any format, is what keeps a companion present-tense instead of a link graveyard.
+The quality bar for the draft is a document another practitioner would recognise as their craft, not
+a survey — and before the blueprint is written, hand it to a fresh plan critic with that sentence
+and the four categories above as the target, because every later examination leans on this document
+and it is otherwise the only one nobody examines. The draft and its companion travel home together
+if the maintainer adopts the domain.
 
 **Playbooks mature the way the method does: by what runs feel — and the filter for what travels
 back is executed-or-failed.** Travels: a `researched` rule a row actually ran, confirmed or
@@ -500,17 +498,16 @@ point, and the README says exactly that — *nothing runs yet; the first layer i
 its run command when row 1 lands, because a promised command that does not work is a lie in the
 first file a stranger opens.
 
-**The bridge.** Fetch `tools/bridge.py` from the method repository into `design/bridge.py`,
-start it, and give the human the link in the same breath as the first commit — `python3
-design/bridge.py`, then the address it prints. It serves the spec list as a page on this machine:
-every open row, what it is for, what done looks like, which are in flight, what has already
-passed, and a box on each one for a note. That is where the human puts a detail on a row nobody
-has started, weeks before anyone opens it, without interrupting anything and without a
-conversation. Agents write there
-too, on whichever row the thing they found belongs to rather than the one they are building. A
-note is input and never an instruction: it becomes work when it is folded into its row, and the
-row stays the one home for what to build. Notes live in `design/comments.jsonl`, which every seat
-reads without the page running, so the page is for the human and the file is for everyone.
+**The bridge.** Fetch `tools/bridge.py` from the method repository into `design/bridge.py`, start
+it, and give the human the link in the same breath as the first commit — `python3 design/bridge.py`,
+then the address it prints. It serves the spec list as a page on this machine: every open row, what
+it is for, what done looks like, which are in flight, what has already passed, and a box on each one
+for a note. That is where the human puts a detail on a row nobody has started, weeks before anyone
+opens it, without interrupting anything and without a conversation. Agents write there too, on
+whichever row the thing they found belongs to rather than the one they are building. A note is input
+and never an instruction: it becomes work when it is folded into its row, and the row stays the one
+home for what to build. Notes live in `design/comments.jsonl`, which every seat reads without the
+page running, so the page is for the human and the file is for everyone.
 
 `git add` the paths above that exist — never the empty `design/specs/`, which git cannot track and
 which the first spec file creates — and commit. That first commit has to exist before anything
@@ -527,11 +524,10 @@ and keep the rest.
 > Build [areas, by spec-list number] to the level of [anchor: how to run or read it].
 >
 > Read `design/intention.md` first, then `design/blueprint.md` and `design/playbook.md` where they
-> exist, then these sections
-> of `design/method.md` and nothing else in it: *The shape*, *The human*, *How we work*, *Where a
-> critic works*, *The blind comparison*, and the briefs at its end. Keep `design/architecture.md`
-> and the README current as part of the work — a later session of you boards from those documents
-> and nothing else, so write them for that reader, not as a report.
+> exist, then these sections of `design/method.md` and nothing else in it: *The shape*, *The human*,
+> *How we work*, *Where a critic works*, *The blind comparison*, and the briefs at its end. Keep
+> `design/architecture.md` and the README current as part of the work — a later session of you
+> boards from those documents and nothing else, so write them for that reader, not as a report.
 >
 > For each area: write your plan for its row into `design/specs/<n>-<slug>.md`, citing the row by
 > number and restating neither its target nor its done, and hand the plan to a fresh critic using
@@ -646,53 +642,52 @@ a stage and no one watched the baton; a clock this dumb cuts that catch to minut
 ## The loop
 
 The Navigator picks the next spec row and checks that whatever it builds on actually exists and
-resolves. The Builder writes the plan, then builds it. The Reviewer performs the two moments in
-*The shape* and no others. Between those two moments the Builder works alone and in silence — no
-progress reports, no check-ins. Each examination names *everything* it sees in one pass: one review
-naming ten things costs a fraction of ten reviews naming one each, and that round trip was the
-entire pace cost on the trial. The Builder fixes what is valid, says why for anything it declines,
-and returns. Repeat until it passes; on the pass the work is closed the way *How we work* says a
-pass closes, the next spec begins, and nothing is published unless *Where it goes* named this as a
-release point. A spec that takes four rounds needed four — never pass work to shorten the loop; but
-when passes keep finding the same family — a fourth doorway fix, a fourth shadow fix — stop patching
-instances: name the family and put its architecture on the table before the next pass, because on
-two separate runs instance-fixing left the family alive for seven and for eleven rounds. **That
-stand-back is the Navigator's, and its trigger is a tripwire, never a calendar**: from a row's
-third pass — or when one row is eating the run, or the human sounds a pace concern — it steps
-outside the flow, reads the passes as a set (families, scoping, pace), and says what it sees
-before the next pass begins. **And the tripwire is pulled by the flow, not by vigilance**: a
-handoff may name how many examination rounds a row is expected to buy, and a builder opening a
-round past that count — past the third, where none was named — says so in one line, the round
-number and the finding families so far. The same flag covers the build itself: every handoff says
-how long it expects the row to take — wall-clock from the claim, of the builder's own work, so a
-wait on a test or another seat is the pending state and not the lease — and a builder past that
-says so in one line to the Navigator, what has landed and what it is still on, because a builder
-producing but not advancing looks exactly like one earning, and on the early runs that churn was
-the stall nobody saw. In solo, where nothing can hear a line mid-run, it arrives with the run's
-report and the next brief sizes its rows from it. **A flag surfaces a long loop to its owner; it
-never truncates one that is earning** — important elements take as long as they take, and gears
-govern the mechanical work, not the load-bearing. And when a loop runs on past its flag, the
-Navigator sends the human a status note — what row, what round, what family, still earning or
-not — informing, never asking whether to continue. Inside the loop every pass looks locally
-justified; on both runs the diagnosis had to come from outside, because no seat owned standing
-back — and even an owned watch fires only when someone happens to look: on the run that priced
-this, the builder's line would have surfaced an eleven-round row at four, and the Navigator's
-note would have read "doorway family, still earning" at round eight instead of leaving the human
-to wonder where the time went. The same read frames
-every milestone that reaches the human: a batch, a row close, a phase exit arrives carrying the
-Navigator's own verdict on whether the result was worth its cost in passes and hours — said
-plainly, not left for the human to excavate, since on both runs the human had to ask what things
-cost. Their take on that verdict is direction, and the next stretch runs with it — gear, scoping,
-where the effort goes. This rides presentations that already happen and creates none — and **a
-checkpoint is "how does this look," never "may I continue": work keeps moving while the human's
-answer is pending.** Only two kinds of moment hold for them: **visual or cosmetic direction** —
-the taste gates, where their eye is the instrument — and **the named milestones**, a phase exit or
-a first public appearance, where the human confirms before the next phase opens. Those are planned
-meeting points, not interruptions; the interrupt rule stays at two. Everything else flows. And
-never treat "nothing is broken" as the bar when *What "good" means here* asks for more, because the
-point is not a product that survives examination but one that does not lose to the anchor on any
-quality when the two are put side by side. **And when it does, stop** — polishing past the bar is
-not quality, it is the work eating itself, so send it and take the next spec.
+resolves. The Builder writes the plan, then builds it. The Reviewer performs the two moments in *The
+shape* and no others. Between those two moments the Builder works alone and in silence — no progress
+reports, no check-ins. Each examination names *everything* it sees in one pass: one review naming
+ten things costs a fraction of ten reviews naming one each, and that round trip was the entire pace
+cost on the trial. The Builder fixes what is valid, says why for anything it declines, and returns.
+Repeat until it passes; on the pass the work is closed the way *How we work* says a pass closes, the
+next spec begins, and nothing is published unless *Where it goes* named this as a release point. A
+spec that takes four rounds needed four — never pass work to shorten the loop; but when passes keep
+finding the same family — a fourth doorway fix, a fourth shadow fix — stop patching instances: name
+the family and put its architecture on the table before the next pass, because on two separate runs
+instance-fixing left the family alive for seven and for eleven rounds. **That stand-back is the
+Navigator's, and its trigger is a tripwire, never a calendar**: from a row's third pass — or when
+one row is eating the run, or the human sounds a pace concern — it steps outside the flow, reads the
+passes as a set (families, scoping, pace), and says what it sees before the next pass begins. **And
+the tripwire is pulled by the flow, not by vigilance**: a handoff may name how many examination
+rounds a row is expected to buy, and a builder opening a round past that count — past the third,
+where none was named — says so in one line, the round number and the finding families so far. The
+same flag covers the build itself: every handoff says how long it expects the row to take —
+wall-clock from the claim, of the builder's own work, so a wait on a test or another seat is the
+pending state and not the lease — and a builder past that says so in one line to the Navigator, what
+has landed and what it is still on, because a builder producing but not advancing looks exactly like
+one earning, and on the early runs that churn was the stall nobody saw. In solo, where nothing can
+hear a line mid-run, it arrives with the run's report and the next brief sizes its rows from it. **A
+flag surfaces a long loop to its owner; it never truncates one that is earning** — important
+elements take as long as they take, and gears govern the mechanical work, not the load-bearing. And
+when a loop runs on past its flag, the Navigator sends the human a status note — what row, what
+round, what family, still earning or not — informing, never asking whether to continue. Inside the
+loop every pass looks locally justified; on both runs the diagnosis had to come from outside,
+because no seat owned standing back — and even an owned watch fires only when someone happens to
+look: on the run that priced this, the builder's line would have surfaced an eleven-round row at
+four, and the Navigator's note would have read "doorway family, still earning" at round eight
+instead of leaving the human to wonder where the time went. The same read frames every milestone
+that reaches the human: a batch, a row close, a phase exit arrives carrying the Navigator's own
+verdict on whether the result was worth its cost in passes and hours — said plainly, not left for
+the human to excavate, since on both runs the human had to ask what things cost. Their take on that
+verdict is direction, and the next stretch runs with it — gear, scoping, where the effort goes. This
+rides presentations that already happen and creates none — and **a checkpoint is "how does this
+look," never "may I continue": work keeps moving while the human's answer is pending.** Only two
+kinds of moment hold for them: **visual or cosmetic direction** — the taste gates, where their eye
+is the instrument — and **the named milestones**, a phase exit or a first public appearance, where
+the human confirms before the next phase opens. Those are planned meeting points, not interruptions;
+the interrupt rule stays at two. Everything else flows. And never treat "nothing is broken" as the
+bar when *What "good" means here* asks for more, because the point is not a product that survives
+examination but one that does not lose to the anchor on any quality when the two are put side by
+side. **And when it does, stop** — polishing past the bar is not quality, it is the work eating
+itself, so send it and take the next spec.
 
 ### The Builder
 
@@ -702,15 +697,14 @@ attached to; `--row <n>` is that row and everything left on it, where a detail m
 may have been waiting since before the project had code. **A row leaving the spec list settles the
 work, not the thinking** — a note arriving on something that already passed waits in that queue
 exactly like a note on a row nobody has started, and the queue never filters by state, because a
-human who used the thing for a week and came back with a second thought is the most valuable
-reader the project has. The board shows what has passed for exactly that reason, read out of git
-rather than written down again: a row closes in one commit that removes it from the list and
-retires its plan, so git already knows what finished and when, and a second document saying so
-would be a second home going stale. Fold what is right into the plan and say why for anything you
-decline or defer; either way mark exactly the ids you read, since reviewing a note is not agreeing
-with it. And when you find
-something that belongs to a row you are not building — a seam the later row should reuse, a trap
-it will hit — leave it on that row rather than carrying it: `--add --row <n>`. It costs you one
+human who used the thing for a week and came back with a second thought is the most valuable reader
+the project has. The board shows what has passed for exactly that reason, read out of git rather
+than written down again: a row closes in one commit that removes it from the list and retires its
+plan, so git already knows what finished and when, and a second document saying so would be a second
+home going stale. Fold what is right into the plan and say why for anything you decline or defer;
+either way mark exactly the ids you read, since reviewing a note is not agreeing with it. And when
+you find something that belongs to a row you are not building — a seam the later row should reuse, a
+trap it will hit — leave it on that row rather than carrying it: `--add --row <n>`. It costs you one
 line and it reaches that builder at the moment they can act on it.
 
 Take the spec row you were handed and write your plan for it into `design/specs/<n>-<slug>.md`:
@@ -772,12 +766,11 @@ whole way through: every moment below is an occasion to write the program more c
 Five moments, silent between them.
 
 1. **The front door** — the conversation, the blueprint, the intention document, the spec list.
-2. **Each handoff** — pick the next spec row, fold its waiting notes into it the way moment 3
-   folds a fork, and verify that what it stands on is real: paths,
-   commits, interfaces, assumptions about what exists. If it cannot be handed over without
-   explanation, finish writing it rather than explaining it. When the Builder tells you a spec
-   passed, its row and its spec file are already gone from the list and the tree; hand over the
-   next one.
+2. **Each handoff** — pick the next spec row, fold its waiting notes into it the way moment 3 folds
+   a fork, and verify that what it stands on is real: paths, commits, interfaces, assumptions about
+   what exists. If it cannot be handed over without explanation, finish writing it rather than
+   explaining it. When the Builder tells you a spec passed, its row and its spec file are already
+   gone from the list and the tree; hand over the next one.
 3. **Forks** — when the work hits a choice the written intention does not answer, answer it from
    the whole picture, or carry the one question to the human. Either way the answer goes into the
    design documents, in the human's words where they gave them, so the fork is closed rather than
@@ -828,10 +821,10 @@ done.
 If you had to write your own standard instead of finding an anchor — or the anchor is real but no
 agent can open it, a commercial game only the human can play — the comparator judges our build
 against the written qualities alone, item by item, and the human runs the anchor side of the
-comparison themselves. Do not argue with the result and do not re-run
-it with a friendlier framing. If a quality still loses and closing the gap is beyond what this
-project can reach, that is a fork: decide it from the whole picture or carry it to the human, write
-the answer into the intention, and move on.
+comparison themselves. Do not argue with the result and do not re-run it with a friendlier framing.
+If a quality still loses and closing the gap is beyond what this project can reach, that is a fork:
+decide it from the whole picture or carry it to the human, write the answer into the intention, and
+move on.
 
 ---
 
@@ -946,14 +939,14 @@ one fail to create.
 ---
 
 **If the method itself — not the product — failed in your hands during this project** and you did
-something else that worked, or it stalled you and you had to guess, record the raw event at close
-as a ticket — an issue on the method's repository, titled with what failed and labelled
-`felt-deviation`, holding what happened and what you did instead — so the maintainer can process
-the queue across projects. Only if the repository is unreachable does it go in your final message
-to the human instead. Do not generalize it and do not propose the fix; one
-project cannot see whether its workaround is universal, and the method adopts a change only when it
-improves the workflow everywhere, obviously, and degrades nothing. A better way to build this
-product is not method evidence — it belongs in this project's own documents.
+something else that worked, or it stalled you and you had to guess, record the raw event at close as
+a ticket — an issue on the method's repository, titled with what failed and labelled
+`felt-deviation`, holding what happened and what you did instead — so the maintainer can process the
+queue across projects. Only if the repository is unreachable does it go in your final message to the
+human instead. Do not generalize it and do not propose the fix; one project cannot see whether its
+workaround is universal, and the method adopts a change only when it improves the workflow
+everywhere, obviously, and degrades nothing. A better way to build this product is not method
+evidence — it belongs in this project's own documents.
 
 ## Where a critic works
 
@@ -1051,9 +1044,9 @@ critic works*. Fill the brackets and change nothing else.
 >
 > Name everything you find, in one pass, and number each finding (F1, F2…) so the fix and the
 > recheck can cite it — every failure a user would hit, every silent failure nobody would notice,
-> and everything the target implies that is simply missing. Try it the wrong
-> way, on a different engine, a different screen, a different input device. Do not rank, do not
-> soften, do not stop at the first finding.
+> and everything the target implies that is simply missing. Try it the wrong way, on a different
+> engine, a different screen, a different input device. Do not rank, do not soften, do not stop at
+> the first finding.
 >
 > For each check the builder cites as proof: delete or break what it guards, confirm it goes red,
 > and restore it. A check that stays green is a finding. When you are finished, restore everything
