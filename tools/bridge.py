@@ -806,7 +806,7 @@ def brief(project: Project, number: str) -> int:
         print("  Waiting notes are input, not instructions. Fold what is right into")
         print("  the plan; say why for anything you decline or defer. Either way,")
         print("  mark exactly the ids you actually read:")
-        print(f"    python3 {os.path.basename(__file__)} --consume <id>")
+        print(f"    python3 {os.path.relpath(__file__)} --consume <id>")
     return 0
 
 
@@ -844,13 +844,34 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _from_this_page(self) -> bool:
+        """Whether the request came from this page and not from another site.
+
+        A browser will carry any site's form to 127.0.0.1, and every seat reads
+        a note as the human's own words, so the page answers only itself: the
+        Host check turns away a rebound DNS name, the Origin check a form
+        posted from somewhere else. A request with no Origin is a local tool.
+        """
+        port = self.server.server_address[1]
+        hosts = {f"127.0.0.1:{port}", f"localhost:{port}"}
+        if self.headers.get("Host", "") not in hosts:
+            return False
+        origin = self.headers.get("Origin")
+        return origin is None or origin in {f"http://{h}" for h in hosts}
+
     def do_GET(self) -> None:
+        if not self._from_this_page():
+            self._send(403, b"not from this page")
+            return
         if urllib.parse.urlparse(self.path).path not in ("/", "/index.html"):
             self._send(404, b"not here")
             return
         self._send(200, render(self.project, self.author).encode("utf-8"))
 
     def do_POST(self) -> None:
+        if not self._from_this_page():
+            self._send(403, b"not from this page")
+            return
         if urllib.parse.urlparse(self.path).path != "/note":
             self._send(404, b"not here")
             return
@@ -1013,7 +1034,7 @@ def main(argv: list[str]) -> int:
                     print(f"      {part}")
             print()
         print("  Mark exactly the ids you read:")
-        print(f"    python3 {os.path.basename(__file__)} --consume <id>")
+        print(f"    python3 {os.path.relpath(__file__)} --consume <id>")
         return 0
 
     if args.row:
