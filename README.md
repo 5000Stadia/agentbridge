@@ -19,10 +19,9 @@ the quality bar in a written design the human sets once, and ships exactly what 
 3. **The human stays light.** Interrupted only for genuine forks and irreversible acts. The running
    product stays current, so a glance at any moment is real.
 
-Three forms, chosen by the shape of the work: **one-shot** (one agent, one pass — used whenever
-honestly possible), **solo** (long autonomous runs with spawned critics), **crewed** (standing
-seats over [AgentPost](https://github.com/5000Stadia/agentpost) when work runs parallel across a
-seam).
+By default one agent builds and spawns a fresh critic for every examination. Standing seats over
+[AgentPost](https://github.com/5000Stadia/agentpost) are for work whose context accumulates faster
+than it can be written down, or whose parallel areas must talk; `crew.md` covers them.
 
 ## Quickstart
 
@@ -35,7 +34,7 @@ Have the design conversation. Everything after it runs.
 
 ## The bridge
 
-Every project gets `design/bridge.py`, a page on your own machine showing the plan the agents are
+A project can have `design/bridge.py`, a page on your own machine showing the plan the agents are
 working from: each row still to build, what done looks like, which are in flight, and a box on
 each one for a note. Leave a detail on a row nobody has started and it reaches that builder when
 they open it, weeks later, without interrupting anyone. Agents write there too, on whichever row
